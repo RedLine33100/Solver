@@ -9,24 +9,30 @@ import java.util.function.BinaryOperator;
 
 public abstract class Calcul<T extends Number> extends Var<T> {
 
-    final List<Pair<BinaryOperator<T>, Variable<T>>> operatorList = new ArrayList<>();
+    List<Pair<BinaryOperator<T>, Variable<T>>> operatorList;
+
+    public Calcul(String varName, Class<T> tClass, List<Pair<BinaryOperator<T>, Variable<T>>> operatorList) {
+        super(varName, tClass);
+        this.operatorList = operatorList;
+    }
 
     public Calcul(String varName, Class<T> tClass) {
-        super(varName, tClass);
+        this(varName, tClass, new ArrayList<>());
+    }
+
+    public Calcul(T valueDefined, List<Pair<BinaryOperator<T>, Variable<T>>> operatorList) {
+        super(valueDefined);
+        this.operatorList = operatorList;
     }
 
     public Calcul(T valueDefined) {
-        super(valueDefined);
+        this(valueDefined, new ArrayList<>());
     }
 
-    protected void addCalcul(BinaryOperator<T> binaryOperator, Variable<T> variable){
-        this.operatorList.add(new Pair<>(binaryOperator, variable));
-    }
-
-    public abstract void add(Variable<T> variable);
-    public abstract void remove(Variable<T> variable);
-    public abstract void divide(Variable<T> variable);
-    public abstract void multiply(Variable<T> variable);
-    public abstract void modulo(Variable<T> variable);
+    public abstract Calcul<T> add(Variable<T> variable);
+    public abstract Calcul<T> remove(Variable<T> variable);
+    public abstract Calcul<T> divide(Variable<T> variable);
+    public abstract Calcul<T> multiply(Variable<T> variable);
+    public abstract Calcul<T> modulo(Variable<T> variable);
 
 }

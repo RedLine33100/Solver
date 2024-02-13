@@ -3,6 +3,8 @@ package fr.unk.variable.numvar;
 import fr.unk.utils.Pair;
 import fr.unk.variable.Variable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 
@@ -15,8 +17,10 @@ public class CSPInt extends Calcul<Integer> {
         super(value);
     }
 
-    public void add(Variable<Integer> variable){
-        addCalcul(Integer::sum, variable);
+    public Calcul<Integer> add(Variable<Integer> variable){
+        List<Pair<BinaryOperator<Integer>, Variable<Integer>>> list = new ArrayList<>(this.operatorList);
+        list.add(new Pair<>((int1, int2) -> int1+int2, variable));
+        return new CSPInt();
     }
 
     public void remove(Variable<Integer> variable){

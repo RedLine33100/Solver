@@ -38,7 +38,18 @@ class VariableTest {
         assertEquals(15, intCalc.getValue(new HashMap<>()));
         assertNotEquals(20, intCalc.getValue(new HashMap<>(){{put("test2", 20);}}));
 
-        intCalc.add(new CSPInt("test1"));
+        intCalc.add(new CSPInt(5));
+
+        assertNotEquals(15, intCalc.getValue(new HashMap<>()));
+        assertEquals(20, intCalc.getValue(new HashMap<>()));
+
+        intCalc.divide(new CSPInt(2));
+
+        assertEquals(10, intCalc.getValue(new HashMap<>()));
+
+        intCalc.multiply(new CSPInt(3));
+
+        assertEquals(30, intCalc.getValue(new HashMap<>()));
 
     }
 }
