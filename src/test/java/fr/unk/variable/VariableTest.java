@@ -4,7 +4,6 @@ import fr.unk.variable.numvar.CSPInt;
 import fr.unk.variable.numvar.Calcul;
 
 import java.util.HashMap;
-import java.util.function.BinaryOperator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,36 +19,30 @@ class VariableTest {
 
     @org.junit.jupiter.api.Test
     void getValue() {
-        Variable<Integer> intVar = new Var<>("testVar1", Integer.class);
+        Variable<Integer> intVar = new Variable<>("testVar1", Integer.class);
 
         assertNull(intVar.getValue(new HashMap<>()));
         assertEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 10);}}));
         assertNotEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 20);}}));
 
 
-        Variable<Integer> intCst = new Var<>(15);
+        Calcul<Integer> intCalc = new CSPInt("testVar");
 
-        assertEquals(15, intCst.getValue(new HashMap<>()));
-        assertNotEquals(20, intCst.getValue(new HashMap<>(){{put("testVar1", 20);}}));
+        assertNull(intCalc.getValue(new HashMap<>()));
+        assertEquals(20, intCalc.getValue(new HashMap<>(){{put("testVar", 20);}}));
 
-
-        CSPInt intCalc = new CSPInt(15);
-
-        assertEquals(15, intCalc.getValue(new HashMap<>()));
-        assertNotEquals(20, intCalc.getValue(new HashMap<>(){{put("test2", 20);}}));
-
-        intCalc.add(new CSPInt(5));
+        intCalc = intCalc.add(5);
 
         assertNotEquals(15, intCalc.getValue(new HashMap<>()));
-        assertEquals(20, intCalc.getValue(new HashMap<>()));
+        assertEquals(25, intCalc.getValue(new HashMap<>(){{put("testVar", 20);}}));
 
-        intCalc.divide(new CSPInt(2));
+        intCalc = intCalc.divide(2);
 
-        assertEquals(10, intCalc.getValue(new HashMap<>()));
+        assertEquals(12, intCalc.getValue(new HashMap<>(){{put("testVar", 20);}}));
 
-        intCalc.multiply(new CSPInt(3));
+        intCalc = intCalc.multiply(3);
 
-        assertEquals(30, intCalc.getValue(new HashMap<>()));
+        assertEquals(36, intCalc.getValue(new HashMap<>(){{put("testVar", 20);}}));
 
     }
 }

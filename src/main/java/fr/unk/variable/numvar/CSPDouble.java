@@ -1,8 +1,10 @@
 package fr.unk.variable.numvar;
 
 import fr.unk.utils.Pair;
-import fr.unk.variable.Variable;
+import fr.unk.variable.VarGetter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 
@@ -11,32 +13,39 @@ public class CSPDouble extends Calcul<Double> {
         super(varName, Double.class);
     }
 
-    public CSPDouble(Double value) {
-        super(value);
+    CSPDouble(String varName, List<Pair<BinaryOperator<Double>, VarGetter<Double>>> pairList){
+        super(varName, Double.class, pairList);
     }
 
-    public void add(Variable<Double> variable){
-        addCalcul(Double::sum, variable);
-    }
-
-    public void remove(Variable<Double> variable){
-        addCalcul((int1, int2) -> int1-int2, variable);
-    }
-
-    @Override
-    public void divide(Variable<Double> variable) {
-
-        addCalcul((int1, int2) -> int1/int2, variable);
+    private CSPDouble copyAddCalc(Pair<BinaryOperator<Double>, VarGetter<Double>> calc){
+        List<Pair<BinaryOperator<Double>, VarGetter<Double>>> list = new ArrayList<>(this.operatorList);
+        list.add(calc);
+        return new CSPDouble(this.getVarName(), list);
     }
 
     @Override
-    public void multiply(Variable<Double> variable) {
-        addCalcul((int1, int2) -> int1*int2, variable);
+    public CSPDouble add(VarGetter<Double> variable){
+        return this.copyAddCalc(new Pair<>((int1, int2) -> int1+int2, variable));
     }
 
     @Override
-    public void modulo(Variable<Double> variable) {
-        addCalcul((int1, int2) -> int1%int2, variable);
+    public CSPDouble remove(VarGetter<Double> variable){
+        return this.copyAddCalc(new Pair<>((int1, int2) -> int1-int2, variable));
+    }
+
+    @Override
+    public CSPDouble divide(VarGetter<Double> variable) {
+        return this.copyAddCalc(new Pair<>((int1, int2) -> int1/int2, variable));
+    }
+
+    @Override
+    public CSPDouble multiply(VarGetter<Double> variable) {
+        return this.copyAddCalc(new Pair<>((int1, int2) -> int1*int2, variable));
+    }
+
+    @Override
+    public CSPDouble modulo(VarGetter<Double> variable) {
+        return this.copyAddCalc(new Pair<>((int1, int2) -> int1%int2, variable));
     }
 
     @Override
@@ -44,7 +53,7 @@ public class CSPDouble extends Calcul<Double> {
         Double value = super.getValue(maps);
         if(value == null)
             return null;
-        for(Pair<BinaryOperator<Double>, Variable<Double>> pair : this.operatorList){
+        for(Pair<BinaryOperator<Double>, VarGetter<Double>> pair : this.operatorList){
             value = pair.getL().apply(value, pair.getR().getValue(maps));
         }
         return value;
