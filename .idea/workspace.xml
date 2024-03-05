@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="040457da-9b74-410e-819f-d03937090579" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2dEPH1oZ1K6CLjDb6Ug24BVGOdt" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/thoma/OneDrive - Université de Poitiers/L3/Sem2/Genie_log/Solver-test_fonctionnel",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.CSPSolverTest.testSolveStructurel">
+    <configuration name="CSPSolverTest.testSolveStructurel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.CSPSolverTest" />
+      <option name="METHOD_NAME" value="testSolveStructurel" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DiffTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.contrainte.vc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk.contrainte.vc" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.contrainte.vc.DiffTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IntDomainTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.domaine.number.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk.domaine.number" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.domaine.number.IntDomainTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ListDiffTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.contrainte.nc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk.contrainte.nc" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.contrainte.nc.ListDiffTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ListEqualsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.contrainte.nc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk.contrainte.nc" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.contrainte.nc.ListEqualsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CSPSolverTest.testSolveStructurel" />
+        <item itemvalue="JUnit.IntDomainTest" />
+        <item itemvalue="JUnit.DiffTest" />
+        <item itemvalue="JUnit.ListEqualsTest" />
+        <item itemvalue="JUnit.ListDiffTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="040457da-9b74-410e-819f-d03937090579" name="Changes" comment="" />
+      <created>1709570173269</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709570173269</updated>
+      <workItem from="1709570174220" duration="5422000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
