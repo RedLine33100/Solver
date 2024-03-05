@@ -1,7 +1,5 @@
 package fr.unk.variable;
 
-import fr.unk.domaine.Domain;
-
 import java.util.Map;
 
 public class Variable<T> extends VarGetter<T>{
