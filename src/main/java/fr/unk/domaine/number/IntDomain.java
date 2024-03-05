@@ -19,6 +19,9 @@ public class IntDomain implements Domain<Integer> {
     @Override
     public List<Integer> getPossibility() {
         List<Integer> doubles = new ArrayList<>();
+        if (jump == 0){
+            return null;
+        }
         int current = min;
         while (current <= max){
             doubles.add(current);
