@@ -1,10 +1,8 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.utils.Pair;
 import fr.unk.variable.VarGetter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BinaryOperator;
 
@@ -13,49 +11,38 @@ public class CSPFloat extends Calcul<Float> {
         super(varName, Float.class);
     }
 
-    CSPFloat(String varName, List<Pair<BinaryOperator<Float>, VarGetter<Float>>> pairList){
+    CSPFloat(String varName, Map<BinaryOperator<Float>, VarGetter<Float>> pairList){
         super(varName, Float.class, pairList);
     }
 
-    private CSPFloat copyAddCalc(Pair<BinaryOperator<Float>, VarGetter<Float>> calc){
-        List<Pair<BinaryOperator<Float>, VarGetter<Float>>> list = new ArrayList<>(this.operatorList);
-        list.add(calc);
+    private CSPFloat copyAddCalc(BinaryOperator<Float> bo, VarGetter<Float> calc){
+        Map<BinaryOperator<Float>, VarGetter<Float>> list = new HashMap<>(this.operatorList);
+        list.put(bo, calc);
         return new CSPFloat(this.getVarName(), list);
     }
 
     @Override
     public CSPFloat add(VarGetter<Float> variable){
-        return this.copyAddCalc(new Pair<>((int1, int2) -> int1+int2, variable));
+        return this.copyAddCalc((int1, int2) -> int1+int2, variable);
     }
 
     @Override
     public CSPFloat remove(VarGetter<Float> variable){
-        return this.copyAddCalc(new Pair<>((int1, int2) -> int1-int2, variable));
+        return this.copyAddCalc((int1, int2) -> int1-int2, variable);
     }
 
     @Override
     public CSPFloat divide(VarGetter<Float> variable) {
-        return this.copyAddCalc(new Pair<>((int1, int2) -> int1/int2, variable));
+        return this.copyAddCalc((int1, int2) -> int1/int2, variable);
     }
 
     @Override
     public CSPFloat multiply(VarGetter<Float> variable) {
-        return this.copyAddCalc(new Pair<>((int1, int2) -> int1*int2, variable));
+        return this.copyAddCalc((int1, int2) -> int1*int2, variable);
     }
 
     @Override
     public CSPFloat modulo(VarGetter<Float> variable) {
-        return this.copyAddCalc(new Pair<>((int1, int2) -> int1%int2, variable));
-    }
-
-    @Override
-    public Float getValue(Map<String, Object> maps) {
-        Float value = super.getValue(maps);
-        if(value == null)
-            return null;
-        for(Pair<BinaryOperator<Float>, VarGetter<Float>> pair : this.operatorList){
-            value = pair.getL().apply(value, pair.getR().getValue(maps));
-        }
-        return value;
+        return this.copyAddCalc((int1, int2) -> int1%int2, variable);
     }
 }

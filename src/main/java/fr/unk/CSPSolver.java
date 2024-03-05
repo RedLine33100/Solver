@@ -2,42 +2,40 @@ package fr.unk;
 
 import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.Domain;
-import fr.unk.utils.Pair;
 import fr.unk.variable.Variable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CSPSolver<T> {
 
-    List<Pair<Variable<T>, Domain<T>>> uknVariables = new ArrayList<>();
+    Map<Variable<T>, Domain<T>> uknVariables = new HashMap<>();
     List<Constraint> constraintList = new ArrayList<>();
 
     public void addUnknownVariable(Variable<T> variable, Domain<T> domain){
-        this.uknVariables.add(new Pair<>(variable, domain));
+        this.uknVariables.put(variable, domain);
     }
 
     public void addConstraint(Constraint constraint){
         this.constraintList.add(constraint);
     }
 
-    public Map<String, Object> solve(List<Pair<Variable<T>, Domain<T>>> remains, Map<String, Object> objectMap){
+    public Map<String, Object> solve(Map<Variable<T>, Domain<T>> remains, Map<String, Object> objectMap){
 
-        if(remains.isEmpty())
+        Optional<Map.Entry<Variable<T>, Domain<T>>> optionalEntry = remains.entrySet().stream().findFirst();
+        if(optionalEntry.isEmpty())
             return null;
 
-        Pair<Variable<T>, Domain<T>> pair = remains.removeFirst();
+        Map.Entry<Variable<T>, Domain<T>> pair = optionalEntry.get();
+        remains.remove(pair.getKey());
 
         boolean empty = remains.isEmpty();
 
-        for (T t : pair.getR().getPossibility()){
+        for (T t : pair.getValue().getPossibility()){
 
-            objectMap.put(pair.getL().getVarName(), t);
+            objectMap.put(pair.getKey().getVarName(), t);
 
             if(!empty) {
-                Map<String, Object> mayResult = solve(new ArrayList<>(remains), objectMap);
+                Map<String, Object> mayResult = solve(new HashMap<>(remains), objectMap);
                 if(mayResult != null)
                     return mayResult;
             }
