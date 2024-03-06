@@ -2,6 +2,7 @@ package fr.unk.variable;
 
 import fr.unk.variable.numvar.CSPInt;
 import fr.unk.variable.numvar.Calcul;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
@@ -17,7 +18,14 @@ class VariableTest {
     void tearDown() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    public void testVariableConstruction() {
+        Variable<Integer> variable = new Variable<>("myVar", Integer.class);
+        assertEquals("myVar", variable.getVarName());
+        assertEquals(Integer.class, variable.tClass);
+    }
+
+    @Test
     void getValue() {
         Variable<Integer> intVar = new Variable<>("testVar1", Integer.class);
 
