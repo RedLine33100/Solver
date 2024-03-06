@@ -5,7 +5,7 @@ import fr.unk.variable.VarGetter;
 
 import java.util.Map;
 
-public class Inf<T extends Comparable<T>> implements Constraint {
+public class Inf<T extends Comparable<T>> extends Constraint<T> {
 
     final VarGetter<T> fv;
     final VarGetter<T> sv;
@@ -13,21 +13,18 @@ public class Inf<T extends Comparable<T>> implements Constraint {
     final boolean equals;
 
     public Inf(VarGetter<T> fv, VarGetter<T> sv, boolean equals){
+        super(fv, sv);
         this.fv = fv;
         this.sv = sv;
         this.equals = equals;
     }
 
     public Inf(T fv, VarGetter<T> sv, boolean equals){
-        this.fv = new VarGetter<>(fv);
-        this.sv = sv;
-        this.equals = equals;
+        this(new VarGetter<>(fv), sv, equals);
     }
 
     public Inf(VarGetter<T> fv, T sv, boolean equals){
-        this.fv = fv;
-        this.sv = new VarGetter<>(sv);
-        this.equals = equals;
+        this(fv, new VarGetter<>(sv), equals);
     }
 
     @Override

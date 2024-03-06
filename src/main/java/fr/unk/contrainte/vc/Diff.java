@@ -5,24 +5,23 @@ import fr.unk.variable.VarGetter;
 
 import java.util.Map;
 
-public class Diff<T extends Comparable<T>> implements Constraint {
+public class Diff<T extends Comparable<T>> extends Constraint<T> {
 
     final VarGetter<T> fv;
     final VarGetter<T> sv;
 
     public Diff(VarGetter<T> fv, VarGetter<T> sv){
+        super(fv, sv);
         this.fv = fv;
         this.sv = sv;
     }
 
     public Diff(T fv, VarGetter<T> sv){
-        this.fv = new VarGetter<>(fv);
-        this.sv = sv;
+        this(new VarGetter<>(fv), sv);
     }
 
     public Diff(VarGetter<T> fv, T sv){
-        this.fv = fv;
-        this.sv = new VarGetter<>(sv);
+        this(fv, new VarGetter<>(sv));
     }
 
     @Override

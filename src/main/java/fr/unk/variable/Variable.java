@@ -1,5 +1,7 @@
 package fr.unk.variable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Variable<T> extends VarGetter<T>{
@@ -26,4 +28,12 @@ public class Variable<T> extends VarGetter<T>{
             return tClass.cast(value);
         return null;
     }
+
+    public List<Variable<T>> getVariableList(){
+        Variable<T> variable = this;
+        return new ArrayList<>() {{
+            add(variable);
+        }};
+    }
+
 }

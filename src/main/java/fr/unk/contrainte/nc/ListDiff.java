@@ -1,21 +1,22 @@
 package fr.unk.contrainte.nc;
 
 import fr.unk.contrainte.Constraint;
-import fr.unk.variable.Variable;
+import fr.unk.variable.VarGetter;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ListDiff<T extends Comparable<T>> implements Constraint {
+public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
 
-    final List<Variable<T>> variableList;
+    final List<VarGetter<T>> variableList;
 
-    public ListDiff(List<Variable<T>> variables){
+    public ListDiff(List<VarGetter<T>> variables){
+        super(variables, null);
         this.variableList = variables;
     }
 
-    public ListDiff(Variable<T>... variables){
+    public ListDiff(VarGetter<T>... variables){
         this(Arrays.asList(variables));
     }
 
