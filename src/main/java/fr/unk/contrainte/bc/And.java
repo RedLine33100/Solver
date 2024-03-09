@@ -1,9 +1,10 @@
 package fr.unk.contrainte.bc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 public class And<T> extends Constraint<T> {
     final Constraint<T> c1;
@@ -19,7 +20,16 @@ public class And<T> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
-        return this.c1.satisfied(objectMap) && this.c2.satisfied(objectMap);
+    public boolean satisfied() {
+        return this.c1.satisfied() && this.c2.satisfied();
     }
+
+    @Override
+    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
+        List<DomainMap<T>> c1d = this.c1.reduceDomain(domainMap);
+        if(c1d.isEmpty())
+            return c1d;
+        return this.c2.reduceDomain(c1d.getFirst());
+    }
+
 }

@@ -12,6 +12,10 @@ public class VarGetter<T> {
         this.t = variable;
     }
 
+    public String getVarName(){
+        return null;
+    }
+
     public boolean isVar(){
         return false;
     }
@@ -20,7 +24,7 @@ public class VarGetter<T> {
         return false;
     }
 
-    public T getValue(Map<String, T> map){
+    public T getValue(){
         return this.t;
     }
 

@@ -1,5 +1,6 @@
 package fr.unk.contrainte;
 
+import fr.unk.domaine.DomainMap;
 import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 
@@ -44,7 +45,7 @@ public abstract class Constraint<T> {
         }});
     }
 
-    public abstract boolean satisfied(Map<String, T> objectMap);
+    public abstract boolean satisfied();
 
     public List<Variable<T>> getVarOnLeft(){
         return leftVar;
@@ -52,5 +53,7 @@ public abstract class Constraint<T> {
     public List<Variable<T>> getVarOnRight(){
         return rightVar;
     }
+
+    public abstract List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap);
 
 }

@@ -5,8 +5,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-
 class CSPSolverTest {
 
     @BeforeEach
@@ -21,9 +19,10 @@ class CSPSolverTest {
     void trySolve() {
 
         CSPFloat cspInt = new CSPFloat("fe");
+        cspInt.setCalculatedValue(8f);
         CSPFloat cspInt2 = new CSPFloat("de");
 
-        System.out.println(cspInt.add(cspInt2).getRevert(new HashMap<>(){{put("fe", 8f);}}, 10f));
+        System.out.println(cspInt.add(cspInt2).getRevert(10f));
 
     }
 }

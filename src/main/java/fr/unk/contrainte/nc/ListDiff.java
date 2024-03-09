@@ -1,11 +1,15 @@
 package fr.unk.contrainte.nc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
+import fr.unk.util.Pair;
 import fr.unk.variable.VarGetter;
+import fr.unk.variable.Variable;
+import fr.unk.variable.numvar.Calcul;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
 
@@ -21,19 +25,46 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
+    public boolean satisfied() {
+
+        List<Variable<T>> variableList = getVarOnLeft();
 
         for(int i = 0; i<variableList.size(); i++) {
-            T vi = variableList.get(i).getValue(objectMap);
+            T vi = variableList.get(i).getValue();
             if(vi == null)
                 return false;
             for (int y = i + 1; y < variableList.size(); y++) {
-                if (vi.compareTo(variableList.get(y).getValue(objectMap)) == 0)
+                if (vi.compareTo(variableList.get(y).getValue()) == 0)
                     return false;
             }
         }
 
         return true;
+    }
+
+    @Override
+    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
+        DomainMap<T> newDomain = domainMap.duplicate();
+
+        for(VarGetter<T> variable : this.variableList){
+            if(variable.getValue() == null)
+                continue;
+            for(Variable<T> secVariable : this.getVarOnLeft()){
+                if(secVariable.getValue() != null)
+                    continue;
+                if(variable.isVar())
+                    if(((Variable<T>)variable).getVarName().equals(secVariable.getVarName()))
+                        continue;
+
+                if(secVariable.isCalcul()){
+                    Pair<Variable<T>, T> revertValue = ((Calcul<T>)secVariable).getRevert(variable.getValue());
+                    domainMap.getDomain(revertValue.getL()).getPossibility().remove(revertValue.getR());
+                }else
+                    domainMap.getDomain(secVariable).getPossibility().remove(variable.getValue());
+            }
+        }
+
+        return new ArrayList<>(){{add(newDomain);}};
     }
 
 }

@@ -29,6 +29,6 @@ public class IntDomain implements Domain<Integer> {
 
     @Override
     public Domain<Integer> duplicate() {
-        return new IntDomain(this.intList);
+        return new IntDomain(new ArrayList<>(this.intList));
     }
 }

@@ -1,8 +1,11 @@
 package fr.unk.contrainte.vc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
 import fr.unk.variable.VarGetter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Sup<T extends Comparable<T>> extends Constraint<T> {
@@ -28,13 +31,19 @@ public class Sup<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
-        T f1 = fv.getValue(objectMap);
-        T f2 = sv.getValue(objectMap);
+    public boolean satisfied() {
+        T f1 = fv.getValue();
+        T f2 = sv.getValue();
         if(f1 == null || f2 == null)
             return false;
         int val = f1.compareTo(f2);
         return equals ? val >= 0 : val > 0;
+    }
+
+    @Override
+    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
+        DomainMap<T> newDomain = domainMap.duplicate();
+        return new ArrayList<>(){{add(newDomain);}};
     }
 
 }

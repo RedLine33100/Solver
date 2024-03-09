@@ -29,6 +29,6 @@ public class FloatDomain implements Domain<Float> {
 
     @Override
     public Domain<Float> duplicate() {
-        return new FloatDomain(this.floatList);
+        return new FloatDomain(new ArrayList<>(this.floatList));
     }
 }

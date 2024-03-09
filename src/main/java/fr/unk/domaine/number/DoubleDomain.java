@@ -30,6 +30,6 @@ public class DoubleDomain implements Domain<Double> {
 
     @Override
     public Domain<Double> duplicate() {
-        return new DoubleDomain(this.doubleList);
+        return new DoubleDomain(new ArrayList<>(this.doubleList));
     }
 }

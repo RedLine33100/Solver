@@ -2,29 +2,25 @@ package fr.unk.variable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class Variable<T> extends VarGetter<T>{
+public class Variable<T> extends VarGetter<T> {
+
     private final String varName;
     private T calculatedValue = null;
     protected final List<Variable<T>> depend = new ArrayList<>();
 
-    public Variable(String varName){
+    public Variable(String varName) {
         super(null);
         this.varName = varName;
     }
 
+    @Override
     public String getVarName(){
         return this.varName;
     }
 
     @Override
-    public T getValue(Map<String, T> maps) {
-        if(this.calculatedValue != null)
-            return this.calculatedValue;
-        if(this.varName == null)
-            return null;
-        this.calculatedValue = maps.get(this.varName);
+    public T getValue() {
         return this.calculatedValue;
     }
 
@@ -40,16 +36,14 @@ public class Variable<T> extends VarGetter<T>{
         this.calculatedValue = null;
     }
 
-    public T getCalculatedValue(){
-        return this.calculatedValue;
-    }
-
-    public void setCalculatedValue(T t){
+    public Variable<T> setCalculatedValue(T t){
         this.calculatedValue = t;
+        return this;
     }
 
-    public void addDepend(Variable<T> variable){
+    public Variable<T> addDepend(Variable<T> variable){
         this.depend.add(variable);
+        return this;
     }
 
 }

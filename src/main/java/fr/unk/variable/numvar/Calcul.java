@@ -1,13 +1,13 @@
 package fr.unk.variable.numvar;
 
+import fr.unk.util.Pair;
 import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public abstract class Calcul<T extends Number> extends Variable<T> {
+public abstract class Calcul<T> extends Variable<T> {
 
     private final Operation<T> operation;
     private final List<Variable<T>> variableList;
@@ -56,43 +56,47 @@ public abstract class Calcul<T extends Number> extends Variable<T> {
     abstract Calcul<T> newCopy(Operation<T> addedOperation);
 
     @Override
-    public T getValue(Map<String, T> maps) {
-        T calculatedValue = super.getCalculatedValue();
-        if(calculatedValue != null)
+    public T getValue() {
+        T calculatedValue = super.getValue();
+        if(calculatedValue != null || operation == null)
             return calculatedValue;
-        if(operation == null)
-            return super.getValue(maps);
-        T prevVal = this.operation.getPrevious().getValue(maps), curVal = this.operation.getVariable().getValue(maps);
+        T prevVal = this.operation.getPrevious().getValue(), curVal = this.operation.getVariable().getValue();
         if(prevVal == null || curVal == null)
             return null;
-        super.setCalculatedValue(operation.getBinaryOperator().apply(prevVal, curVal));
-        return super.getCalculatedValue();
+        T result = operation.getBinaryOperator().apply(prevVal, curVal);
+        super.setCalculatedValue(result);
+        return result;
     }
 
-    public T getRevert(Map<String, T> map, T result){
+    public Pair<Variable<T>, T> getRevert(T result){
 
         if(operation == null)
             return null;
 
-        T prevVal = operation.getPrevious().getValue(map), curVal = operation.getVariable().getValue(map);
+        T prevVal = operation.getPrevious().getValue(), curVal = operation.getVariable().getValue();
         T revertVal;
 
         if(prevVal == null && curVal == null)
             return null;
 
-        if(prevVal == null)
-            revertVal = operation.getRevertOperator().apply(result, curVal);
-        else revertVal = operation.getRevertOperator().apply(result, prevVal);
+        Variable<T> checkName;
 
-        if(prevVal == null){
-            if(operation.getPrevious().isCalcul())
-                return ((Calcul<T>) operation.getPrevious()).getRevert(map, revertVal);
-        }else if (curVal == null){
-            if(operation.getVariable().isCalcul())
-                return ((Calcul<T>) operation.getVariable()).getRevert(map, revertVal);
+        if(prevVal == null) {
+            checkName = (Variable<T>) operation.getPrevious();
+            revertVal = operation.getRevertOperator().apply(result, curVal);
+        }else{
+            checkName = (Variable<T>) operation.getVariable();
+            revertVal = operation.getRevertOperator().apply(result, prevVal);
         }
 
-        return revertVal;
+        if(prevVal == null) {
+            if (operation.getPrevious().isCalcul())
+                return ((Calcul<T>) operation.getPrevious()).getRevert(revertVal);
+        }else if (curVal == null)
+            if(operation.getVariable().isCalcul())
+                return ((Calcul<T>) operation.getVariable()).getRevert(revertVal);
+
+        return new Pair<>(checkName, revertVal);
 
     }
 
