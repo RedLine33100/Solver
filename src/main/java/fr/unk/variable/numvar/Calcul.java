@@ -4,36 +4,27 @@ import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BinaryOperator;
 
 public abstract class Calcul<T extends Number> extends Variable<T> {
 
-    final List<Operation<T>> operationList;
+    final Operation<T> operation;
     final List<Variable<T>> variableList;
-    boolean canBeReverted = true;
 
-    public Calcul(String varName, Class<T> tClass, List<Operation<T>> operationList) {
-        super(varName, tClass);
-        this.operationList = operationList;
+    public Calcul(String varName, Operation<T> operation) {
+        super(varName);
+        this.operation = operation;
         this.variableList = new ArrayList<>();
-        this.operationList.forEach(operation ->{
-            if(operation.getVariable().isVar())
-                variableList.addAll(((Variable<T>)operation.getVariable()).getVariableList());
-            if(!operation.canRevert())
-                canBeReverted = false;
-        });
+        if(this.operation != null) {
+            if (this.operation.getVariable().isVar())
+                this.variableList.addAll(((Variable<T>) this.operation.getVariable()).getVariableList());
+        }
         this.variableList.add(this);
     }
 
-    public Calcul(String varName, Class<T> tClass) {
-        this(varName, tClass, new ArrayList<>());
-    }
-
-    Calcul<T> copyAddCalc(BinaryOperator<T> bo, BinaryOperator<T> revert, VarGetter<T> calc){
-        return this.newCopy(new ArrayList<>(operationList){{add(new Operation<T>(bo, revert, calc));}});
+    public Calcul(String varName) {
+        this(varName, null);
     }
 
     abstract Calcul<T> add(VarGetter<T> varGetter);
@@ -62,45 +53,43 @@ public abstract class Calcul<T extends Number> extends Variable<T> {
         return this.modulo(new VarGetter<>(variable));
     }
 
-    abstract Calcul<T> newCopy(List<Operation<T>> operationList);
+    abstract Calcul<T> newCopy(Operation<T> addedOperation);
 
     @Override
-    public T getValue(Map<String, Object> maps) {
-        T value = super.getValue(maps);
-        if(value == null)
+    public T getValue(Map<String, T> maps) {
+        if(operation == null)
+            return super.getValue(maps);
+        T prevVal = this.operation.getPrevious().getValue(maps), curVal = this.operation.getVariable().getValue(maps);
+        if(prevVal == null || curVal == null)
             return null;
-        for(Operation<T> operation : operationList){
-            T secValue = operation.getVariable().getValue(maps);
-            if(secValue == null)
-                return null;
-            value = operation.getBinaryOperator().apply(value, secValue);
-        }
-        return value;
+        return operation.getBinaryOperator().apply(prevVal, curVal);
     }
 
-    public T getRevert(Map<String, Object> map, T result){
+    public T getRevert(Map<String, T> map, T result){
 
-        if(!canRevert())
+        if(operation == null)
             return null;
 
-        List<Operation<T>> revertOperationList = operationList.reversed();
-        while (!revertOperationList.isEmpty()) {
+        T prevVal = operation.getPrevious().getValue(map), curVal = operation.getVariable().getValue(map);
+        T revertVal;
 
-            Operation<T> operation = revertOperationList.removeFirst();
-            T secValue = operation.getVariable().getValue(map);
+        if(prevVal == null && curVal == null)
+            return null;
 
-            if(secValue == null) {
-                T newVal = newCopy(revertOperationList.reversed()).getValue(map);
-                if(newVal == null)
-                    return null;
-                return operation.getRevertOperator().apply(result, newVal);
-            }
+        if(prevVal == null)
+            revertVal = operation.getRevertOperator().apply(result, curVal);
+        else revertVal = operation.getRevertOperator().apply(result, prevVal);
 
-            result = operation.getRevertOperator().apply(result, operation.getVariable().getValue(map));
-
+        if(prevVal == null){
+            if(operation.getPrevious().isCalcul())
+                return ((Calcul<T>) operation.getPrevious()).getRevert(map, revertVal);
+        }else if (curVal == null){
+            if(operation.getVariable().isCalcul())
+                return ((Calcul<T>) operation.getVariable()).getRevert(map, revertVal);
         }
 
-        return result;
+        return revertVal;
+
     }
 
     @Override
@@ -108,8 +97,9 @@ public abstract class Calcul<T extends Number> extends Variable<T> {
        return variableList;
     }
 
-    public boolean canRevert(){
-        return canBeReverted;
+    @Override
+    public boolean isCalcul(){
+        return operation != null;
     }
 
 }

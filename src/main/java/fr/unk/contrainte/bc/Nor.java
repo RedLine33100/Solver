@@ -20,7 +20,7 @@ public class Nor<T> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, Object> objectMap) {
+    public boolean satisfied(Map<String, T> objectMap) {
         boolean c1s = this.c1.satisfied(objectMap);
         boolean c2s = this.c2.satisfied(objectMap);
 

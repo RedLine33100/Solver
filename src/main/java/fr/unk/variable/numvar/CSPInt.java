@@ -6,40 +6,40 @@ import java.util.List;
 
 public class CSPInt extends Calcul<Integer> {
     public CSPInt(String varName) {
-        super(varName, Integer.class);
+        super(varName);
     }
 
-    CSPInt(String varName, List<Operation<Integer>> operationList){
-        super(varName, Integer.class, operationList);
+    CSPInt(String varName, Operation<Integer> operationList){
+        super(varName, operationList);
     }
 
     @Override
     public CSPInt add(VarGetter<Integer> variable){
-        return (CSPInt) this.copyAddCalc((int1, int2) -> int1+int2, (int1, int2) -> int1-int2, variable);
+        return this.newCopy(new Operation<>(Integer::sum, (int1, int2) -> int1-int2, this, variable));
     }
 
     @Override
     public CSPInt remove(VarGetter<Integer> variable){
-        return (CSPInt) this.copyAddCalc((int1, int2) -> int1-int2, (int1, int2) -> int1+int2, variable);
+        return this.newCopy(new Operation<>((int1, int2) -> int1-int2, Integer::sum, this, variable));
     }
 
     @Override
     public CSPInt divide(VarGetter<Integer> variable) {
-        return (CSPInt) this.copyAddCalc((int1, int2) -> int1/int2, (int1, int2) -> int1*int2, variable);
+        return this.newCopy(new Operation<>((int1, int2) -> int1/int2, (int1, int2) -> int1*int2, this, variable));
     }
 
     @Override
     public CSPInt multiply(VarGetter<Integer> variable) {
-        return (CSPInt) this.copyAddCalc((int1, int2) -> int1*int2, (int1, int2) -> int1/int2, variable);
+        return this.newCopy(new Operation<>((int1, int2) -> int1*int2, (int1, int2) -> int1/int2, this, variable));
     }
 
     @Override
     public CSPInt modulo(VarGetter<Integer> variable) {
-        return (CSPInt) this.copyAddCalc((int1, int2) -> int1%int2, null, variable);
+        return this.newCopy(new Operation<>((int1, int2) -> int1%int2, null, this, variable));
     }
 
     @Override
-    Calcul<Integer> newCopy(List<Operation<Integer>> operationList) {
+    CSPInt newCopy(Operation<Integer> operationList) {
         return new CSPInt(this.getVarName(), operationList);
     }
 }

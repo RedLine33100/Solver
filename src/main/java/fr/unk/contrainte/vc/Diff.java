@@ -25,7 +25,7 @@ public class Diff<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, Object> objectMap) {
+    public boolean satisfied(Map<String, T> objectMap) {
         T f1 = fv.getValue(objectMap);
         T f2 = sv.getValue(objectMap);
         if(f1 == null || f2 == null)

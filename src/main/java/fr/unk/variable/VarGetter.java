@@ -20,7 +20,7 @@ public class VarGetter<T> {
         return false;
     }
 
-    public T getValue(Map<String, Object> map){
+    public T getValue(Map<String, T> map){
         return this.t;
     }
 

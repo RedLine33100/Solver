@@ -19,7 +19,7 @@ class VariableTest {
 
     @org.junit.jupiter.api.Test
     void getValue() {
-        Variable<Integer> intVar = new Variable<>("testVar1", Integer.class);
+        Variable<Integer> intVar = new Variable<>("testVar1");
 
         assertNull(intVar.getValue(new HashMap<>()));
         assertEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 10);}}));

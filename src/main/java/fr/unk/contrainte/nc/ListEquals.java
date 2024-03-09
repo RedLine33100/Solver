@@ -21,7 +21,7 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, Object> objectMap) {
+    public boolean satisfied(Map<String, T> objectMap) {
 
         for(int i = 0; i<variableList.size(); i++) {
             T vi = variableList.get(i).getValue(objectMap);

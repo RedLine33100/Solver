@@ -44,7 +44,7 @@ public abstract class Constraint<T> {
         }});
     }
 
-    public abstract boolean satisfied(Map<String, Object> objectMap);
+    public abstract boolean satisfied(Map<String, T> objectMap);
 
     public List<Variable<T>> getVarOnLeft(){
         return leftVar;

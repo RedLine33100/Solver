@@ -4,26 +4,31 @@ import fr.unk.domaine.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class FloatDomain implements Domain<Float> {
 
-    final float min, max, jump;
+    final List<Float> floatList;
+
+    public FloatDomain(List<Float> doubles){
+        this.floatList = doubles;
+    }
 
     public FloatDomain(float min, float max, float jump){
-        this.min = min;
-        this.max = max;
-        this.jump = jump;
+        float current = min;
+        this.floatList = new ArrayList<>();
+        while (current <= max){
+            this.floatList.add(current);
+            current += jump;
+        }
     }
 
     @Override
     public List<Float> getPossibility() {
-        List<Float> doubles = new ArrayList<>();
-        float current = min;
-        while (current <= max){
-            doubles.add(current);
-            current += this.jump;
-        }
-        return doubles;
+        return this.floatList;
+    }
+
+    @Override
+    public Domain<Float> duplicate() {
+        return new FloatDomain(this.floatList);
     }
 }
