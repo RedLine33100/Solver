@@ -1,8 +1,7 @@
 package fr.unk.variable.numvar;
 
 import fr.unk.variable.VarGetter;
-
-import java.util.List;
+import fr.unk.variable.Variable;
 
 public class CSPDouble extends Calcul<Double> {
     public CSPDouble(String varName) {
@@ -40,6 +39,8 @@ public class CSPDouble extends Calcul<Double> {
 
     @Override
     CSPDouble newCopy(Operation<Double> operations) {
-        return new CSPDouble(this.getVarName(), operations);
+        CSPDouble cspDouble = new CSPDouble(this.getVarName(), operations);
+        operations.addDepend(cspDouble);
+        return cspDouble;
     }
 }

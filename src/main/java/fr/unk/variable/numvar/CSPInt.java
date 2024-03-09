@@ -39,7 +39,9 @@ public class CSPInt extends Calcul<Integer> {
     }
 
     @Override
-    CSPInt newCopy(Operation<Integer> operationList) {
-        return new CSPInt(this.getVarName(), operationList);
+    CSPInt newCopy(Operation<Integer> operations) {
+        CSPInt cspDouble = new CSPInt(this.getVarName(), operations);
+        operations.addDepend(cspDouble);
+        return cspDouble;
     }
 }

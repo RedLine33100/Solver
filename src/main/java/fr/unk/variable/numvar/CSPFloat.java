@@ -39,7 +39,9 @@ public class CSPFloat extends Calcul<Float> {
     }
 
     @Override
-    CSPFloat newCopy(Operation<Float> operationList) {
-        return new CSPFloat(this.getVarName(), operationList);
+    CSPFloat newCopy(Operation<Float> operations) {
+        CSPFloat cspDouble = new CSPFloat(this.getVarName(), operations);
+        operations.addDepend(cspDouble);
+        return cspDouble;
     }
 }

@@ -9,8 +9,8 @@ import java.util.Map;
 
 public abstract class Calcul<T extends Number> extends Variable<T> {
 
-    final Operation<T> operation;
-    final List<Variable<T>> variableList;
+    private final Operation<T> operation;
+    private final List<Variable<T>> variableList;
 
     public Calcul(String varName, Operation<T> operation) {
         super(varName);
@@ -57,12 +57,16 @@ public abstract class Calcul<T extends Number> extends Variable<T> {
 
     @Override
     public T getValue(Map<String, T> maps) {
+        T calculatedValue = super.getCalculatedValue();
+        if(calculatedValue != null)
+            return calculatedValue;
         if(operation == null)
             return super.getValue(maps);
         T prevVal = this.operation.getPrevious().getValue(maps), curVal = this.operation.getVariable().getValue(maps);
         if(prevVal == null || curVal == null)
             return null;
-        return operation.getBinaryOperator().apply(prevVal, curVal);
+        super.setCalculatedValue(operation.getBinaryOperator().apply(prevVal, curVal));
+        return super.getCalculatedValue();
     }
 
     public T getRevert(Map<String, T> map, T result){

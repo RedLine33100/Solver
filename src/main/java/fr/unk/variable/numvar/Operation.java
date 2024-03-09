@@ -1,6 +1,8 @@
 package fr.unk.variable.numvar;
 
 import fr.unk.variable.VarGetter;
+import fr.unk.variable.Variable;
+
 import java.util.function.BinaryOperator;
 
 public class Operation<T> {
@@ -38,4 +40,12 @@ public class Operation<T> {
     public boolean canRevert(){
         return revertOperator != null;
     }
+
+    public void addDepend(Variable<T> depend){
+        if(variable.isVar())
+            ((Variable<T>) variable).addDepend(depend);
+        if(previous.isVar())
+            ((Variable<T>) previous).addDepend(depend);
+    }
+
 }
