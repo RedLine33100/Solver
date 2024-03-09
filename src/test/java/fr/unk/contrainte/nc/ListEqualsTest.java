@@ -1,6 +1,6 @@
 package fr.unk.contrainte.nc;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 import org.junit.jupiter.api.*;
 
@@ -26,13 +26,13 @@ class ListEqualsTest {
     @BeforeAll
     static void setUpBeforeClass() {
         System.out.println ("Avant toutes les executions");
-        List<VarGetter<Integer>> emptyList = new ArrayList<>();
+        List<Getter<Integer>> emptyList = new ArrayList<>();
         emptyListEquals = new ListEquals<>(emptyList);
-        List<VarGetter<Integer>> singleList = List.of(singleVariable);
+        List<Getter<Integer>> singleList = List.of(singleVariable);
         singleListEquals = new ListEquals<>(singleList);
-        List<VarGetter<Integer>> equalList = List.of(var1, var2);
+        List<Getter<Integer>> equalList = List.of(var1, var2);
         equalListEquals = new ListEquals<>(equalList);
-        List<VarGetter<Integer>> diffList = List.of(diffVar1, diffVar2);
+        List<Getter<Integer>> diffList = List.of(diffVar1, diffVar2);
         diffListEquals = new ListEquals<>(diffList);
     }
 

@@ -1,6 +1,6 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 
 public class CSPDouble extends Calcul<Double> {
     public CSPDouble(String varName) {
@@ -12,27 +12,27 @@ public class CSPDouble extends Calcul<Double> {
     }
 
     @Override
-    public CSPDouble add(VarGetter<Double> variable){
+    public CSPDouble add(Getter<Double> variable){
         return this.newCopy(new Operation<>(Double::sum, (int1, int2) -> int1-int2, this, variable));
     }
 
     @Override
-    public CSPDouble remove(VarGetter<Double> variable){
+    public CSPDouble remove(Getter<Double> variable){
         return this.newCopy(new Operation<>((int1, int2) -> int1-int2, Double::sum, this, variable));
     }
 
     @Override
-    public CSPDouble divide(VarGetter<Double> variable) {
+    public CSPDouble divide(Getter<Double> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1/int2, (int1, int2) -> int1*int2, this, variable));
     }
 
     @Override
-    public CSPDouble multiply(VarGetter<Double> variable) {
+    public CSPDouble multiply(Getter<Double> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1*int2, (int1, int2) -> int1/int2, this, variable));
     }
 
     @Override
-    public CSPDouble modulo(VarGetter<Double> variable) {
+    public CSPDouble modulo(Getter<Double> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1 % int2, this, variable));
     }
 

@@ -3,7 +3,7 @@ package fr.unk.contrainte.nc;
 import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
 import fr.unk.util.Pair;
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
@@ -11,9 +11,9 @@ import java.util.List;
 
 public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
 
-    final List<VarGetter<T>> variableList;
+    final List<Getter<T>> variableList;
 
-    public ListDiff(List<VarGetter<T>> variables){
+    public ListDiff(List<Getter<T>> variables){
         super(variables, null);
         this.variableList = variables;
     }
@@ -42,14 +42,14 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     @Override
     public void reduceDomain(DomainMap<T> domainMap){
 
-        for(VarGetter<T> variable : this.variableList){
+        for(Getter<T> variable : this.variableList){
             if(variable.getValue() == null)
                 continue;
             for(Variable<T> secVariable : this.getVarOnLeft()){
                 if(secVariable.getValue() != null)
                     continue;
                 if(variable.isVar())
-                    if(variable.getVarName().equals(secVariable.getVarName()))
+                    if(((Variable<T>)variable).getVarName().equals(secVariable.getVarName()))
                         continue;
 
                 if(secVariable.isCalcul()){

@@ -1,6 +1,6 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,27 +11,27 @@ class CalculTest {
     void testadd() {
         Calcul<Integer> calcul = new Calcul<>("myVar") {
             @Override
-            Calcul<Integer> add(VarGetter<Integer> varGetter) {
+            Calcul<Integer> add(Getter<Integer> varGetter) {
                 return this;
             }
 
             @Override
-            Calcul<Integer> remove(VarGetter<Integer> varGetter) {
+            Calcul<Integer> remove(Getter<Integer> varGetter) {
                 return this;
             }
 
             @Override
-            public Calcul<Integer> divide(VarGetter<Integer> variable) {
+            public Calcul<Integer> divide(Getter<Integer> variable) {
                 return this;
             }
 
             @Override
-            public Calcul<Integer> multiply(VarGetter<Integer> variable) {
+            public Calcul<Integer> multiply(Getter<Integer> variable) {
                 return this;
             }
 
             @Override
-            public Calcul<Integer> modulo(VarGetter<Integer> variable) {
+            public Calcul<Integer> modulo(Getter<Integer> variable) {
                 return this;
             }
 
@@ -41,7 +41,7 @@ class CalculTest {
             }
         };
         calcul.setValue(5);
-        calcul = calcul.add(new VarGetter<>(5));
+        calcul = calcul.add(new Getter<>(5));
         assertNotNull(calcul.getValue());
     }
 

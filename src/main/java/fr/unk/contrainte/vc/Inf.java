@@ -2,28 +2,28 @@ package fr.unk.contrainte.vc;
 
 import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 
 public class Inf<T extends Comparable<T>> extends Constraint<T> {
 
-    final VarGetter<T> fv;
-    final VarGetter<T> sv;
+    final Getter<T> fv;
+    final Getter<T> sv;
 
     final boolean equals;
 
-    public Inf(VarGetter<T> fv, VarGetter<T> sv, boolean equals){
+    public Inf(Getter<T> fv, Getter<T> sv, boolean equals){
         super(fv, sv);
         this.fv = fv;
         this.sv = sv;
         this.equals = equals;
     }
 
-    public Inf(T fv, VarGetter<T> sv, boolean equals){
-        this(new VarGetter<>(fv), sv, equals);
+    public Inf(T fv, Getter<T> sv, boolean equals){
+        this(new Getter<>(fv), sv, equals);
     }
 
-    public Inf(VarGetter<T> fv, T sv, boolean equals){
-        this(fv, new VarGetter<>(sv), equals);
+    public Inf(Getter<T> fv, T sv, boolean equals){
+        this(fv, new Getter<>(sv), equals);
     }
 
     @Override

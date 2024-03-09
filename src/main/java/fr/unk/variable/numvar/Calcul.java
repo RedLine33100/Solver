@@ -1,7 +1,7 @@
 package fr.unk.variable.numvar;
 
 import fr.unk.util.Pair;
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 
 import java.util.ArrayList;
@@ -27,30 +27,30 @@ public abstract class Calcul<T> extends Variable<T> {
         this(varName, null);
     }
 
-    abstract Calcul<T> add(VarGetter<T> varGetter);
+    abstract Calcul<T> add(Getter<T> getter);
     public Calcul<T> add(T variable){
-        return this.add(new VarGetter<>(variable));
+        return this.add(new Getter<>(variable));
     }
 
-    abstract Calcul<T> remove(VarGetter<T> varGetter);
+    abstract Calcul<T> remove(Getter<T> getter);
     public Calcul<T> remove(T variable){
-        return this.remove(new VarGetter<>(variable));
+        return this.remove(new Getter<>(variable));
     }
 
-    public abstract Calcul<T> divide(VarGetter<T> variable);
+    public abstract Calcul<T> divide(Getter<T> variable);
 
     public Calcul<T> divide(T variable){
-        return this.divide(new VarGetter<>(variable));
+        return this.divide(new Getter<>(variable));
     }
 
-    public abstract Calcul<T> multiply(VarGetter<T> variable);
+    public abstract Calcul<T> multiply(Getter<T> variable);
     public Calcul<T> multiply(T variable){
-        return this.multiply(new VarGetter<>(variable));
+        return this.multiply(new Getter<>(variable));
     }
 
-    public abstract Calcul<T> modulo(VarGetter<T> variable);
+    public abstract Calcul<T> modulo(Getter<T> variable);
     public Calcul<T> modulo(T variable){
-        return this.modulo(new VarGetter<>(variable));
+        return this.modulo(new Getter<>(variable));
     }
 
     abstract Calcul<T> newCopy(Operation<T> addedOperation);

@@ -3,7 +3,7 @@ package fr.unk.variable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Variable<T> extends VarGetter<T> {
+public class Variable<T> extends Getter<T> {
 
     private final String varName;
     private T calculatedValue = null;
@@ -14,7 +14,6 @@ public class Variable<T> extends VarGetter<T> {
         this.varName = varName;
     }
 
-    @Override
     public String getVarName(){
         return this.varName;
     }

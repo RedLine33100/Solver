@@ -1,6 +1,6 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,7 @@ class CSPIntTest {
     void testadd() {
         CSPInt cspInt = new CSPInt("myVar") {};
         cspInt.setValue(10);
-        cspInt = cspInt.add(new VarGetter<>(5));
+        cspInt = cspInt.add(new Getter<>(5));
         assertEquals(15, cspInt.getValue());
     }
 
@@ -19,7 +19,7 @@ class CSPIntTest {
     void testremove() {
         CSPInt cspInt = new CSPInt("myVar") {};
         cspInt.setValue(20);
-        cspInt = cspInt.remove(new VarGetter<>(5));
+        cspInt = cspInt.remove(new Getter<>(5));
         assertEquals(15, cspInt.getValue());
     }
 
@@ -27,14 +27,14 @@ class CSPIntTest {
     void testdivide() {
         CSPInt cspInt = new CSPInt("myVar") {};
         cspInt.setValue(20);
-        cspInt = cspInt.divide(new VarGetter<>(5));
+        cspInt = cspInt.divide(new Getter<>(5));
         assertEquals(4, cspInt.getValue());
     }
     @Test
     void testmultiply() {
         CSPInt cspInt = new CSPInt("myVar") {};
         cspInt.setValue(20);
-        cspInt = cspInt.multiply(new VarGetter<>(5));
+        cspInt = cspInt.multiply(new Getter<>(5));
         assertEquals(100, cspInt.getValue());
     }
 
@@ -43,7 +43,7 @@ class CSPIntTest {
     void testmodulo() {
         CSPInt cspInt = new CSPInt("myVar") {};
         cspInt.setValue(24);
-        cspInt = cspInt.modulo(new VarGetter<>(5));
+        cspInt = cspInt.modulo(new Getter<>(5));
         assertEquals(4, cspInt.getValue());
     }
 

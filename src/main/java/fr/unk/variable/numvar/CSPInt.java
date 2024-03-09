@@ -1,6 +1,6 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 
 public class CSPInt extends Calcul<Integer> {
     public CSPInt(String varName) {
@@ -12,27 +12,27 @@ public class CSPInt extends Calcul<Integer> {
     }
 
     @Override
-    public CSPInt add(VarGetter<Integer> variable){
+    public CSPInt add(Getter<Integer> variable){
         return this.newCopy(new Operation<>(Integer::sum, (int1, int2) -> int1-int2, this, variable));
     }
 
     @Override
-    public CSPInt remove(VarGetter<Integer> variable){
+    public CSPInt remove(Getter<Integer> variable){
         return this.newCopy(new Operation<>((int1, int2) -> int1-int2, Integer::sum, this, variable));
     }
 
     @Override
-    public CSPInt divide(VarGetter<Integer> variable) {
+    public CSPInt divide(Getter<Integer> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1/int2, (int1, int2) -> int1*int2, this, variable));
     }
 
     @Override
-    public CSPInt multiply(VarGetter<Integer> variable) {
+    public CSPInt multiply(Getter<Integer> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1*int2, (int1, int2) -> int1/int2, this, variable));
     }
 
     @Override
-    public CSPInt modulo(VarGetter<Integer> variable) {
+    public CSPInt modulo(Getter<Integer> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1 % int2, this, variable));
     }
 

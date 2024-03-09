@@ -1,17 +1,13 @@
 package fr.unk.variable;
 
-public class VarGetter<T> {
+public class Getter<T> {
 
     T t;
 
-    public VarGetter(T variable){
-        if(variable instanceof VarGetter<?>)
+    public Getter(T variable){
+        if(variable instanceof Getter<?>)
             throw new NullPointerException("VarGetter cannot be VarGetter of himself ");
         this.t = variable;
-    }
-
-    public String getVarName(){
-        return null;
     }
 
     public boolean isVar(){

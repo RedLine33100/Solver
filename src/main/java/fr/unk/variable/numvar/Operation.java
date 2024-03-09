@@ -1,6 +1,6 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 
 import java.util.function.BinaryOperator;
@@ -8,16 +8,16 @@ import java.util.function.BinaryOperator;
 public class Operation<T> {
 
     BinaryOperator<T> binaryOperator, revertOperator;
-    VarGetter<T> variable, previous;
+    Getter<T> variable, previous;
 
-    public Operation(BinaryOperator<T> binaryOperator, BinaryOperator<T> revertOperator, VarGetter<T> previous, VarGetter<T> variable){
+    public Operation(BinaryOperator<T> binaryOperator, BinaryOperator<T> revertOperator, Getter<T> previous, Getter<T> variable){
         this.binaryOperator = binaryOperator;
         this.revertOperator = revertOperator;
         this.variable = variable;
         this.previous = previous;
     }
 
-    public Operation(BinaryOperator<T> binaryOperator, VarGetter<T> previous, VarGetter<T> variable){
+    public Operation(BinaryOperator<T> binaryOperator, Getter<T> previous, Getter<T> variable){
         this(binaryOperator, null, previous, variable);
     }
 
@@ -29,11 +29,11 @@ public class Operation<T> {
         return revertOperator;
     }
 
-    public VarGetter<T> getPrevious() {
+    public Getter<T> getPrevious() {
         return previous;
     }
 
-    public VarGetter<T> getVariable() {
+    public Getter<T> getVariable() {
         return variable;
     }
 

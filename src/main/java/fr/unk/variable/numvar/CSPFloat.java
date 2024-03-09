@@ -1,6 +1,6 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 
 public class CSPFloat extends Calcul<Float> {
     public CSPFloat(String varName) {
@@ -12,27 +12,27 @@ public class CSPFloat extends Calcul<Float> {
     }
 
     @Override
-    public CSPFloat add(VarGetter<Float> variable){
+    public CSPFloat add(Getter<Float> variable){
         return this.newCopy(new Operation<>(Float::sum, (int1, int2) -> int1-int2, this, variable));
     }
 
     @Override
-    public CSPFloat remove(VarGetter<Float> variable){
+    public CSPFloat remove(Getter<Float> variable){
         return this.newCopy(new Operation<>((int1, int2) -> int1-int2, Float::sum, this, variable));
     }
 
     @Override
-    public CSPFloat divide(VarGetter<Float> variable) {
+    public CSPFloat divide(Getter<Float> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1/int2, (int1, int2) -> int1*int2, this, variable));
     }
 
     @Override
-    public CSPFloat multiply(VarGetter<Float> variable) {
+    public CSPFloat multiply(Getter<Float> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1*int2, (int1, int2) -> int1/int2, this, variable));
     }
 
     @Override
-    public CSPFloat modulo(VarGetter<Float> variable) {
+    public CSPFloat modulo(Getter<Float> variable) {
         return this.newCopy(new Operation<>((int1, int2) -> int1 % int2, this, variable));
     }
 

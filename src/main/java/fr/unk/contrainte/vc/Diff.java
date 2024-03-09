@@ -3,7 +3,7 @@ package fr.unk.contrainte.vc;
 import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
 import fr.unk.util.Pair;
-import fr.unk.variable.VarGetter;
+import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
@@ -11,21 +11,21 @@ import java.util.List;
 
 public class Diff<T extends Comparable<T>> extends Constraint<T> {
 
-    final VarGetter<T> fv;
-    final VarGetter<T> sv;
+    final Getter<T> fv;
+    final Getter<T> sv;
 
-    public Diff(VarGetter<T> fv, VarGetter<T> sv){
+    public Diff(Getter<T> fv, Getter<T> sv){
         super(fv, sv);
         this.fv = fv;
         this.sv = sv;
     }
 
-    public Diff(T fv, VarGetter<T> sv){
-        this(new VarGetter<>(fv), sv);
+    public Diff(T fv, Getter<T> sv){
+        this(new Getter<>(fv), sv);
     }
 
-    public Diff(VarGetter<T> fv, T sv){
-        this(fv, new VarGetter<>(sv));
+    public Diff(Getter<T> fv, T sv){
+        this(fv, new Getter<>(sv));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Diff<T extends Comparable<T>> extends Constraint<T> {
         return f1.compareTo(f2) != 0;
     }
 
-    private void red(DomainMap<T> domainMap, VarGetter<T> alreadySet, Variable<T> notSet){
+    private void red(DomainMap<T> domainMap, Getter<T> alreadySet, Variable<T> notSet){
 
         if(notSet.getValue() != null || alreadySet.getValue() == null)
             return;
