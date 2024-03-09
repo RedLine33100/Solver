@@ -1,37 +1,45 @@
 package fr.unk.contrainte.bc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NorTest {
 
     @Test
     void testsatisfied() {
-        Constraint trueContraint = new Constraint() {
+        Constraint<Object> trueContraint = new Constraint<>() {
             @Override
-            public boolean satisfied(Map<String, Object> objectMap) {
+            public boolean satisfied() {
                 return true;
             }
-        };
-        Constraint falseContraint = new Constraint() {
+
             @Override
-            public boolean satisfied(Map<String, Object> objectMap) {
-                return false;
+            public void reduceDomain(DomainMap<Object> domainMap) {
+
             }
         };
-        Map<String, Object> objectMap = new HashMap<>();
-        Nor testtrue = new Nor(trueContraint,trueContraint);
-        assertFalse(testtrue.satisfied(objectMap));
-        Nor testfalse= new Nor(falseContraint,falseContraint);
-        assertFalse(testfalse.satisfied(objectMap));
-        Nor testfalsetrue= new Nor(falseContraint,trueContraint);
-        assertTrue(testfalsetrue.satisfied(objectMap));
-        Nor testtruefalse= new Nor(trueContraint,falseContraint);
-        assertTrue(testtruefalse.satisfied(objectMap));
+        Constraint<Object> falseContraint = new Constraint<>() {
+            @Override
+            public boolean satisfied() {
+                return false;
+            }
+
+            @Override
+            public void reduceDomain(DomainMap<Object> domainMap) {
+
+            }
+        };
+        Nor<Object> testtrue = new Nor<>(trueContraint,trueContraint);
+        assertFalse(testtrue.satisfied());
+        Nor<Object> testfalse= new Nor<>(falseContraint,falseContraint);
+        assertFalse(testfalse.satisfied());
+        Nor<Object> testfalsetrue= new Nor<>(falseContraint,trueContraint);
+        assertTrue(testfalsetrue.satisfied());
+        Nor<Object> testtruefalse= new Nor<>(trueContraint,falseContraint);
+        assertTrue(testtruefalse.satisfied());
     }
 }

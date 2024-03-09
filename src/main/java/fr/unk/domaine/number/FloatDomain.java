@@ -16,6 +16,8 @@ public class FloatDomain implements Domain<Float> {
     public FloatDomain(float min, float max, float jump){
         float current = min;
         this.floatList = new ArrayList<>();
+        if (jump <= 0)
+            return;
         while (current <= max){
             this.floatList.add(current);
             current += jump;

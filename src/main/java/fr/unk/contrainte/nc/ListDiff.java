@@ -7,8 +7,6 @@ import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
@@ -18,10 +16,6 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     public ListDiff(List<VarGetter<T>> variables){
         super(variables, null);
         this.variableList = variables;
-    }
-
-    public ListDiff(VarGetter<T>... variables){
-        this(Arrays.asList(variables));
     }
 
     @Override
@@ -34,7 +28,10 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
             if(vi == null)
                 return false;
             for (int y = i + 1; y < variableList.size(); y++) {
-                if (vi.compareTo(variableList.get(y).getValue()) == 0)
+                T variable = variableList.get(y).getValue();
+                if (variable == null)
+                    return false;
+                if (vi.compareTo(variable) == 0)
                     return false;
             }
         }

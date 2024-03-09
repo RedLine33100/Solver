@@ -2,7 +2,6 @@ package fr.unk.domaine.number;
 
 import org.junit.jupiter.api.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -11,22 +10,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class IntDomainTest {
 
     @BeforeAll
-    static void setUpBeforeClass() throws Exception {
+    static void setUpBeforeClass() {
         System.out.println ("Avant toutes les executions");
     }
 
     @AfterAll
-    static void tearDownAfterClass() throws Exception {
+    static void tearDownAfterClass() {
         System.out.println ("Apres toutes les executions");
     }
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         System.out.println ("avant une fonction sous test");
     }
 
     @AfterEach
-    void tearDown() throws Exception {
+    void tearDown() {
         System.out.println ("apres une fonction sous test");
     }
 
@@ -69,7 +68,7 @@ class IntDomainTest {
         // Cas où le pas est zéro : devrait renvoyer une liste vide
         IntDomain domain5 = new IntDomain(0, 10, 0);
         List<Integer> possibilities5 = domain5.getPossibility();
-        assertNull(possibilities5);
+        assertTrue(possibilities5.isEmpty());
     }
 
 
@@ -92,7 +91,7 @@ class IntDomainTest {
         } while (int5 < int3 || int5 > int4);
         IntDomain intDomain = new IntDomain(int3,int4,1);
         List<Integer> list = intDomain.getPossibility();
-        assertEquals(((int4-int3)/1)+1, list.size());
+        assertEquals(((int4 - int3)) + 1, list.size());
         assertFalse(list.contains(int1));
         assertFalse(list.contains(int2));
         assertTrue(list.contains(int3));

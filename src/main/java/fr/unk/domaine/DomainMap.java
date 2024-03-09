@@ -9,7 +9,7 @@ public class DomainMap<T> {
 
     Map<Variable<T>, Domain<T>> uknVariables = new HashMap<>();
 
-    public Map<Variable<T>, Domain<T>> getDomainMap(){
+    public Map<Variable<T>, Domain<T>> getMap() {
         return uknVariables;
     }
 

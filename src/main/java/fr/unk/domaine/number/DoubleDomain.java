@@ -4,7 +4,6 @@ import fr.unk.domaine.Domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class DoubleDomain implements Domain<Double> {
 
@@ -17,6 +16,8 @@ public class DoubleDomain implements Domain<Double> {
     public DoubleDomain(double min, double max, double jump){
         double current = min;
         this.doubleList = new ArrayList<>();
+        if (jump <= 0)
+            return;
         while (current <= max){
             this.doubleList.add(current);
             current += jump;

@@ -4,8 +4,6 @@ import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Or<T> extends Constraint<T> {
 

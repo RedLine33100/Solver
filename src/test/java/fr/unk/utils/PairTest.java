@@ -1,8 +1,12 @@
 package fr.unk.utils;
 
+import fr.unk.util.Pair;
 import org.junit.jupiter.api.Test;
+
 import java.util.Random;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class PairTest <L,R>{
 //Voir si dans paire il peut y avoir des Opérateur//

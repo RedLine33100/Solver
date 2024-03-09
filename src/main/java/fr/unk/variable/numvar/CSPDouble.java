@@ -1,7 +1,6 @@
 package fr.unk.variable.numvar;
 
 import fr.unk.variable.VarGetter;
-import fr.unk.variable.Variable;
 
 public class CSPDouble extends Calcul<Double> {
     public CSPDouble(String varName) {
@@ -34,7 +33,7 @@ public class CSPDouble extends Calcul<Double> {
 
     @Override
     public CSPDouble modulo(VarGetter<Double> variable) {
-        return this.newCopy(new Operation<>((int1, int2) -> int1%int2, null, this, variable));
+        return this.newCopy(new Operation<>((int1, int2) -> int1 % int2, this, variable));
     }
 
     @Override

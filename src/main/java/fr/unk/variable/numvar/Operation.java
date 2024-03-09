@@ -37,14 +37,10 @@ public class Operation<T> {
         return variable;
     }
 
-    public boolean canRevert(){
-        return revertOperator != null;
-    }
-
     public void addDepend(Variable<T> depend){
         if(variable.isVar())
             ((Variable<T>) variable).addDepend(depend);
-        if(previous.isVar())
+        if (previous != null && previous.isVar())
             ((Variable<T>) previous).addDepend(depend);
     }
 

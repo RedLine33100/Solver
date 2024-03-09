@@ -64,7 +64,7 @@ public abstract class Calcul<T> extends Variable<T> {
         if(prevVal == null || curVal == null)
             return null;
         T result = operation.getBinaryOperator().apply(prevVal, curVal);
-        super.setCalculatedValue(result);
+        super.setValue(result);
         return result;
     }
 

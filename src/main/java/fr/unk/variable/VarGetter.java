@@ -1,7 +1,5 @@
 package fr.unk.variable;
 
-import java.util.Map;
-
 public class VarGetter<T> {
 
     T t;

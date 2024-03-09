@@ -24,6 +24,11 @@ public class Variable<T> extends VarGetter<T> {
         return this.calculatedValue;
     }
 
+    @Override
+    public boolean isVar() {
+        return true;
+    }
+
     public List<Variable<T>> getVariableList(){
         Variable<T> variable = this;
         return new ArrayList<>() {{
@@ -38,7 +43,7 @@ public class Variable<T> extends VarGetter<T> {
         this.calculatedValue = null;
     }
 
-    public Variable<T> setCalculatedValue(T t){
+    public Variable<T> setValue(T t) {
         if(t == this.calculatedValue)
             return this;
         this.invalidate();

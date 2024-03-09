@@ -1,35 +1,46 @@
 package fr.unk.contrainte.bc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AndTest {
     @Test
     void testsatisfied() {
-        Constraint trueContraint = new Constraint() {
+        Constraint<Object> trueContraint = new Constraint<>() {
             @Override
-            public boolean satisfied(Map<String, Object> objectMap) {
+            public boolean satisfied() {
                 return true;
             }
-        };
-        Constraint falseContraint = new Constraint() {
+
             @Override
-            public boolean satisfied(Map<String, Object> objectMap) {
+            public void reduceDomain(DomainMap<Object> domainMap) {
+
+            }
+        };
+        Constraint<Object> falseContraint = new Constraint<>() {
+            @Override
+            public boolean satisfied() {
                 return false;
+            }
+
+            @Override
+            public void reduceDomain(DomainMap<Object> domainMap) {
+
             }
         };
 
-        And testtrue = new And(trueContraint,trueContraint);
-        Map<String, Object> objectMap = new HashMap<>();
-        assertTrue(testtrue.satisfied(objectMap));
-        And testtruefalse = new And(trueContraint,falseContraint);
-        assertFalse(testtruefalse.satisfied(objectMap));
-        And testfalse = new And(falseContraint,falseContraint);
-        assertFalse(testfalse.satisfied(objectMap));
+        And<Object> testtrue = new And<>(trueContraint,trueContraint);
+        assertTrue(testtrue.satisfied());
+        And<Object> testtruefalse = new And<>(trueContraint,falseContraint);
+        assertFalse(testtruefalse.satisfied());
+        And<Object> testfalse = new And<>(falseContraint,falseContraint);
+        assertFalse(testfalse.satisfied());
     }
 }

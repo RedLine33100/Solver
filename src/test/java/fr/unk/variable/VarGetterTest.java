@@ -1,9 +1,8 @@
 package fr.unk.variable;
 
+import fr.unk.variable.numvar.CSPInt;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +24,9 @@ class VarGetterTest {
         VarGetter<Float> varGetter02 = new VarGetter<>(float1);
         assertFalse(varGetter02.isVar());
         VarGetter<String> varGetter1 = new VarGetter<>(null);
-        assertTrue(varGetter1.isVar());
+        assertFalse(varGetter1.isVar());
+        VarGetter<Integer> varGetter2 = new CSPInt("testVar");
+        assertTrue(varGetter2.isVar());
     }
 
     @Test
@@ -37,9 +38,8 @@ class VarGetterTest {
         VarGetter<Integer> varGetter = new VarGetter<>(int1);
         VarGetter<Float> varGetter1 = new VarGetter<>(float1);
         VarGetter<Double> varGetter2 = new VarGetter<>(double1);
-        Map<String, Object> objectMap = new HashMap<>();
-        assertEquals(int1,varGetter.getValue(objectMap));
-        assertEquals(float1,varGetter1.getValue(objectMap));
-        assertEquals(double1,varGetter2.getValue(objectMap));
+        assertEquals(int1, varGetter.getValue());
+        assertEquals(float1, varGetter1.getValue());
+        assertEquals(double1, varGetter2.getValue());
     }
 }

@@ -7,8 +7,6 @@ import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
@@ -20,21 +18,18 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
         this.variableList = variables;
     }
 
-    public ListEquals(VarGetter<T>... variables){
-        this(Arrays.asList(variables));
-    }
-
     @Override
     public boolean satisfied() {
 
-        for(int i = 0; i<variableList.size(); i++) {
-            T vi = variableList.get(i).getValue();
-            if(vi == null)
+        if (variableList.isEmpty())
+            return false;
+
+        T fv = variableList.getFirst().getValue();
+
+        for (VarGetter<T> variable : variableList) {
+            T vi = variable.getValue();
+            if (vi == null || fv.compareTo(vi) != 0)
                 return false;
-            for (int y = i + 1; y < variableList.size(); y++) {
-                if (variableList.get(i).getValue().compareTo(variableList.get(y).getValue()) != 0)
-                    return false;
-            }
         }
 
         return true;

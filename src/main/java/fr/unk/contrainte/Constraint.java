@@ -7,7 +7,6 @@ import fr.unk.variable.Variable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Constraint<T> {
 
@@ -33,6 +32,10 @@ public abstract class Constraint<T> {
     public Constraint(List<VarGetter<T>> leftVar, List<VarGetter<T>> rightVar){
         this.leftVar = toVariableList(leftVar);
         this.rightVar = toVariableList(rightVar);
+    }
+
+    public Constraint() {
+        this(new ArrayList<>(), new ArrayList<>());
     }
 
     public Constraint(VarGetter<T> leftVar, VarGetter<T> rightVar){

@@ -4,7 +4,6 @@ import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class And<T> extends Constraint<T> {
     final Constraint<T> c1;

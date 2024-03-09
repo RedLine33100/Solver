@@ -2,8 +2,6 @@ package fr.unk.variable.numvar;
 
 import fr.unk.variable.VarGetter;
 
-import java.util.List;
-
 public class CSPInt extends Calcul<Integer> {
     public CSPInt(String varName) {
         super(varName);
@@ -35,7 +33,7 @@ public class CSPInt extends Calcul<Integer> {
 
     @Override
     public CSPInt modulo(VarGetter<Integer> variable) {
-        return this.newCopy(new Operation<>((int1, int2) -> int1%int2, null, this, variable));
+        return this.newCopy(new Operation<>((int1, int2) -> int1 % int2, this, variable));
     }
 
     @Override

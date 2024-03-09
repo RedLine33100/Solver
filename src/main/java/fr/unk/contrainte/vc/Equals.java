@@ -7,7 +7,6 @@ import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Equals<T extends Comparable<T>> extends Constraint<T> {

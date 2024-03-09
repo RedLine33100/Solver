@@ -1,12 +1,8 @@
 package fr.unk.variable;
 
-import fr.unk.variable.numvar.CSPInt;
-import fr.unk.variable.numvar.Calcul;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VariableTest {
 
@@ -20,9 +16,8 @@ class VariableTest {
 
     @Test
     public void testVariableConstruction() {
-        Variable<Integer> variable = new Variable<>("myVar", Integer.class);
+        Variable<Integer> variable = new Variable<>("myVar");
         assertEquals("myVar", variable.getVarName());
-        assertEquals(Integer.class, variable.tClass);
     }
 
     @Test

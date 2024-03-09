@@ -16,6 +16,8 @@ public class IntDomain implements Domain<Integer> {
     public IntDomain(Integer min, Integer max, Integer jump){
         Integer current = min;
         this.intList = new ArrayList<>();
+        if (jump <= 0)
+            return;
         while (current <= max){
             this.intList.add(current);
             current += jump;

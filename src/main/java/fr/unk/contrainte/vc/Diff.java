@@ -7,9 +7,7 @@ import fr.unk.variable.VarGetter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Diff<T extends Comparable<T>> extends Constraint<T> {
 

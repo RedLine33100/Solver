@@ -4,10 +4,6 @@ import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
 import fr.unk.variable.VarGetter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 public class Inf<T extends Comparable<T>> extends Constraint<T> {
 
     final VarGetter<T> fv;

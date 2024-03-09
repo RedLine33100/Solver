@@ -1,36 +1,44 @@
 package fr.unk.contrainte.bc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class OrTest {
     @Test
     void testsatisfied() {
-        Constraint trueContraint = new Constraint() {
+        Constraint<Object> trueContraint = new Constraint<>() {
             @Override
-            public boolean satisfied(Map<String, Object> objectMap) {
+            public boolean satisfied() {
                 return true;
             }
-        };
-        Constraint falseContraint = new Constraint() {
+
             @Override
-            public boolean satisfied(Map<String, Object> objectMap) {
+            public void reduceDomain(DomainMap<Object> domainMap) {
+
+            }
+        };
+        Constraint<Object> falseContraint = new Constraint<>() {
+            @Override
+            public boolean satisfied() {
                 return false;
+            }
+
+            @Override
+            public void reduceDomain(DomainMap<Object> domainMap) {
+
             }
         };
 
-        Or testtrue = new Or(trueContraint,trueContraint);
-        Map<String, Object> objectMap = new HashMap<>();
-        assertTrue(testtrue.satisfied(objectMap));
-        Or testtruefalse = new Or(trueContraint,falseContraint);
-        assertTrue(testtruefalse.satisfied(objectMap));
-        Or testfalse = new Or(falseContraint,falseContraint);
-        assertFalse(testfalse.satisfied(objectMap));
+        Or<Object> testtrue = new Or<>(trueContraint,trueContraint);
+        assertTrue(testtrue.satisfied());
+        Or<Object> testtruefalse = new Or<>(trueContraint,falseContraint);
+        assertTrue(testtruefalse.satisfied());
+        Or<Object> testfalse = new Or<>(falseContraint,falseContraint);
+        assertFalse(testfalse.satisfied());
     }
 
 }

@@ -5,7 +5,10 @@ import fr.unk.domaine.Domain;
 import fr.unk.domaine.DomainMap;
 import fr.unk.variable.Variable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CSPSolver<T> {
 
@@ -20,18 +23,25 @@ public class CSPSolver<T> {
         this.constraintList.add(constraint);
     }
 
+    public boolean hasUnknownVariable(Variable<T> variable) {
+        return this.domainMap.getMap().containsKey(variable);
+    }
+
+    public Domain<T> getDefinedDomain(Variable<T> variable) {
+        return this.domainMap.getMap().get(variable);
+    }
+
     public boolean reduceAndSolve(DomainMap<T> domainMap){
-        System.out.println("Reduce and solve");
         constraintList.forEach(tConstraint -> tConstraint.reduceDomain(domainMap));
 
         Variable<T> next = null;
         int nextSize = Integer.MAX_VALUE;
         int calcul = 0;
 
-        for(Map.Entry<Variable<T>, Domain<T>> entry : domainMap.getDomainMap().entrySet()){
+        for (Map.Entry<Variable<T>, Domain<T>> entry : domainMap.getMap().entrySet()) {
             int size = entry.getValue().getPossibility().size();
             if(size == 1) {
-                entry.getKey().setCalculatedValue(entry.getValue().getPossibility().getFirst());
+                entry.getKey().setValue(entry.getValue().getPossibility().getFirst());
                 calcul++;
                 continue;
             }
@@ -43,7 +53,7 @@ public class CSPSolver<T> {
             }
         }
 
-        if(calcul == domainMap.getDomainMap().size())
+        if (calcul != 0 && calcul == domainMap.getMap().size())
             return true;
 
         if(next == null)
@@ -52,14 +62,14 @@ public class CSPSolver<T> {
         return solve(next, domainMap);
     }
 
-    public boolean solve(Variable<T> variable, DomainMap<T> domain){
+    private boolean solve(Variable<T> variable, DomainMap<T> domain) {
 
         Domain<T> tDomain = domain.getAndRemoveDomain(variable);
 
         for (T t : tDomain.getPossibility()){
 
-            variable.setCalculatedValue(t);
-            if(domain.getDomainMap().isEmpty()){
+            variable.setValue(t);
+            if (domain.getMap().isEmpty()) {
                 for(Constraint<T> tConstraint : constraintList){
                     if(!tConstraint.satisfied()){
                         return false;
@@ -75,14 +85,18 @@ public class CSPSolver<T> {
         return false;
     }
 
-    public DomainMap<T> getDomainMap(){
-        return this.domainMap;
-    }
+    public Map<String, T> trySolve() {
 
-    public boolean trySolve(){
+        this.domainMap.getMap().keySet().forEach(Variable::invalidate);
+        if (!this.reduceAndSolve(this.domainMap.duplicate()))
+            return null;
 
-        this.domainMap.getDomainMap().keySet().forEach(Variable::invalidate);
-        return this.reduceAndSolve(this.domainMap.duplicate());
+        return new HashMap<>() {{
+            for (Variable<T> variable : domainMap.getMap().keySet()) {
+                if (variable.getValue() != null)
+                    put(variable.getVarName(), variable.getValue());
+            }
+        }};
 
     }
 
