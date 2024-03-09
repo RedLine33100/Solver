@@ -32,11 +32,16 @@ public class Variable<T> extends VarGetter<T> {
     }
 
     public void invalidate(){
+        if(this.calculatedValue == null)
+            return;
         this.depend.forEach(Variable::invalidate);
         this.calculatedValue = null;
     }
 
     public Variable<T> setCalculatedValue(T t){
+        if(t == this.calculatedValue)
+            return this;
+        this.invalidate();
         this.calculatedValue = t;
         return this;
     }

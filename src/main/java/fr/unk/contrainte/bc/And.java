@@ -25,11 +25,9 @@ public class And<T> extends Constraint<T> {
     }
 
     @Override
-    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
-        List<DomainMap<T>> c1d = this.c1.reduceDomain(domainMap);
-        if(c1d.isEmpty())
-            return c1d;
-        return this.c2.reduceDomain(c1d.getFirst());
+    public void reduceDomain(DomainMap<T> domainMap){
+        this.c1.reduceDomain(domainMap);
+        this.c2.reduceDomain(domainMap);
     }
 
 }

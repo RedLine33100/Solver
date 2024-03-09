@@ -54,6 +54,6 @@ public abstract class Constraint<T> {
         return rightVar;
     }
 
-    public abstract List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap);
+    public abstract void reduceDomain(DomainMap<T> domainMap);
 
 }

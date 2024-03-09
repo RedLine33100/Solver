@@ -63,15 +63,13 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
-        DomainMap<T> newDomain = domainMap.duplicate();
+    public void reduceDomain(DomainMap<T> domainMap){
 
         if(sv instanceof Variable<T>)
-            this.red(newDomain, fv, (Variable<T>) sv);
+            this.red(domainMap, fv, (Variable<T>) sv);
         if(fv instanceof Variable<T>)
-            this.red(newDomain, sv, (Variable<T>) fv);
+            this.red(domainMap, sv, (Variable<T>) fv);
 
-        return new ArrayList<>(){{add(newDomain);}};
     }
 
 }

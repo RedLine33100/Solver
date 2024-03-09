@@ -30,11 +30,8 @@ public class Nor<T> extends Constraint<T> {
     }
 
     @Override
-    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
-        ArrayList<DomainMap<T>> domainMapArrayList = new ArrayList<>();
-        domainMapArrayList.addAll(this.c1.reduceDomain(domainMap));
-        domainMapArrayList.addAll(this.c2.reduceDomain(domainMap));
-        return domainMapArrayList;
+    public void reduceDomain(DomainMap<T> domainMap){
+
     }
 
 }

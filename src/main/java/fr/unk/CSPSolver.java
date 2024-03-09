@@ -20,50 +20,69 @@ public class CSPSolver<T> {
         this.constraintList.add(constraint);
     }
 
-    public Map<String, T> solve(DomainMap<T> domainMap, Map<String, T> objectMap){
-        /*
+    public boolean reduceAndSolve(DomainMap<T> domainMap){
+        System.out.println("Reduce and solve");
+        constraintList.forEach(tConstraint -> tConstraint.reduceDomain(domainMap));
 
-        Optional<Map.Entry<Variable<T>, Domain<T>>> optionalEntry = remains.entrySet().stream().findFirst();
-        if(optionalEntry.isEmpty())
-            return null;
+        Variable<T> next = null;
+        int nextSize = Integer.MAX_VALUE;
+        int calcul = 0;
 
-        Map.Entry<Variable<T>, Domain<T>> pair = optionalEntry.get();
-        remains.remove(pair.getKey());
-
-        boolean empty = remains.isEmpty();
-
-        for (T t : pair.getValue().getPossibility()){
-
-            objectMap.put(pair.getKey().getVarName(), t);
-
-            if(!empty) {
-                Map<String, T> mayResult = solve(new HashMap<>(remains), objectMap);
-                if(mayResult != null)
-                    return mayResult;
+        for(Map.Entry<Variable<T>, Domain<T>> entry : domainMap.getDomainMap().entrySet()){
+            int size = entry.getValue().getPossibility().size();
+            if(size == 1) {
+                entry.getKey().setCalculatedValue(entry.getValue().getPossibility().getFirst());
+                calcul++;
+                continue;
             }
+            if(size == 0)
+                return false;
+            if(size<nextSize){
+                nextSize = size;
+                next = entry.getKey();
+            }
+        }
 
-            boolean failed = false;
+        if(calcul == domainMap.getDomainMap().size())
+            return true;
 
-            for(Constraint<T> constraint : constraintList){
-                if(!constraint.satisfied(objectMap)) {
-                    failed = true;
-                    break;
+        if(next == null)
+            return false;
+
+        return solve(next, domainMap);
+    }
+
+    public boolean solve(Variable<T> variable, DomainMap<T> domain){
+
+        Domain<T> tDomain = domain.getAndRemoveDomain(variable);
+
+        for (T t : tDomain.getPossibility()){
+
+            variable.setCalculatedValue(t);
+            if(domain.getDomainMap().isEmpty()){
+                for(Constraint<T> tConstraint : constraintList){
+                    if(!tConstraint.satisfied()){
+                        return false;
+                    }
                 }
             }
 
-            if(!failed)
-                return objectMap;
+            if(reduceAndSolve(domain.duplicate()))
+                return true;
 
         }
 
-
-         */
-        return null;
+        return false;
     }
 
-    public Map<String, T> trySolve(){
+    public DomainMap<T> getDomainMap(){
+        return this.domainMap;
+    }
 
-        return this.solve(this.domainMap.duplicate(), new HashMap<>());
+    public boolean trySolve(){
+
+        this.domainMap.getDomainMap().keySet().forEach(Variable::invalidate);
+        return this.reduceAndSolve(this.domainMap.duplicate());
 
     }
 

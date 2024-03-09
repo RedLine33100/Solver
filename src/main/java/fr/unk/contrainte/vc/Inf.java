@@ -41,9 +41,7 @@ public class Inf<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
-        DomainMap<T> newDomain = domainMap.duplicate();
-        return new ArrayList<>(){{add(newDomain);}};
+    public void reduceDomain(DomainMap<T> domainMap){
     }
 
 }

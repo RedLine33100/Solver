@@ -7,31 +7,26 @@ import java.util.Map;
 
 public class DomainMap<T> {
 
-    Map<String, Domain<T>> uknVariables = new HashMap<>();
+    Map<Variable<T>, Domain<T>> uknVariables = new HashMap<>();
 
-    public Map<String, Domain<T>> getDomainMap(){
+    public Map<Variable<T>, Domain<T>> getDomainMap(){
         return uknVariables;
     }
 
-    private void addDomain(String variable, Domain<T> domain){
-        this.uknVariables.remove(variable);
+    public void addDomain(Variable<T> variable, Domain<T> domain){
         this.uknVariables.put(variable, domain);
     }
 
-    public void addDomain(Variable<T> variable, Domain<T> domain){
-        this.uknVariables.put(variable.getVarName(), domain);
-    }
-
     public Domain<T> getDomain(Variable<T> variable){
-        return this.uknVariables.get(variable.getVarName());
-    }
-
-    public Domain<T> getDomain(String variable){
         return this.uknVariables.get(variable);
     }
 
+    public Domain<T> getAndRemoveDomain(Variable<T> variable){
+        return this.uknVariables.remove(variable);
+    }
+
     public void removeDomain(Variable<T> variable){
-        this.uknVariables.remove(variable.getVarName());
+        this.uknVariables.remove(variable);
     }
 
     public DomainMap<T> duplicate(){

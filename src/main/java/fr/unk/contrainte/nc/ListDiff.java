@@ -43,8 +43,7 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
-        DomainMap<T> newDomain = domainMap.duplicate();
+    public void reduceDomain(DomainMap<T> domainMap){
 
         for(VarGetter<T> variable : this.variableList){
             if(variable.getValue() == null)
@@ -53,7 +52,7 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
                 if(secVariable.getValue() != null)
                     continue;
                 if(variable.isVar())
-                    if(((Variable<T>)variable).getVarName().equals(secVariable.getVarName()))
+                    if(variable.getVarName().equals(secVariable.getVarName()))
                         continue;
 
                 if(secVariable.isCalcul()){
@@ -64,7 +63,6 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
             }
         }
 
-        return new ArrayList<>(){{add(newDomain);}};
     }
 
 }

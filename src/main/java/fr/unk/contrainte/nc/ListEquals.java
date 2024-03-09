@@ -41,8 +41,7 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public List<DomainMap<T>> reduceDomain(DomainMap<T> domainMap){
-        DomainMap<T> newDomain = domainMap.duplicate();
+    public void reduceDomain(DomainMap<T> domainMap){
 
         for(VarGetter<T> variable : this.variableList){
             if(variable.getValue() == null)
@@ -64,7 +63,6 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
             }
         }
 
-        return new ArrayList<>(){{add(newDomain);}};
     }
 
 }
