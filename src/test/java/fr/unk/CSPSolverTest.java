@@ -90,8 +90,8 @@ class CSPSolverTest {
             }
 
             @Override
-            public void reduceDomain(DomainMap<Integer> domainMap) {
-
+            public boolean reduceDomain(DomainMap<Integer> domainMap) {
+                return true;
             }
 
         };

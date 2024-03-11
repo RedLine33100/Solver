@@ -70,27 +70,25 @@ public class CSPSolver<T> {
         for (T t : tDomain.getPossibility()){
 
             variable.setValue(t);
-            boolean valid = true;
-
-            for(Constraint<T> constraint : variable.getConstrainst()){
-                Boolean result = constraint.trySatisfied();
-                if(result == null)
-                    continue;
-                if(!result) {
-                    valid = false;
-                    break;
-                }
-            }
-
-            if(!valid)
-                continue;
 
             DomainMap<T> newDomain = domain.duplicate();
 
             List<T> domainList = newDomain.getDomain(variable).getPossibility();
             domainList.clear();
             domainList.add(t);
-            variable.getConstrainst().forEach(constraint -> constraint.reduceDomain(newDomain));
+
+            boolean res = true;
+
+            for(Constraint<T> constraint : variable.getConstrainst()) {
+                if (!constraint.reduceDomain(newDomain)) {
+                    System.out.println("test");
+                    res = false;
+                    break;
+                }
+            }
+
+            if(!res)
+                continue;
 
             if(reduceAndSolve(newDomain))
                 return true;
@@ -108,6 +106,12 @@ public class CSPSolver<T> {
         });
 
         this.constraintList.forEach(Constraint::registerToVar);
+
+        for(Constraint<T> constraint : this.constraintList) {
+            if (!constraint.reduceDomain(domainMap)) {
+                return null;
+            }
+        }
 
         if (!this.reduceAndSolve(this.domainMap.duplicate()))
             return null;

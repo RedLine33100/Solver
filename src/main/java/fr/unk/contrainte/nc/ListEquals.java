@@ -42,7 +42,7 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public void reduceDomain(DomainMap<T> domainMap) {
+    public boolean reduceDomain(DomainMap<T> domainMap) {
 
         List<Getter<T>> variableList = new ArrayList<>(this.variableList);
 
@@ -79,10 +79,14 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
                 removeDomain.getPossibility().clear();
                 if (as)
                     removeDomain.getPossibility().add(removeVal);
+                else
+                    return false;
 
             }
 
         }
+
+        return true;
 
     }
 

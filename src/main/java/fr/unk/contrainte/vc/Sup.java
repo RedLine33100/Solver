@@ -39,14 +39,14 @@ public class Sup<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public void reduceDomain(DomainMap<T> domainMap){
+    public boolean reduceDomain(DomainMap<T> domainMap){
 
         T fValue = fv.getValue(), sValue = sv.getValue();
         if(fValue == null && sValue == null)
-            return;
+            return true;
 
         if(fValue != null && sValue != null)
-            return;
+            return true;
 
         Variable<T> sVar = null;
 
@@ -55,21 +55,25 @@ public class Sup<T extends Comparable<T>> extends Constraint<T> {
                 if (sVar == null)
                     sVar = checkVar;
                 else
-                    return;
+                    return true;
             }
         }
 
         if (sVar == null)
-            return;
+            return true;
 
         Domain<T> sDomain = domainMap.getDomain(sVar);
 
         for(T possibility : sDomain.duplicate().getPossibility()){
             sVar.setValue(possibility);
-            if(!satisfied())
+            if(!satisfied()) {
                 sDomain.getPossibility().remove(possibility);
+                if(sDomain.getPossibility().isEmpty())
+                    return false;
+            }
         }
 
+        return true;
     }
 
 }

@@ -63,7 +63,12 @@ public abstract class Constraint<T> {
         return rightVar;
     }
 
-    public abstract void reduceDomain(DomainMap<T> domainMap);
+    /**
+     *
+     * @param domainMap
+     * @return false if this reduction remove all var possibility
+     */
+    public abstract boolean reduceDomain(DomainMap<T> domainMap);
 
     public void registerToVar(){
         this.leftVar.forEach(variable -> variable.getConstrainst().add(this));

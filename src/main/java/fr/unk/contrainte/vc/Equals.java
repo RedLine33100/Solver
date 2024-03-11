@@ -37,10 +37,10 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
         return f1.compareTo(f2) == 0;
     }
 
-    private void red(DomainMap<T> domainMap, Getter<T> alreadySet, Variable<T> notSet){
+    private boolean red(DomainMap<T> domainMap, Getter<T> alreadySet, Variable<T> notSet){
 
         if(notSet.getValue() != null || alreadySet.getValue() == null)
-            return;
+            return true;
 
         List<T> domainList;
         T toRemove = alreadySet.getValue();
@@ -49,7 +49,7 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
 
             Pair<Variable<T>, T> pair = ((Calcul<T>) notSet).getRevert(alreadySet.getValue());
             if(pair == null)
-                return;
+                return true;
             domainList = domainMap.getDomain(pair.getL()).getPossibility();
             toRemove = pair.getR();
 
@@ -61,15 +61,21 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
         if (contains)
             domainList.add(toRemove);
 
+        return contains;
+
     }
 
     @Override
-    public void reduceDomain(DomainMap<T> domainMap){
+    public boolean reduceDomain(DomainMap<T> domainMap){
 
         if(sv instanceof Variable<T>)
-            this.red(domainMap, fv, (Variable<T>) sv);
+            if(!this.red(domainMap, fv, (Variable<T>) sv))
+                return false;
+
         if(fv instanceof Variable<T>)
-            this.red(domainMap, sv, (Variable<T>) fv);
+            return this.red(domainMap, sv, (Variable<T>) fv);
+
+        return true;
 
     }
 

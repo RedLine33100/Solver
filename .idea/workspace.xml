@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Optimisation du Solver">
+    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Optimisation du Solver - arret en pleine iteration si invalide">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/bc/And.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/bc/Nor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/bc/Or.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" afterDir="false" />
@@ -18,22 +15,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/CSPSolverTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/CSPSolverTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/bc/AndTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/bc/NorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/bc/OrTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListDiffTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListDiffTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListEqualsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListEqualsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/DiffTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/DiffTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/EqualsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/EqualsTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/InfTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/InfTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/SupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/SupTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/DoubleDomainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/DoubleDomainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/FloatDomainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/FloatDomainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/IntDomainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/IntDomainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/utils/PairTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/utils/PairTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPDoubleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPDoubleTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPFloatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPFloatTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPIntTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPIntTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +169,7 @@
       <workItem from="1710020990908" duration="3131000" />
       <workItem from="1710028326744" duration="2812000" />
       <workItem from="1710151010592" duration="6405000" />
-      <workItem from="1710188936099" duration="4454000" />
+      <workItem from="1710188936099" duration="6375000" />
     </task>
     <task id="LOCAL-00001" summary="Removed files, fixed test and error on test">
       <option name="closed" value="true" />
@@ -214,7 +195,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710163382334</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Optimisation du Solver - arret en pleine iteration si invalide">
+      <option name="closed" value="true" />
+      <created>1710193431198</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710193431198</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,6 +213,7 @@
     <MESSAGE value="Removed files, fixed test and error on test" />
     <MESSAGE value="Switched from VarGetter.java to Getter.java for clearance" />
     <MESSAGE value="Optimisation du Solver" />
-    <option name="LAST_COMMIT_MESSAGE" value="Optimisation du Solver" />
+    <MESSAGE value="Optimisation du Solver - arret en pleine iteration si invalide" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimisation du Solver - arret en pleine iteration si invalide" />
   </component>
 </project>
