@@ -20,12 +20,12 @@ class ListEqualsTest {
 
     private static ListEquals<Integer> emptyListEquals;
     private static ListEquals<Integer> singleListEquals;
-    private static  ListEquals<Integer> equalListEquals;
+    private static ListEquals<Integer> equalListEquals;
     private static ListEquals<Integer> diffListEquals;
 
     @BeforeAll
     static void setUpBeforeClass() {
-        System.out.println ("Avant toutes les executions");
+        System.out.println("Avant toutes les executions");
         List<Getter<Integer>> emptyList = new ArrayList<>();
         emptyListEquals = new ListEquals<>(emptyList);
         List<Getter<Integer>> singleList = List.of(singleVariable);
@@ -38,17 +38,17 @@ class ListEqualsTest {
 
     @AfterAll
     static void tearDownAfterClass() {
-        System.out.println ("Apres toutes les executions");
+        System.out.println("Apres toutes les executions");
     }
 
     @BeforeEach
     void setUp() {
-        System.out.println ("avant une fonction sous test");
+        System.out.println("avant une fonction sous test");
     }
 
     @AfterEach
     void tearDown() {
-        System.out.println ("apres une fonction sous test");
+        System.out.println("apres une fonction sous test");
     }
 
     @Test

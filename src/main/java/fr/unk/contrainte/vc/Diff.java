@@ -29,11 +29,11 @@ public class Diff<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied() {
+    public Boolean trySatisfied() {
         T f1 = fv.getValue();
         T f2 = sv.getValue();
         if(f1 == null || f2 == null)
-            return false;
+            return null;
         return f1.compareTo(f2) != 0;
     }
 

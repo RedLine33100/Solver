@@ -6,8 +6,6 @@ import fr.unk.domaine.DomainMap;
 import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 
-import java.util.List;
-
 public class Inf<T extends Comparable<T>> extends Constraint<T> {
 
     final Getter<T> fv;
@@ -31,11 +29,11 @@ public class Inf<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied() {
+    public Boolean trySatisfied() {
         T f1 = fv.getValue();
         T f2 = sv.getValue();
         if(f1 == null || f2 == null)
-            return false;
+            return null;
         int val = f1.compareTo(f2);
         return equals ? val <= 0 : val < 0;
     }
@@ -50,12 +48,20 @@ public class Inf<T extends Comparable<T>> extends Constraint<T> {
         if(fValue != null && sValue != null)
             return;
 
-        List<Variable<T>> getters = Constraint.getTotalUnknown((fValue == null) ? this.getVarOnLeft() : this.getVarOnRight());
+        Variable<T> sVar = null;
 
-        if(getters.size() != 1)
+        for (Variable<T> checkVar : (fValue == null) ? this.getVarOnLeft() : this.getVarOnRight()) {
+            if (checkVar.getValue() == null) {
+                if (sVar == null)
+                    sVar = checkVar;
+                else
+                    return;
+            }
+        }
+
+        if (sVar == null)
             return;
 
-        Variable<T> sVar = getters.getFirst();
         Domain<T> sDomain = domainMap.getDomain(sVar);
 
         for(T possibility : sDomain.duplicate().getPossibility()){

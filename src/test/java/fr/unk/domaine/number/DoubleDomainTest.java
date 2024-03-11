@@ -25,7 +25,7 @@ class DoubleDomainTest {
         do {
             double5 = random.nextInt();
         } while (double5 > double4 || double5 < double3);
-        DoubleDomain doubleDomain = new DoubleDomain(double3,double4,1.0);
+        DoubleDomain doubleDomain = new DoubleDomain(double3, double4, 1.0);
         List<Double> list = doubleDomain.getPossibility();
         assertEquals(((double4 - double3)) + 1, list.size());
         assertFalse(list.contains(double1));

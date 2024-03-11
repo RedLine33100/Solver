@@ -11,22 +11,22 @@ class IntDomainTest {
 
     @BeforeAll
     static void setUpBeforeClass() {
-        System.out.println ("Avant toutes les executions");
+        System.out.println("Avant toutes les executions");
     }
 
     @AfterAll
     static void tearDownAfterClass() {
-        System.out.println ("Apres toutes les executions");
+        System.out.println("Apres toutes les executions");
     }
 
     @BeforeEach
     void setUp() {
-        System.out.println ("avant une fonction sous test");
+        System.out.println("avant une fonction sous test");
     }
 
     @AfterEach
     void tearDown() {
-        System.out.println ("apres une fonction sous test");
+        System.out.println("apres une fonction sous test");
     }
 
     @Test
@@ -89,7 +89,7 @@ class IntDomainTest {
         do {
             int5 = random.nextInt();
         } while (int5 < int3 || int5 > int4);
-        IntDomain intDomain = new IntDomain(int3,int4,1);
+        IntDomain intDomain = new IntDomain(int3, int4, 1);
         List<Integer> list = intDomain.getPossibility();
         assertEquals(((int4 - int3)) + 1, list.size());
         assertFalse(list.contains(int1));

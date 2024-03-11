@@ -4,13 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Switched from VarGetter.java to Getter.java for clearance">
+    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Optimisation du Solver">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/bc/And.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/bc/Nor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/bc/Or.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Equals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Equals.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Variable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/CSPSolverTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/CSPSolverTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/bc/AndTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/bc/NorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/bc/OrTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListDiffTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListDiffTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListEqualsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/nc/ListEqualsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/DiffTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/DiffTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/EqualsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/EqualsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/InfTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/InfTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/SupTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/SupTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/DoubleDomainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/DoubleDomainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/FloatDomainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/FloatDomainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/IntDomainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/domaine/number/IntDomainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/utils/PairTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/utils/PairTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPDoubleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPDoubleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPFloatTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPFloatTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPIntTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/variable/numvar/CSPIntTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +88,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.CSPSolverTest">
+  <component name="RunManager" selected="JUnit.CSPSolverTest.testSolveStructurel">
     <configuration name="CSPSolverTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CSP" />
       <extension name="coverage">
@@ -81,7 +104,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CSPSolverTest.testAddUnknownVariable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CSPSolverTest.testSolveStructurel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CSP" />
       <extension name="coverage">
         <pattern>
@@ -91,7 +114,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="fr.unk" />
       <option name="MAIN_CLASS_NAME" value="fr.unk.CSPSolverTest" />
-      <option name="METHOD_NAME" value="testAddUnknownVariable" />
+      <option name="METHOD_NAME" value="testSolveStructurel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -112,17 +135,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PairTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ListDiffTest.testSatisfied" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CSP" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="fr.unk.utils.*" />
+          <option name="PATTERN" value="fr.unk.contrainte.nc.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="fr.unk.utils" />
-      <option name="MAIN_CLASS_NAME" value="fr.unk.utils.PairTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="fr.unk.contrainte.nc" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.contrainte.nc.ListDiffTest" />
+      <option name="METHOD_NAME" value="testSatisfied" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -144,11 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CSPSolverTest.testSolveStructurel" />
+        <item itemvalue="JUnit.ListDiffTest.testSatisfied" />
         <item itemvalue="JUnit.CSPSolverTest" />
         <item itemvalue="JUnit.VariableTest" />
         <item itemvalue="JUnit.GetterTest" />
-        <item itemvalue="JUnit.PairTest" />
-        <item itemvalue="JUnit.CSPSolverTest.testAddUnknownVariable" />
       </list>
     </recent_temporary>
   </component>
@@ -163,7 +187,8 @@
       <workItem from="1710020006080" duration="975000" />
       <workItem from="1710020990908" duration="3131000" />
       <workItem from="1710028326744" duration="2812000" />
-      <workItem from="1710151010592" duration="5776000" />
+      <workItem from="1710151010592" duration="6405000" />
+      <workItem from="1710188936099" duration="4454000" />
     </task>
     <task id="LOCAL-00001" summary="Removed files, fixed test and error on test">
       <option name="closed" value="true" />
@@ -181,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710026921258</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Optimisation du Solver">
+      <option name="closed" value="true" />
+      <created>1710163382334</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710163382334</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +223,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Removed files, fixed test and error on test" />
     <MESSAGE value="Switched from VarGetter.java to Getter.java for clearance" />
-    <option name="LAST_COMMIT_MESSAGE" value="Switched from VarGetter.java to Getter.java for clearance" />
+    <MESSAGE value="Optimisation du Solver" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimisation du Solver" />
   </component>
 </project>

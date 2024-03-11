@@ -8,8 +8,8 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class PairTest <L,R>{
-//Voir si dans paire il peut y avoir des Opérateur//
+class PairTest<L, R> {
+    //Voir si dans paire il peut y avoir des Opérateur//
     @Test
     void testgetL() {
         Random random = new Random();
@@ -29,9 +29,9 @@ class PairTest <L,R>{
         assertNotNull(doubleactuel);
         assertNotNull(floatactuel);
         assertNotNull(intactuel);
-        assertEquals(doubleactuel,L_double);
-        assertEquals(floatactuel,L_float);
-        assertEquals(intactuel,L_int);
+        assertEquals(doubleactuel, L_double);
+        assertEquals(floatactuel, L_float);
+        assertEquals(intactuel, L_int);
     }
 
     @Test
@@ -55,8 +55,8 @@ class PairTest <L,R>{
         assertNotNull(doubleactuel);
         assertNotNull(floatactuel);
         assertNotNull(intactuel);
-        assertEquals(doubleactuel,R_double);
-        assertEquals(floatactuel,R_float);
-        assertEquals(intactuel,R_int);
+        assertEquals(doubleactuel, R_double);
+        assertEquals(floatactuel, R_float);
+        assertEquals(intactuel, R_int);
     }
 }

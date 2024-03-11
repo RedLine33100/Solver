@@ -17,22 +17,22 @@ class ListDiffTest {
 
     @BeforeAll
     static void setUpBeforeClass() {
-        System.out.println ("Avant toutes les executions");
+        System.out.println("Avant toutes les executions");
     }
 
     @AfterAll
     static void tearDownAfterClass() {
-        System.out.println ("Apres toutes les executions");
+        System.out.println("Apres toutes les executions");
     }
 
     @BeforeEach
     void setUp() {
-        System.out.println ("avant une fonction sous test");
+        System.out.println("avant une fonction sous test");
     }
 
     @AfterEach
     void tearDown() {
-        System.out.println ("apres une fonction sous test");
+        System.out.println("apres une fonction sous test");
     }
 
     @Test
@@ -49,7 +49,7 @@ class ListDiffTest {
         assertTrue(constraint.satisfied());
 
         // Cas où la liste de variables est vide : vérifie si la méthode retourne true dans ce cas
-        ListDiff<Integer> constraintEmpty = new ListDiff<>(Collections.emptyList ());
+        ListDiff<Integer> constraintEmpty = new ListDiff<>(Collections.emptyList());
         assertTrue(constraintEmpty.satisfied());
 
         // Cas où la liste de variables contient un seul élément : vérifie si la méthode retourne true dans ce cas

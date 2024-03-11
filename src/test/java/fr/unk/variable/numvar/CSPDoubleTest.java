@@ -25,7 +25,8 @@ class CSPDoubleTest {
 
     @Test
     void testdivide() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {};
+        CSPDouble cspDouble = new CSPDouble("myVar") {
+        };
         cspDouble.setValue(11.0);
         cspDouble = cspDouble.divide(new Getter<>(5.5));
         assertEquals(2, cspDouble.getValue());
@@ -33,7 +34,8 @@ class CSPDoubleTest {
 
     @Test
     void testmultiply() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {};
+        CSPDouble cspDouble = new CSPDouble("myVar") {
+        };
         cspDouble.setValue(2.0);
         cspDouble = cspDouble.multiply(new Getter<>(5.5));
         assertEquals(11, cspDouble.getValue());
@@ -41,7 +43,8 @@ class CSPDoubleTest {
 
     @Test
     void testmodulo() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {};
+        CSPDouble cspDouble = new CSPDouble("myVar") {
+        };
         cspDouble.setValue(21.5);
         cspDouble = cspDouble.modulo(new Getter<>(5.0));
         assertEquals(1.5, cspDouble.getValue());
@@ -49,7 +52,8 @@ class CSPDoubleTest {
 
     @Test
     void testgetValue() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {};
+        CSPDouble cspDouble = new CSPDouble("myVar") {
+        };
         cspDouble.setValue(2.0);
         assertEquals(2.0, cspDouble.getValue());
     }

@@ -1,12 +1,14 @@
 package fr.unk.contrainte.nc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.Domain;
 import fr.unk.domaine.DomainMap;
 import fr.unk.util.Pair;
 import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 import fr.unk.variable.numvar.Calcul;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
@@ -19,21 +21,27 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied() {
+    public Boolean trySatisfied() {
 
-        List<Variable<T>> variableList = getVarOnLeft();
+        List<Getter<T>> variableList = new ArrayList<>(this.variableList);
 
-        for(int i = 0; i<variableList.size(); i++) {
-            T vi = variableList.get(i).getValue();
-            if(vi == null)
-                return false;
-            for (int y = i + 1; y < variableList.size(); y++) {
-                T variable = variableList.get(y).getValue();
-                if (variable == null)
+        while (!variableList.isEmpty()) {
+
+            T fVal = variableList.removeFirst().getValue();
+            if (fVal == null)
+                return null;
+
+            for (Getter<T> sVar : variableList) {
+
+                T sVal = sVar.getValue();
+                if (sVal == null)
+                    return null;
+
+                if (fVal.compareTo(sVal) == 0)
                     return false;
-                if (vi.compareTo(variable) == 0)
-                    return false;
+
             }
+
         }
 
         return true;
@@ -42,22 +50,40 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     @Override
     public void reduceDomain(DomainMap<T> domainMap){
 
-        for(Getter<T> variable : this.variableList){
-            if(variable.getValue() == null)
-                continue;
-            for(Variable<T> secVariable : this.getVarOnLeft()){
-                if(secVariable.getValue() != null)
-                    continue;
-                if(variable.isVar())
-                    if(((Variable<T>)variable).getVarName().equals(secVariable.getVarName()))
-                        continue;
+        List<Getter<T>> variableList = new ArrayList<>(this.variableList);
 
-                if(secVariable.isCalcul()){
-                    Pair<Variable<T>, T> revertValue = ((Calcul<T>)secVariable).getRevert(variable.getValue());
-                    domainMap.getDomain(revertValue.getL()).getPossibility().remove(revertValue.getR());
-                }else
-                    domainMap.getDomain(secVariable).getPossibility().remove(variable.getValue());
+        while (!variableList.isEmpty()) {
+
+            Getter<T> fGetter = variableList.removeFirst();
+            T fVal = fGetter.getValue();
+
+            if (fVal == null)
+                continue;
+
+            for (Getter<T> sGetter : variableList) {
+
+                if (!sGetter.isVar())
+                    continue;
+
+                Domain<T> removeDomain;
+                T removeVal;
+
+                if (sGetter.isCalcul()) {
+                    Pair<Variable<T>, T> revertValue = ((Calcul<T>) sGetter).getRevert(fVal);
+                    removeDomain = domainMap.getDomain(revertValue.getL());
+                    removeVal = revertValue.getR();
+                } else {
+                    removeDomain = domainMap.getDomain((Variable<T>) sGetter);
+                    removeVal = fVal;
+                }
+
+                if (removeDomain == null)
+                    continue;
+
+                removeDomain.getPossibility().remove(removeVal);
+
             }
+
         }
 
     }

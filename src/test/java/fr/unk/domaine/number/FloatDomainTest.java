@@ -26,7 +26,7 @@ class FloatDomainTest {
         do {
             float5 = random.nextFloat();
         } while (float5 > float4 || float5 < float3 || float5 % 1.0f != 0);
-        FloatDomain floatDomain = new FloatDomain(float3,float4,1.0f);
+        FloatDomain floatDomain = new FloatDomain(float3, float4, 1.0f);
         List<Float> list = floatDomain.getPossibility();
         assertEquals(((float4 - float3)) + 1, list.size());
         assertFalse(list.contains(float1));

@@ -29,11 +29,11 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
     }
 
     @Override
-    public boolean satisfied() {
+    public Boolean trySatisfied() {
         T f1 = fv.getValue();
         T f2 = sv.getValue();
         if(f1 == null || f2 == null)
-            return false;
+            return null;
         return f1.compareTo(f2) == 0;
     }
 
@@ -56,8 +56,10 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
         }else
             domainList = domainMap.getDomain(notSet).getPossibility();
 
+        boolean contains = domainList.contains(toRemove);
         domainList.clear();
-        domainList.add(toRemove);
+        if (contains)
+            domainList.add(toRemove);
 
     }
 

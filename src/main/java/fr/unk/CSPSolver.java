@@ -53,10 +53,6 @@ public class CSPSolver<T> {
         }
 
         if (calcul != 0 && calcul == domainMap.getMap().size()) {
-            for(Constraint<T> constraint : this.constraintList){
-                if(!constraint.satisfied())
-                    return false;
-            }
             return true;
         }
 
@@ -74,6 +70,20 @@ public class CSPSolver<T> {
         for (T t : tDomain.getPossibility()){
 
             variable.setValue(t);
+            boolean valid = true;
+
+            for(Constraint<T> constraint : variable.getConstrainst()){
+                Boolean result = constraint.trySatisfied();
+                if(result == null)
+                    continue;
+                if(!result) {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if(!valid)
+                continue;
 
             DomainMap<T> newDomain = domain.duplicate();
 

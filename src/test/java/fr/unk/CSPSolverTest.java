@@ -17,22 +17,22 @@ class CSPSolverTest {
     //Ce n'est pas Frédéric qui la fait donc je sais pas
     @BeforeAll
     static void setUpBeforeClass() {
-        System.out.println ("Avant toutes les executions");
+        System.out.println("Avant toutes les executions");
     }
 
     @AfterAll
     static void tearDownAfterClass() {
-        System.out.println ("Apres toutes les executions");
+        System.out.println("Apres toutes les executions");
     }
 
     @BeforeEach
     void setUp() {
-        System.out.println ("avant une fonction sous test");
+        System.out.println("avant une fonction sous test");
     }
 
     @AfterEach
     void tearDown() {
-        System.out.println ("apres une fonction sous test");
+        System.out.println("apres une fonction sous test");
     }
 
     @Test
@@ -44,7 +44,7 @@ class CSPSolverTest {
         // Cas où une seule variable inconnue sans contrainte : vérifie si la méthode solve() renvoie la bonne solution dans ce cas
         Variable<Integer> var1 = new Variable<>("x");
         IntDomain domain1 = new IntDomain(0, 10, 1);
-        solver1.addConstraint (new Equals<> (var1, 5));
+        solver1.addConstraint(new Equals<>(var1, 5));
         solver1.addUnknownVariable(var1, domain1);
         Map<String, Integer> solution1 = solver1.trySolve();
         assertNotNull(solution1);
@@ -81,11 +81,11 @@ class CSPSolverTest {
     }
 
     @Test
-    void testaddConstraint(){
+    void testaddConstraint() {
         CSPSolver<Integer> solver = new CSPSolver<>();
         Constraint<Integer> constraint = new Constraint<>(new ArrayList<>(), new ArrayList<>()) {
             @Override
-            public boolean satisfied() {
+            public Boolean trySatisfied() {
                 return false;
             }
 
@@ -99,12 +99,13 @@ class CSPSolverTest {
         assertEquals(1, solver.constraintList.size());
         assertEquals(constraint, solver.constraintList.getFirst());
     }
+
     @Test
     public void testAddUnknownVariable() {
         CSPSolver<Integer> solver = new CSPSolver<>();
 
         Variable<Integer> variable = new Variable<>("myvar");
-        IntDomain domain = new IntDomain(1,100,1);
+        IntDomain domain = new IntDomain(1, 100, 1);
         solver.addUnknownVariable(variable, domain);
         assertTrue(solver.hasUnknownVariable(variable));
         assertEquals(domain, solver.getDefinedDomain(variable));
@@ -120,17 +121,17 @@ class CSPSolverTest {
         cspSolver.addConstraint(new Equals<>(cspInt, 3));
         cspSolver.addConstraint(new Equals<>(cspInt2.add(2), cspInt));
 
-        cspSolver.addUnknownVariable(cspInt, new IntDomain(0,3,1));
-        cspSolver.addUnknownVariable(cspInt2, new IntDomain(0,3,1));
+        cspSolver.addUnknownVariable(cspInt, new IntDomain(0, 3, 1));
+        cspSolver.addUnknownVariable(cspInt2, new IntDomain(0, 3, 1));
         Map<String, Integer> result = cspSolver.trySolve();
 
-        if(result == null){
+        if (result == null) {
             System.out.println("None");
             return;
         }
 
         for (Map.Entry<String, Integer> entry : result.entrySet())
-            System.out.println(entry.getKey()+": "+entry.getValue());
+            System.out.println(entry.getKey() + ": " + entry.getValue());
 
     }
 }

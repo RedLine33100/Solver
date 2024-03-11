@@ -20,7 +20,7 @@ public abstract class Constraint<T> {
             return variableList;
 
         for(Getter<T> getter : getterList){
-            if(!(getter instanceof Variable<T>))
+            if (!getter.isVar())
                 continue;
             variableList.addAll(((Variable<T>) getter).getVariableList());
         }
@@ -28,16 +28,6 @@ public abstract class Constraint<T> {
         return variableList;
 
     }
-
-    public static <T> List<Variable<T>> getTotalUnknown(Collection<Variable<T>> unknown){
-        List<Variable<T>> unknownVar = new ArrayList<>();
-        for(Variable<T> getter : unknown) {
-            if(getter.getValue() == null)
-                unknownVar.add(getter);
-        }
-        return unknownVar;
-    }
-
     public Constraint(List<Getter<T>> leftVar, List<Getter<T>> rightVar){
         this.leftVar = toVariableList(leftVar);
         this.rightVar = toVariableList(rightVar);
@@ -57,7 +47,14 @@ public abstract class Constraint<T> {
         }});
     }
 
-    public abstract boolean satisfied();
+    public abstract Boolean trySatisfied();
+
+    public boolean satisfied(){
+        Boolean s = trySatisfied();
+        if(s == null)
+            return false;
+        return s;
+    }
 
     public List<Variable<T>> getVarOnLeft(){
         return leftVar;
