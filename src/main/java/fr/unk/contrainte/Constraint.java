@@ -29,6 +29,15 @@ public abstract class Constraint<T> {
 
     }
 
+    public static <T> List<Variable<T>> getTotalUnknown(Collection<Variable<T>> unknown){
+        List<Variable<T>> unknownVar = new ArrayList<>();
+        for(Variable<T> getter : unknown) {
+            if(getter.getValue() == null)
+                unknownVar.add(getter);
+        }
+        return unknownVar;
+    }
+
     public Constraint(List<Getter<T>> leftVar, List<Getter<T>> rightVar){
         this.leftVar = toVariableList(leftVar);
         this.rightVar = toVariableList(rightVar);
@@ -58,5 +67,10 @@ public abstract class Constraint<T> {
     }
 
     public abstract void reduceDomain(DomainMap<T> domainMap);
+
+    public void registerToVar(){
+        this.leftVar.forEach(variable -> variable.getConstrainst().add(this));
+        this.rightVar.forEach(variable -> variable.getConstrainst().add(this));
+    }
 
 }

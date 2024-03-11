@@ -32,7 +32,6 @@ public class CSPSolver<T> {
     }
 
     public boolean reduceAndSolve(DomainMap<T> domainMap){
-        constraintList.forEach(tConstraint -> tConstraint.reduceDomain(domainMap));
 
         Variable<T> next = null;
         int nextSize = Integer.MAX_VALUE;
@@ -53,31 +52,37 @@ public class CSPSolver<T> {
             }
         }
 
-        if (calcul != 0 && calcul == domainMap.getMap().size())
+        if (calcul != 0 && calcul == domainMap.getMap().size()) {
+            for(Constraint<T> constraint : this.constraintList){
+                if(!constraint.satisfied())
+                    return false;
+            }
             return true;
+        }
 
-        if(next == null)
+        if(next == null) {
             return false;
+        }
 
         return solve(next, domainMap);
     }
 
     private boolean solve(Variable<T> variable, DomainMap<T> domain) {
 
-        Domain<T> tDomain = domain.getAndRemoveDomain(variable);
+        Domain<T> tDomain = domain.getDomain(variable);
 
         for (T t : tDomain.getPossibility()){
 
             variable.setValue(t);
-            if (domain.getMap().isEmpty()) {
-                for(Constraint<T> tConstraint : constraintList){
-                    if(!tConstraint.satisfied()){
-                        return false;
-                    }
-                }
-            }
 
-            if(reduceAndSolve(domain.duplicate()))
+            DomainMap<T> newDomain = domain.duplicate();
+
+            List<T> domainList = newDomain.getDomain(variable).getPossibility();
+            domainList.clear();
+            domainList.add(t);
+            variable.getConstrainst().forEach(constraint -> constraint.reduceDomain(newDomain));
+
+            if(reduceAndSolve(newDomain))
                 return true;
 
         }
@@ -87,7 +92,13 @@ public class CSPSolver<T> {
 
     public Map<String, T> trySolve() {
 
-        this.domainMap.getMap().keySet().forEach(Variable::invalidate);
+        this.domainMap.getMap().keySet().forEach(variable -> {
+            variable.invalidate();
+            variable.getConstrainst().clear();
+        });
+
+        this.constraintList.forEach(Constraint::registerToVar);
+
         if (!this.reduceAndSolve(this.domainMap.duplicate()))
             return null;
 

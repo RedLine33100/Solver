@@ -1,5 +1,7 @@
 package fr.unk.variable;
 
+import fr.unk.contrainte.Constraint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class Variable<T> extends Getter<T> {
     private final String varName;
     private T calculatedValue = null;
     protected final List<Variable<T>> depend = new ArrayList<>();
+    protected final List<Constraint<T>> constraints = new ArrayList<>();
 
     public Variable(String varName) {
         super(null);
@@ -53,6 +56,10 @@ public class Variable<T> extends Getter<T> {
     public Variable<T> addDepend(Variable<T> variable){
         this.depend.add(variable);
         return this;
+    }
+
+    public List<Constraint<T>> getConstrainst(){
+        return this.constraints;
     }
 
 }
