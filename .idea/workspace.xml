@@ -4,25 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Optimisation du Solver - arret en pleine iteration si invalide">
+    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Against optimisation">
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/unk/SudokuSolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/unk/TestSolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Equals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Equals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/CSPSolverTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/CSPSolverTest.java" afterDir="false" />
     </list>
+    <list id="b3b086ed-263f-410f-8357-568edd8e64a1" name="Changes by thoma" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -32,44 +39,77 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;JUnit.CSPDoubleTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CSPFloatTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CSPIntTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CSPSolverTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CSPSolverTest.testAddUnknownVariable.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CSPSolverTest.testSolveStructurel.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CalculTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DiffTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DoubleDomainTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.EqualsTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.FloatDomainTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.GetterTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.InfTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.IntDomainTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ListDiffTest.testSatisfied.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ListEqualsTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.PairTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.SupTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.VarGetterTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.VarGetterTest.isVar.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.VariableTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DM-Reduction&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.SudokuSolver.executor": "Run",
+    "Application.TestSolver.executor": "Run",
+    "JUnit.CSPDoubleTest.executor": "Run",
+    "JUnit.CSPFloatTest.executor": "Run",
+    "JUnit.CSPIntTest.executor": "Run",
+    "JUnit.CSPSolverTest.executor": "Run",
+    "JUnit.CSPSolverTest.testAddUnknownVariable.executor": "Run",
+    "JUnit.CSPSolverTest.testSolveStructurel.executor": "Run",
+    "JUnit.CalculTest.executor": "Run",
+    "JUnit.DiffTest.executor": "Run",
+    "JUnit.DoubleDomainTest.executor": "Run",
+    "JUnit.EqualsTest.executor": "Run",
+    "JUnit.FloatDomainTest.executor": "Run",
+    "JUnit.GetterTest.executor": "Run",
+    "JUnit.InfTest.executor": "Run",
+    "JUnit.IntDomainTest.executor": "Run",
+    "JUnit.ListDiffTest.testSatisfied.executor": "Run",
+    "JUnit.ListEqualsTest.executor": "Run",
+    "JUnit.PairTest.executor": "Run",
+    "JUnit.SupTest.executor": "Run",
+    "JUnit.VarGetterTest.executor": "Run",
+    "JUnit.VarGetterTest.isVar.executor": "Run",
+    "JUnit.VariableTest.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "DM-Reduction",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="JUnit.CSPSolverTest.testSolveStructurel">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fr.unk" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.SudokuSolver">
+    <configuration name="SudokuSolver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.unk.SudokuSolver" />
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestSolver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.unk.TestSolver" />
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CSPSolverTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CSP" />
       <extension name="coverage">
@@ -101,21 +141,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GetterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="CSP" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fr.unk.variable.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="fr.unk.variable" />
-      <option name="MAIN_CLASS_NAME" value="fr.unk.variable.GetterTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ListDiffTest.testSatisfied" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CSP" />
       <extension name="coverage">
@@ -132,28 +157,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VariableTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="CSP" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="fr.unk.variable.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="fr.unk.variable" />
-      <option name="MAIN_CLASS_NAME" value="fr.unk.variable.VariableTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SudokuSolver" />
+        <item itemvalue="Application.TestSolver" />
         <item itemvalue="JUnit.CSPSolverTest.testSolveStructurel" />
         <item itemvalue="JUnit.ListDiffTest.testSatisfied" />
         <item itemvalue="JUnit.CSPSolverTest" />
-        <item itemvalue="JUnit.VariableTest" />
-        <item itemvalue="JUnit.GetterTest" />
       </list>
     </recent_temporary>
   </component>
@@ -169,7 +179,11 @@
       <workItem from="1710020990908" duration="3131000" />
       <workItem from="1710028326744" duration="2812000" />
       <workItem from="1710151010592" duration="6405000" />
-      <workItem from="1710188936099" duration="6375000" />
+      <workItem from="1710188936099" duration="6492000" />
+      <workItem from="1710198259871" duration="184000" />
+      <workItem from="1710316303371" duration="600000" />
+      <workItem from="1710326005188" duration="464000" />
+      <workItem from="1710604361543" duration="5078000" />
     </task>
     <task id="LOCAL-00001" summary="Removed files, fixed test and error on test">
       <option name="closed" value="true" />
@@ -203,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710193431198</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Against optimisation">
+      <option name="closed" value="true" />
+      <created>1710195421433</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1710195421433</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,6 +236,7 @@
     <MESSAGE value="Switched from VarGetter.java to Getter.java for clearance" />
     <MESSAGE value="Optimisation du Solver" />
     <MESSAGE value="Optimisation du Solver - arret en pleine iteration si invalide" />
-    <option name="LAST_COMMIT_MESSAGE" value="Optimisation du Solver - arret en pleine iteration si invalide" />
+    <MESSAGE value="Against optimisation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Against optimisation" />
   </component>
 </project>

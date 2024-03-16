@@ -54,9 +54,9 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
             if (fVal == null)
                 continue;
 
-            for (Getter<T> sGetter : variableList) {
+            for (Getter<T> sGetter : this.variableList) {
 
-                if (!sGetter.isVar())
+                if (!sGetter.isVar() || sGetter == fGetter)
                     continue;
 
                 Domain<T> removeDomain;
