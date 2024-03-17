@@ -4,15 +4,16 @@ import fr.unk.contrainte.nc.ListDiff;
 import fr.unk.domaine.number.IntDomain;
 import fr.unk.variable.Getter;
 import fr.unk.variable.numvar.CSPInt;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-public class SudokuSolver {
+public class SudokuSolverTest {
 
-    public static void main(String[] args){
+    @Test
+    public void main(){
 
         CSPSolver<Integer> cspSolver = new CSPSolver<>();
 

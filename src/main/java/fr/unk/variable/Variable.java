@@ -31,6 +31,10 @@ public class Variable<T> extends Getter<T> {
         return true;
     }
 
+    /**
+     * Get all var which value influence its own value
+     * @return list of var
+     */
     public List<Variable<T>> getVariableList(){
         Variable<T> variable = this;
         return new ArrayList<>() {{
@@ -38,13 +42,23 @@ public class Variable<T> extends Getter<T> {
         }};
     }
 
-    public void invalidate(){
+    /**
+     * Invalidate the current value and repeat to all linked var
+     * @return the current var
+     */
+    public Variable<T> invalidate(){
         if(this.calculatedValue == null)
-            return;
+            return this;
         this.depend.forEach(Variable::invalidate);
         this.calculatedValue = null;
+        return this;
     }
 
+    /**
+     * Set the var value
+     * @param t the new value
+     * @return the current var
+     */
     public Variable<T> setValue(T t) {
         if(t == this.calculatedValue)
             return this;
@@ -53,11 +67,20 @@ public class Variable<T> extends Getter<T> {
         return this;
     }
 
+    /**
+     * Add var which depend on the current var
+     * @param variable variable to add
+     * @return the current var
+     */
     public Variable<T> addDepend(Variable<T> variable){
         this.depend.add(variable);
         return this;
     }
 
+    /**
+     * List of all the constraint linked to this var
+     * @return list of all the constraint
+     */
     public List<Constraint<T>> getConstrainst(){
         return this.constraints;
     }

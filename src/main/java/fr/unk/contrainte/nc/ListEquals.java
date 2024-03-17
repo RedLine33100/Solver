@@ -11,6 +11,10 @@ import fr.unk.variable.numvar.Calcul;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Check if a list of value are equals between each other
+ * @param <T> the Type of the value which need to be comparable
+ */
 public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
 
     final List<Getter<T>> variableList;

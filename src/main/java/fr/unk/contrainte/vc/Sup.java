@@ -6,6 +6,10 @@ import fr.unk.domaine.DomainMap;
 import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 
+/**
+ * Check if two value are respectinf the inf or equals to constraint
+ * @param <T> the Type of the value which need to be comparable
+ */
 public class Sup<T extends Comparable<T>> extends Constraint<T> {
 
     final Getter<T> fv;

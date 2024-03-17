@@ -9,6 +9,10 @@ import fr.unk.variable.numvar.Calcul;
 
 import java.util.List;
 
+/**
+ * Check if two value are different
+ * @param <T> the Type of the value which need to be comparable
+ */
 public class Diff<T extends Comparable<T>> extends Constraint<T> {
 
     final Getter<T> fv;

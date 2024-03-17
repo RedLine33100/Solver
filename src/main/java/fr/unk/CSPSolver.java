@@ -15,22 +15,48 @@ public class CSPSolver<T> {
     List<Constraint<T>> constraintList = new ArrayList<>();
     private final DomainMap<T> domainMap = new DomainMap<>();
 
+    /**
+     * Register var and its domain to iterate on when trySolve is called
+     * @param variable the var to iterate on
+     * @param domain the domain of the var
+     */
     public void addUnknownVariable(Variable<T> variable, Domain<T> domain){
         this.domainMap.addDomain(variable, domain);
     }
 
+    /**
+     * Add constraint to solver
+     * @param constraint Constraint to check on while try to solve
+     */
     public void addConstraint(Constraint<T> constraint){
         this.constraintList.add(constraint);
     }
 
+    /**
+     * Check if a var is registered
+     * @param variable the var
+     * @return true if variable is stored
+     */
     public boolean hasUnknownVariable(Variable<T> variable) {
         return this.domainMap.getMap().containsKey(variable);
     }
 
+    /**
+     * Get registered domain for var
+     * @param variable the var of the domain we want
+     * @return the domain of the var
+     */
     public Domain<T> getDefinedDomain(Variable<T> variable) {
         return this.domainMap.getMap().get(variable);
     }
 
+    /**
+     * Attribute value to var and reduce its domain
+     * @param domainMap domain to reduce
+     * @param variable variable which value gonna be attribuated
+     * @param value the new var value
+     * @return True if there is at least one solution
+     */
     public boolean setAndReduce(DomainMap<T> domainMap, Variable<T> variable, T value){
         variable.setValue(value);
         List<T> po = domainMap.getDomain(variable).getPossibility();
@@ -44,6 +70,12 @@ public class CSPSolver<T> {
         return true;
     }
 
+    /**
+     * Function will search for the domain with low amount of possibility and start
+     * the search of a valid value on it
+     * @param domainMap current domain map to search on
+     * @return True if a solution is found
+     */
     public boolean solveDomain(DomainMap<T> domainMap){
 
         Variable<T> next = null;
@@ -80,6 +112,12 @@ public class CSPSolver<T> {
         return solve(next, domainMap);
     }
 
+    /**
+     * Iterate on all domain possibility for the var and call solveDomain for the other domain
+     * @param variable variable to test all possibility
+     * @param domain All of the domain
+     * @return True if solution is found
+     */
     private boolean solve(Variable<T> variable, DomainMap<T> domain) {
 
         Domain<T> tDomain = domain.getDomain(variable);

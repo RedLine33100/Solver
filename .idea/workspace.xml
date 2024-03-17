@@ -4,19 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="Against optimisation">
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/unk/SudokuSolver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/unk/TestSolver.java" afterDir="false" />
+    <list default="true" id="53c8019a-88f2-4066-8a8a-d5ad92dc1934" name="Changes" comment="FIXXXXXXXX">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/SudokuSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/SudokuSolverTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Diff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Equals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Equals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/domaine/Domain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/domaine/Domain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Getter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Getter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Variable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/variable/numvar/Calcul.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/variable/numvar/Calcul.java" afterDir="false" />
     </list>
-    <list id="b3b086ed-263f-410f-8357-568edd8e64a1" name="Changes by thoma" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -27,6 +39,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
@@ -43,6 +58,7 @@
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.SudokuSolver.executor": "Run",
+    "Application.SudokuSolverTest.executor": "Run",
     "Application.TestSolver.executor": "Run",
     "JUnit.CSPDoubleTest.executor": "Run",
     "JUnit.CSPFloatTest.executor": "Run",
@@ -74,18 +90,25 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propCompiler",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="fr.unk" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="fr.unk" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SudokuSolver">
-    <configuration name="SudokuSolver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="fr.unk.SudokuSolver" />
+  <component name="RunManager" selected="Application.SudokuSolverTest">
+    <configuration name="SudokuSolverTest" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.unk.SudokuSolverTest" />
       <module name="CSP" />
       <extension name="coverage">
         <pattern>
@@ -157,9 +180,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.SudokuSolverTest" />
+      <item itemvalue="Application.TestSolver" />
+      <item itemvalue="JUnit.CSPSolverTest" />
+      <item itemvalue="JUnit.CSPSolverTest.testSolveStructurel" />
+      <item itemvalue="JUnit.ListDiffTest.testSatisfied" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.SudokuSolver" />
+        <item itemvalue="Application.SudokuSolverTest" />
         <item itemvalue="Application.TestSolver" />
         <item itemvalue="JUnit.CSPSolverTest.testSolveStructurel" />
         <item itemvalue="JUnit.ListDiffTest.testSatisfied" />
@@ -184,6 +214,8 @@
       <workItem from="1710316303371" duration="600000" />
       <workItem from="1710326005188" duration="464000" />
       <workItem from="1710604361543" duration="5078000" />
+      <workItem from="1710685856871" duration="9000" />
+      <workItem from="1710690548288" duration="2538000" />
     </task>
     <task id="LOCAL-00001" summary="Removed files, fixed test and error on test">
       <option name="closed" value="true" />

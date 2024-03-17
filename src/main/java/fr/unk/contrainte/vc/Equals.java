@@ -9,6 +9,10 @@ import fr.unk.variable.numvar.Calcul;
 
 import java.util.List;
 
+/**
+ * Check if two value are equals
+ * @param <T> the Type of the value which need to be comparable
+ */
 public class Equals<T extends Comparable<T>> extends Constraint<T> {
 
     final Getter<T> fv;

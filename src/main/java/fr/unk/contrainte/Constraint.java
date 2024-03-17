@@ -64,12 +64,15 @@ public abstract class Constraint<T> {
     }
 
     /**
-     *
-     * @param domainMap
+     * Reduce the domain of var in function of the Constraint
+     * @param domainMap All the domain to reduce if needed
      * @return false if this reduction remove all var possibility
      */
     public abstract boolean reduceDomain(DomainMap<T> domainMap);
 
+    /**
+     * Register all of the constraint to the var is checking
+     */
     public void registerToVar(){
         this.leftVar.forEach(variable -> variable.getConstrainst().add(this));
         this.rightVar.forEach(variable -> variable.getConstrainst().add(this));
