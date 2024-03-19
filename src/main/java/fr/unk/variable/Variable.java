@@ -57,14 +57,12 @@ public class Variable<T> extends Getter<T> {
     /**
      * Set the var value
      * @param t the new value
-     * @return the current var
      */
-    public Variable<T> setValue(T t) {
+    public void setValue(T t) {
         if(t == this.calculatedValue)
-            return this;
+            return;
         this.invalidate();
         this.calculatedValue = t;
-        return this;
     }
 
     /**
@@ -72,9 +70,8 @@ public class Variable<T> extends Getter<T> {
      * @param variable variable to add
      * @return the current var
      */
-    public Variable<T> addDepend(Variable<T> variable){
+    public void addDepend(Variable<T> variable){
         this.depend.add(variable);
-        return this;
     }
 
     /**

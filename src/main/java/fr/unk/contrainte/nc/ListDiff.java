@@ -54,11 +54,8 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
     @Override
     public boolean reduceDomain(DomainMap<T> domainMap){
 
-        List<Getter<T>> variableList = new ArrayList<>(this.variableList);
+        for (Getter<T> fGetter : this.variableList) {
 
-        while (!variableList.isEmpty()) {
-
-            Getter<T> fGetter = variableList.removeFirst();
             T fVal = fGetter.getValue();
 
             if (fVal == null)
@@ -66,8 +63,9 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
 
             for (Getter<T> sGetter : this.variableList) {
 
-                if (!sGetter.isVar() || sGetter == fGetter)
+                if (sGetter == fGetter || !sGetter.isVar()) {
                     continue;
+                }
 
                 Domain<T> removeDomain;
                 T removeVal;
@@ -81,12 +79,14 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
                     removeVal = fVal;
                 }
 
-                if (removeDomain == null)
+                if (removeDomain == null) {
                     continue;
+                }
 
                 removeDomain.getPossibility().remove(removeVal);
-                if(removeDomain.getPossibility().isEmpty())
+                if(removeDomain.getPossibility().isEmpty()) {
                     return false;
+                }
 
             }
 

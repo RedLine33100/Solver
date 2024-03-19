@@ -13,7 +13,7 @@ import java.util.Map;
 public class CSPSolver<T> {
 
     List<Constraint<T>> constraintList = new ArrayList<>();
-    private final DomainMap<T> domainMap = new DomainMap<>();
+    private final DomainMap<T> solverDomain = new DomainMap<>();
 
     /**
      * Register var and its domain to iterate on when trySolve is called
@@ -21,7 +21,11 @@ public class CSPSolver<T> {
      * @param domain the domain of the var
      */
     public void addUnknownVariable(Variable<T> variable, Domain<T> domain){
-        this.domainMap.addDomain(variable, domain);
+        this.solverDomain.addDomain(variable, domain);
+    }
+
+    public DomainMap<T> getDomainMap(){
+        return this.solverDomain;
     }
 
     /**
@@ -38,7 +42,7 @@ public class CSPSolver<T> {
      * @return true if variable is stored
      */
     public boolean hasUnknownVariable(Variable<T> variable) {
-        return this.domainMap.getMap().containsKey(variable);
+        return this.solverDomain.getMap().containsKey(variable);
     }
 
     /**
@@ -47,23 +51,23 @@ public class CSPSolver<T> {
      * @return the domain of the var
      */
     public Domain<T> getDefinedDomain(Variable<T> variable) {
-        return this.domainMap.getMap().get(variable);
+        return this.solverDomain.getMap().get(variable);
     }
 
     /**
      * Attribute value to var and reduce its domain
-     * @param domainMap domain to reduce
+     * @param domain domain to reduce
      * @param variable variable which value gonna be attribuated
      * @param value the new var value
      * @return True if there is at least one solution
      */
-    public boolean setAndReduce(DomainMap<T> domainMap, Variable<T> variable, T value){
+    public boolean setAndReduce(DomainMap<T> domain, Variable<T> variable, T value, String mess){
         variable.setValue(value);
-        List<T> po = domainMap.getDomain(variable).getPossibility();
+        List<T> po = domain.getDomain(variable).getPossibility();
         po.clear();
         po.add(value);
         for(Constraint<T> constraint : variable.getConstrainst()) {
-            if (!constraint.reduceDomain(domainMap)) {
+            if (!constraint.reduceDomain(domain)) {
                 return false;
             }
         }
@@ -83,20 +87,25 @@ public class CSPSolver<T> {
         int calcul = 0;
 
         for (Map.Entry<Variable<T>, Domain<T>> entry : domainMap.getMap().entrySet()) {
-            int size = entry.getValue().getPossibility().size();
+            Variable<T> checkVar = entry.getKey();
+            Domain<T> checkDomain = entry.getValue();
+            int size = checkDomain.getPossibility().size();
             if(size == 1) {
-                if(!setAndReduce(domainMap, entry.getKey(), entry.getValue().getPossibility().getFirst()))
-                    return false;
+                T onlyVal = checkDomain.getPossibility().getFirst();
+                if(checkVar.getValue() != onlyVal) {
+                    if (!setAndReduce(domainMap, checkVar, onlyVal, "SD")) {
+                        return false;
+                    }
+                }
                 calcul++;
                 continue;
             }
             if(size == 0) {
-                System.out.println("Size: 0");
                 return false;
             }
             if(size<nextSize){
                 nextSize = size;
-                next = entry.getKey();
+                next = checkVar;
             }
         }
 
@@ -105,7 +114,6 @@ public class CSPSolver<T> {
         }
 
         if(next == null) {
-            System.out.println("Size: 1");
             return false;
         }
 
@@ -126,7 +134,7 @@ public class CSPSolver<T> {
 
             DomainMap<T> newDomain = domain.duplicate();
 
-            boolean res = setAndReduce(newDomain, variable, t);
+            boolean res = setAndReduce(newDomain, variable, t, "SS");
 
             if(!res)
                 continue;
@@ -136,19 +144,27 @@ public class CSPSolver<T> {
 
         }
 
+        variable.setValue(null);
         return false;
     }
 
     public Map<String, T> trySolve() {
 
-        this.domainMap.getMap().keySet().forEach(variable -> {
-            variable.invalidate();
-            variable.getConstrainst().clear();
-        });
+        this.solverDomain.getMap().forEach((variable, domain) -> variable.getConstrainst().clear());
 
         this.constraintList.forEach(Constraint::registerToVar);
 
-        DomainMap<T> newDomain = domainMap.duplicate();
+        DomainMap<T> newDomain = this.solverDomain;
+
+        for(Map.Entry<Variable<T>, Domain<T>> entry : newDomain.getMap().entrySet()){
+            T curVal = entry.getKey().getValue();
+            if(curVal == null)
+                continue;
+
+            if (!this.setAndReduce(newDomain, entry.getKey(), curVal, "TS")) {
+                return null;
+            }
+        }
 
         if (!this.solveDomain(newDomain)) {
             return null;
@@ -161,6 +177,14 @@ public class CSPSolver<T> {
             }
         }};
 
+    }
+
+    public static <T> void printDomain(DomainMap<T> domainMap, Variable<T> variable){
+        System.out.print("Var: "+variable.getVarName()+" po:");
+        for(T i : domainMap.getDomain(variable).getPossibility()){
+            System.out.print(" "+i);
+        }
+        System.out.println(" ");
     }
 
 }

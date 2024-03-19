@@ -31,7 +31,9 @@ public class DomainMap<T> {
 
     public DomainMap<T> duplicate(){
         DomainMap<T> domainMap = new DomainMap<>();
-        uknVariables.forEach((name, domain) -> domainMap.addDomain(name, domain.duplicate()));
+        for (Map.Entry<Variable<T>, Domain<T>> entry : this.getMap().entrySet()){
+            domainMap.addDomain(entry.getKey(), entry.getValue().duplicate());
+        }
         return domainMap;
     }
 

@@ -9,8 +9,8 @@ public class IntDomain implements Domain<Integer> {
 
     final List<Integer> intList;
 
-    public IntDomain(List<Integer> Integers){
-        this.intList = Integers;
+    public IntDomain(List<Integer> integers){
+        this.intList = integers;
     }
 
     public IntDomain(Integer min, Integer max, Integer jump){
@@ -31,6 +31,8 @@ public class IntDomain implements Domain<Integer> {
 
     @Override
     public Domain<Integer> duplicate() {
-        return new IntDomain(new ArrayList<>(this.intList));
+        return new IntDomain(new ArrayList<>(){{
+            addAll(getPossibility());
+        }});
     }
 }
