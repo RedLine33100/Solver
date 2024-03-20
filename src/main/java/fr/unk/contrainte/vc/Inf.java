@@ -6,6 +6,8 @@ import fr.unk.domaine.DomainMap;
 import fr.unk.variable.Getter;
 import fr.unk.variable.Variable;
 
+import java.util.List;
+
 /**
  * Check if two value are respectinf the inf or equals to constraint
  * @param <T> the Type of the value which need to be comparable
@@ -52,32 +54,47 @@ public class Inf<T extends Comparable<T>> extends Constraint<T> {
         if(fValue != null && sValue != null)
             return true;
 
-        Variable<T> sVar = null;
+        Variable<T> toIterate;
 
-        for (Variable<T> checkVar : (fValue == null) ? this.getVarOnLeft() : this.getVarOnRight()) {
-            if (checkVar.getValue() == null) {
-                if (sVar == null)
-                    sVar = checkVar;
-                else
-                    return true;
-            }
+        if(fValue != null){
+
+            if(!(sv instanceof Variable<T>))
+                return false;
+
+            List<Variable<T>> toIterateList = Constraint.withoutValue(this.getVarOnRight());
+
+            if(toIterateList.size() != 1)
+                return true;
+
+            toIterate = toIterateList.getFirst();
+
+        }else{
+
+            if(!(fv instanceof Variable<T>))
+                return false;
+
+            List<Variable<T>> toIterateList = Constraint.withoutValue(this.getVarOnLeft());
+
+            if(toIterateList.size() != 1)
+                return true;
+
+            toIterate = toIterateList.getFirst();
+
         }
 
-        if (sVar == null)
-            return true;
+        Domain<T> ogDomain = domainMap.getDomain(toIterate);
 
-        Domain<T> sDomain = domainMap.getDomain(sVar);
+        for (T iter : ogDomain.duplicate().getPossibility()){
 
-        for(T possibility : sDomain.duplicate().getPossibility()){
-            sVar.setValue(possibility);
-            if(!satisfied()) {
-                sDomain.getPossibility().remove(possibility);
-                if(sDomain.getPossibility().isEmpty())
-                    return false;
-            }
+            toIterate.setValue(iter);
+            if(!satisfied())
+                ogDomain.getPossibility().remove(iter);
+
         }
 
-        return true;
+        toIterate.setValue(null);
+
+        return !ogDomain.getPossibility().isEmpty();
 
     }
 

@@ -154,7 +154,7 @@ public class CSPSolver<T> {
 
         this.constraintList.forEach(Constraint::registerToVar);
 
-        DomainMap<T> newDomain = this.solverDomain;
+        DomainMap<T> newDomain = this.solverDomain.duplicate();
 
         for(Map.Entry<Variable<T>, Domain<T>> entry : newDomain.getMap().entrySet()){
             T curVal = entry.getKey().getValue();
@@ -164,6 +164,14 @@ public class CSPSolver<T> {
             if (!this.setAndReduce(newDomain, entry.getKey(), curVal, "TS")) {
                 return null;
             }
+        }
+
+        for(Constraint<T> constraint : this.constraintList){
+            Boolean ts = constraint.trySatisfied();
+            if(ts == null)
+                constraint.reduceDomain(newDomain);
+            if(Boolean.FALSE.equals(ts))
+                return null;
         }
 
         if (!this.solveDomain(newDomain)) {

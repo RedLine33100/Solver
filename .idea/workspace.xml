@@ -4,20 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f42ab31a-9702-4004-9e89-37099dda43ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/unnamed.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/artifacts/test/csp.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+    <list default="true" id="f42ab31a-9702-4004-9e89-37099dda43ac" name="Changes" comment="Laisse moi pleurer">
+      <change afterPath="$PROJECT_DIR$/src/test/java/fr/unk/Monayeur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/test/csp.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/test/csp.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/CSPSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListDiff.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/nc/ListEquals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/domaine/DomainMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/domaine/DomainMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/domaine/number/IntDomain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/domaine/number/IntDomain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/variable/Variable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/SudokuSolverTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/SudokuSolverTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/Constraint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Inf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/contrainte/vc/Sup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/unk/variable/numvar/Calcul.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/unk/variable/numvar/Calcul.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/InfTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/fr/unk/contrainte/vc/InfTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +26,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2dvTFetkLL6nV7kAvzrlTrR17Z0" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -41,27 +37,93 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "JUnit.SudokuSolverTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "DM-Reduction",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/redline/Project/java/CSP",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;JUnit.InfTest.testsatisfied.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.Monayeur.main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SudokuSolverTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.SudokuSolverTest.main.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DM-Reduction&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/redline/Project/java/CSP&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fr.unk" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.SudokuSolverTest.main">
+    <configuration name="InfTest.testsatisfied" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.contrainte.vc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk.contrainte.vc" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.contrainte.vc.InfTest" />
+      <option name="METHOD_NAME" value="testsatisfied" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Monayeur.main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.Monayeur" />
+      <option name="METHOD_NAME" value="main" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SudokuSolverTest.main" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="CSP" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.unk.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="fr.unk" />
+      <option name="MAIN_CLASS_NAME" value="fr.unk.SudokuSolverTest" />
+      <option name="METHOD_NAME" value="main" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SudokuSolverTest.main" />
+        <item itemvalue="JUnit.InfTest.testsatisfied" />
+        <item itemvalue="JUnit.Monayeur.main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -70,8 +132,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1710887449425</updated>
-      <workItem from="1710887450479" duration="1501000" />
+      <workItem from="1710887450479" duration="1554000" />
+      <workItem from="1710916927836" duration="33000" />
+      <workItem from="1710952889481" duration="4060000" />
+      <workItem from="1710957435902" duration="89000" />
     </task>
+    <task id="LOCAL-00001" summary="Laisse moi pleurer">
+      <option name="closed" value="true" />
+      <created>1710888990351</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710888990351</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,5 +153,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Laisse moi pleurer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Laisse moi pleurer" />
   </component>
 </project>

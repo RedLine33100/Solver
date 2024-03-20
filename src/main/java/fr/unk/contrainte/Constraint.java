@@ -28,6 +28,19 @@ public abstract class Constraint<T> {
         return variableList;
 
     }
+
+    public static <T> List<Variable<T>> withoutValue(Collection<Variable<T>> withoutValue){
+
+        List<Variable<T>> variableList = new ArrayList<>();
+
+        for (Variable<T> variable : withoutValue)
+            if (!variable.isCalcul() && variable.getValue() == null)
+                variableList.add(variable);
+
+        return variableList;
+
+    }
+
     public Constraint(List<Getter<T>> leftVar, List<Getter<T>> rightVar){
         this.leftVar = toVariableList(leftVar);
         this.rightVar = toVariableList(rightVar);

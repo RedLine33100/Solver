@@ -10,17 +10,10 @@ import java.util.List;
 public abstract class Calcul<T> extends Variable<T> {
 
     private final Operation<T> operation;
-    private final List<Variable<T>> variableList;
 
     public Calcul(String varName, Operation<T> operation) {
         super(varName);
         this.operation = operation;
-        this.variableList = new ArrayList<>();
-        if(this.operation != null) {
-            if (this.operation.getVariable().isVar())
-                this.variableList.addAll(((Variable<T>) this.operation.getVariable()).getVariableList());
-        }
-        this.variableList.add(this);
     }
 
     public Calcul(String varName) {
@@ -130,7 +123,7 @@ public abstract class Calcul<T> extends Variable<T> {
     /**
      * Revert the calcul to found the value of an unknown var
      * @param result a pair containing the var and it's founded value
-     * @return
+     * @return Var and the calculated value for this var
      */
     public Pair<Variable<T>, T> getRevert(T result){
 
@@ -166,7 +159,14 @@ public abstract class Calcul<T> extends Variable<T> {
 
     @Override
     public List<Variable<T>> getVariableList(){
-       return variableList;
+        List<Variable<T>> variableList = new ArrayList<>();
+        if(this.operation != null) {
+            if (this.operation.getVariable().isVar())
+                variableList.addAll(((Variable<T>) this.operation.getVariable()).getVariableList());
+            if (this.operation.getPrevious().isVar())
+                variableList.addAll(((Variable<T>) this.operation.getPrevious()).getVariableList());
+        }else variableList.add(this);
+        return variableList;
     }
 
     @Override

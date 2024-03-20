@@ -1,6 +1,11 @@
 package fr.unk.contrainte.vc;
 
+import fr.unk.CSPSolver;
+import fr.unk.contrainte.Constraint;
+import fr.unk.domaine.DomainMap;
+import fr.unk.domaine.number.IntDomain;
 import fr.unk.variable.Getter;
+import fr.unk.variable.numvar.CSPInt;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
@@ -60,6 +65,19 @@ class InfTest {
         assertFalse(inf_1_var_vard.satisfied());
         assertFalse(inf_1_double_var.satisfied());
         assertTrue(inf_1_var_double.satisfied());
+
+
+        DomainMap<Integer> domainMap = new DomainMap<>();
+        CSPInt testVar1 = new CSPInt("test");
+        CSPInt testVar2 = new CSPInt("test2");
+
+        testVar1.setValue(11);
+        domainMap.addDomain(testVar2, new IntDomain(1,10,1));
+
+        Constraint<Integer> infCst = new Inf<>(testVar2.add(3), testVar1, false);
+
+        infCst.reduceDomain(domainMap);
+        CSPSolver.printDomain(domainMap, testVar2);
 
     }
 }
