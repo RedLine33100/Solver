@@ -1,68 +1,112 @@
 package fr.unk.contrainte.vc;
 
-import fr.unk.variable.Getter;
 import org.junit.jupiter.api.Test;
+import fr.unk.variable.VarGetter;
+import org.junit.jupiter.api.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EqualsTest {
+    Random random = new Random();
+    Map<String,Object> objectMap = new HashMap<>();
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        System.out.println ("Avant toutes les executions");
+    }
 
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        System.out.println ("Apres toutes les executions");
+    }
+
+    @BeforeEach
+    void setUp() throws Exception {
+        System.out.println ("avant une fonction sous test");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        System.out.println ("apres une fonction sous test");
+    }
     @Test
-    void testsatisfied() {
-        Random random = new Random();
-        int int1 = random.nextInt();
-        int int2;
+    void testFunctionalSatisfiedInt() {
+        int val1 = random.nextInt();
+        int val2;
         do {
-            int2 = random.nextInt();
-        } while (int2 == int1);
-        Getter<Integer> v0_int = new Getter<>(int1);
-        Getter<Integer> v1_int = new Getter<>(int2);
-        Getter<Integer> v2_int = new Getter<>(int1);
-        Equals<Integer> equals_2_var_var = new Equals<>(v1_int, v0_int);
-        Equals<Integer> equals_1_var_var = new Equals<>(v2_int, v0_int);
-        Equals<Integer> equals_1_var_int = new Equals<>(v0_int, int1);
-        Equals<Integer> equals_1_int_var = new Equals<>(int1, v1_int);
-        assertFalse(equals_2_var_var.satisfied());
-        assertTrue(equals_1_var_var.satisfied());
-        assertFalse(equals_1_int_var.satisfied());
-        assertTrue(equals_1_var_int.satisfied());
-
-        float float1 = random.nextFloat();
-        float float2;
+            val2 = random.nextInt();
+        } while (val2 == val1);
+        //init 3 variables ( v2 == v0 != v1) pour voir si cela marche avec 2 variables différentes de même valeur:
+        VarGetter var0 = new VarGetter(val1);
+        VarGetter var1 = new VarGetter(val2);
+        VarGetter var2 = new VarGetter(val1);
+        //test si Equal(var1,var0) = false:
+        Equals isVarEquals = new Equals(var1,var0);
+        assertFalse(isVarEquals.satisfied(objectMap));
+        //test si Equal(var2,var0) = true:
+        Equals isNotVarEquals = new Equals(var2,var0);
+        assertTrue(isNotVarEquals.satisfied(objectMap));
+        //objectif tester si la fonction Equal fonctionne avec une variable et une valeur de type int
+        //test si Equal(valeur int = var0 ,var0) = true:
+        Equals isVarAndValEquals = new Equals(var0,val1);
+        assertTrue(isVarAndValEquals.satisfied(objectMap));
+        //test si Equal(valeur int = var1 ,var0) = false:
+        Equals isNotValAndVarEquals = new Equals(val1,var1);
+        assertFalse(isNotValAndVarEquals.satisfied(objectMap));
+    }
+    @Test
+    void testFunctionalSatisfiedFloat() {
+        float val1 = random.nextFloat();
+        float val2;
         do {
-            float2 = random.nextFloat();
-        } while (float2 == float1);
-        Getter<Float> v0_float = new Getter<>(float1);
-        Getter<Float> v1_float = new Getter<>(float2);
-        Getter<Float> v2_float = new Getter<>(float1);
-        Equals<Float> equals_2_var_varf = new Equals<>(v1_float, v0_float);
-        Equals<Float> equals_1_var_varf = new Equals<>(v2_float, v0_float);
-        Equals<Float> equals_1_var_float = new Equals<>(v0_float, float1);
-        Equals<Float> equals_1_float_var = new Equals<>(float1, v1_float);
-        assertFalse(equals_2_var_varf.satisfied());
-        assertTrue(equals_1_var_varf.satisfied());
-        assertFalse(equals_1_float_var.satisfied());
-        assertTrue(equals_1_var_float.satisfied());
-
-        double double1 = random.nextDouble();
-        double double2;
-        do {
-            double2 = random.nextDouble();
-        } while (double2 == double1);
-        Getter<Double> v0_double = new Getter<>(double1);
-        Getter<Double> v1_double = new Getter<>(double2);
-        Getter<Double> v2_double = new Getter<>(double1);
-        Equals<Double> equals_2_var_vard = new Equals<>(v1_double, v0_double);
-        Equals<Double> equals_1_var_vard = new Equals<>(v2_double, v0_double);
-        Equals<Double> equals_1_var_double = new Equals<>(v0_double, double1);
-        Equals<Double> equals_1_double_var = new Equals<>(double1, v1_double);
-        assertFalse(equals_2_var_vard.satisfied());
-        assertTrue(equals_1_var_vard.satisfied());
-        assertFalse(equals_1_double_var.satisfied());
-        assertTrue(equals_1_var_double.satisfied());
+            val2 = random.nextFloat();
+        } while (val2 == val1);
+        //init 3 variables ( var2 == var0 != v1) pour voir si cela marche avec 2 variables différentes de même valeur:
+        VarGetter var0 = new VarGetter(val1);
+        VarGetter var1 = new VarGetter(val2);
+        VarGetter var2 = new VarGetter(val1);
+        //test si Equal(var1,var0) = false:
+        Equals isVarEquals = new Equals(var1,var0);
+        assertFalse(isVarEquals.satisfied(objectMap));
+        //test si Equal(var2,var0) = true:
+        Equals isNotVarEquals = new Equals(var2,var0);
+        assertTrue(isNotVarEquals.satisfied(objectMap));
+        //objectif tester si la fonction Equal fonctionne avec une variable et une valeur de type float
+        //test si Equal(valeur float = var0 ,var0) = true:
+        Equals isVarAndValEquals = new Equals(var0,val1);
+        assertTrue(isVarAndValEquals.satisfied(objectMap));
+        //test si Equal(valeur float = var1 ,var0) = false:
+        Equals isNotValAndVarEquals = new Equals(val1,var1);
+        assertFalse(isNotValAndVarEquals.satisfied(objectMap));
 
     }
+    @Test
+    void testFunctionalSatisfiedDouble() {
+        double val1 = random.nextDouble();
+        double val2;
+        do {
+            val2 = random.nextDouble();
+        } while (val2 == val1);
+        //init 3 variables ( v2 == v0 != v1) pour voir si cela marche avec 2 variables différentes de même valeur:
+        VarGetter var0 = new VarGetter(val1);
+        VarGetter var1 = new VarGetter(val2);
+        VarGetter var2 = new VarGetter(val1);
+        //test si Equal(var1,var0) = false:
+        Equals isVarEquals = new Equals(var1,var0);
+        assertFalse(isVarEquals.satisfied(objectMap));
+        //test si Equal(var2,var0) = true:
+        Equals isNotVarEquals = new Equals(var2,var0);
+        assertTrue(isNotVarEquals.satisfied(objectMap));
+        //objectif tester si la fonction Equal fonctionne avec une variable et une valeur de type double
+        //test si Equal(valeur double = var0 ,var0) = true:
+        Equals isVarAndValEquals = new Equals(var0,val1);
+        assertTrue(isVarAndValEquals.satisfied(objectMap));
+        //test si Equal(valeur double = var1 ,var0) = false:
+        Equals isNotValAndVarEquals = new Equals(val1,var1);
+        assertFalse(isNotValAndVarEquals.satisfied(objectMap));
+    }
+    //pareil que pour Inf, il ne peut pas y avoir différent type.
 }
