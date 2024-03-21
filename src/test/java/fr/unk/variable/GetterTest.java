@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GetterTest {
 
     @Test
-    void isVar() {
+    void testFunctionalIsVar() {
         Random random = new Random();
         int int1 = random.nextInt();
         float float1 = random.nextFloat();
@@ -30,7 +30,7 @@ class GetterTest {
     }
 
     @Test
-    void getValue() {
+    void testFunctionalGetValue() {
         Random random = new Random();
         int int1 = random.nextInt();
         float float1 = random.nextFloat();
