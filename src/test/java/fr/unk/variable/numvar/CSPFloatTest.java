@@ -1,63 +1,75 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.Getter;
 import org.junit.jupiter.api.Test;
+import fr.unk.variable.VarGetter;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CSPFloatTest {
+    private Map<String,Object> objectMap = new HashMap<>();
+    private CSPFloat cspFloat = new CSPFloat("myVar") {};
 
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        System.out.println ("Avant toutes les executions");
+    }
+
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        System.out.println ("Apres toutes les executions");
+    }
+
+    @BeforeEach
+    void setUp() throws Exception {
+        System.out.println ("avant une fonction sous test");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        System.out.println ("apres une fonction sous test");
+    }
     @Test
-    void testadd() {
-        CSPFloat cspFloat = new CSPFloat("myVar") {
-        };
-        cspFloat.setValue(10.5f);
-        cspFloat = cspFloat.add(new Getter<>(5.2f));
-        assertEquals(15.7f, cspFloat.getValue());
+    void testFunctionalAdd() {
+        cspFloat = cspFloat.add(new VarGetter(5.2f));
+        objectMap.put("myVar",10.5f);
+        assertEquals(15.7f, cspFloat.getValue(objectMap));
     }
 
     @Test
-    void testremove() {
-        CSPFloat cspFloat = new CSPFloat("myVar") {
-        };
-        cspFloat.setValue(20.5f);
-        cspFloat = cspFloat.remove(new Getter<>(5.2f));
-        assertEquals(15.3f, cspFloat.getValue());
+    void testFunctionalRemove() {
+        cspFloat = cspFloat.remove(new VarGetter(5.2f));
+        objectMap.put("myVar",20.5f);
+        assertEquals(15.3f, cspFloat.getValue(objectMap));
     }
 
     @Test
-    void testdivide() {
-        CSPFloat cspFloat = new CSPFloat("myVar") {
-        };
-        cspFloat.setValue(20.4f);
-        cspFloat = cspFloat.divide(new Getter<>(5.1f));
-        assertEquals(4.0f, cspFloat.getValue());
+    void testFunctionalDivide() {
+        cspFloat = cspFloat.divide(new VarGetter(5.1f));
+        objectMap.put("myVar",20.4f);
+        assertEquals(4.0f, cspFloat.getValue(objectMap));
     }
 
     @Test
-    void testmultiply() {
-        CSPFloat cspFloat = new CSPFloat("myVar") {
-        };
-        cspFloat.setValue(20.4f);
-        cspFloat = cspFloat.multiply(new Getter<>(5.0f));
-        assertEquals(102.0f, cspFloat.getValue());
+    void testFunctionalMultiply() {
+        cspFloat = cspFloat.multiply(new VarGetter(5.0f));
+        objectMap.put("myVar",20.4f);
+        assertEquals(102.0f, cspFloat.getValue(objectMap));
     }
 
     @Test
-    void testmodulo() {
-        CSPFloat cspFloat = new CSPFloat("myVar") {
-        };
-        cspFloat.setValue(21.0f);
-        cspFloat = cspFloat.modulo(new Getter<>(5.0f));
+    void testFunctionalModulo() {
+        cspFloat = cspFloat.modulo(new VarGetter(5.0f));
+        objectMap.put("myVar",21.0f);
         //quand il y a des chiffres aprés la virgule cela ne mais pas les valeurs exacte exemple si le resultat attendu est 0.4 cela retourne 0.38668
-        assertEquals(1.0f, cspFloat.getValue());
+        assertEquals(1.0f, cspFloat.getValue(objectMap));
     }
 
     @Test
-    void testgetValue() {
-        CSPFloat cspFloat = new CSPFloat("myVar") {
-        };
-        cspFloat.setValue(21.586f);
-        assertEquals(21.586f, cspFloat.getValue());
+    void testFunctionalGetValue() {
+        objectMap.put("myVar",21.586f);
+        assertEquals(21.586f, cspFloat.getValue(objectMap));
     }
 }
