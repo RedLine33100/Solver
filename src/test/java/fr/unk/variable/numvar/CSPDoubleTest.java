@@ -1,60 +1,74 @@
 package fr.unk.variable.numvar;
 
-import fr.unk.variable.Getter;
 import org.junit.jupiter.api.Test;
+import fr.unk.variable.VarGetter;
+import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CSPDoubleTest {
+    private Map<String,Object> objectMap = new HashMap<>();
+    private CSPDouble cspDouble = new CSPDouble("myVar") {};
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        System.out.println ("Avant toutes les executions");
+    }
 
-    @Test
-    void testadd() {
-        CSPDouble cspDouble = new CSPDouble("myVar");
-        cspDouble.setValue(10.0);
-        cspDouble = cspDouble.add(new Getter<>(5.0));
-        assertEquals(15, cspDouble.getValue());
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        System.out.println ("Apres toutes les executions");
+    }
+
+    @BeforeEach
+    void setUp() throws Exception {
+        System.out.println ("avant une fonction sous test");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        System.out.println ("apres une fonction sous test");
     }
 
     @Test
-    void testremove() {
-        CSPDouble cspDouble = new CSPDouble("myVar");
-        cspDouble.setValue(10.5);
-        cspDouble = cspDouble.remove(new Getter<>(5.5));
-        assertEquals(5, cspDouble.getValue());
+    void testFunctionalAdd() {
+        cspDouble = cspDouble.add(new VarGetter(5.0));
+        objectMap.put("myVar",10.0);
+        assertEquals(15, cspDouble.getValue(objectMap));
     }
 
     @Test
-    void testdivide() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {
-        };
-        cspDouble.setValue(11.0);
-        cspDouble = cspDouble.divide(new Getter<>(5.5));
-        assertEquals(2, cspDouble.getValue());
+    void testFunctionalRemove() {
+        cspDouble = cspDouble.remove(new VarGetter(5.5));
+        objectMap.put("myVar",10.5);
+        assertEquals(5, cspDouble.getValue(objectMap));
     }
 
     @Test
-    void testmultiply() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {
-        };
-        cspDouble.setValue(2.0);
-        cspDouble = cspDouble.multiply(new Getter<>(5.5));
-        assertEquals(11, cspDouble.getValue());
+    void testFunctionalDivide() {
+        cspDouble = cspDouble.divide(new VarGetter(5.5));
+        objectMap.put("myVar",11.0);
+        assertEquals(2, cspDouble.getValue(objectMap));
     }
 
     @Test
-    void testmodulo() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {
-        };
-        cspDouble.setValue(21.5);
-        cspDouble = cspDouble.modulo(new Getter<>(5.0));
-        assertEquals(1.5, cspDouble.getValue());
+    void testFunctionalMultiply() {
+        cspDouble = cspDouble.multiply(new VarGetter(5.5));
+        objectMap.put("myVar",2.0);
+        assertEquals(11, cspDouble.getValue(objectMap));
     }
 
     @Test
-    void testgetValue() {
-        CSPDouble cspDouble = new CSPDouble("myVar") {
-        };
-        cspDouble.setValue(2.0);
-        assertEquals(2.0, cspDouble.getValue());
+    void testFunctionalModulo() {
+        cspDouble = cspDouble.modulo(new VarGetter(5.0));
+        objectMap.put("myVar",21.5);
+        assertEquals(1.5, cspDouble.getValue(objectMap));
+    }
+
+    @Test
+    void testFunctionalGetValue() {
+        objectMap.put("myVar",2.0);
+        assertEquals(2.0, cspDouble.getValue(objectMap));
     }
 }
