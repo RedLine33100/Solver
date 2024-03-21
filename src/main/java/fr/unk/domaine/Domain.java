@@ -2,6 +2,10 @@ package fr.unk.domaine;
 
 import java.util.List;
 
+/**
+ * Store all possible value for a var
+ * @param <T> the value type
+ */
 public interface Domain<T> {
 
     /**

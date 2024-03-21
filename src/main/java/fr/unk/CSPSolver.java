@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main class for the solver where you will register constraint, var and their domain and start the solve processing
+ * @param <T>
+ */
 public class CSPSolver<T> {
 
     List<Constraint<T>> constraintList = new ArrayList<>();
@@ -24,6 +28,10 @@ public class CSPSolver<T> {
         this.solverDomain.addDomain(variable, domain);
     }
 
+    /**
+     * Get the domain map
+     * @return the current map domain
+     */
     public DomainMap<T> getDomainMap(){
         return this.solverDomain;
     }
@@ -148,6 +156,10 @@ public class CSPSolver<T> {
         return false;
     }
 
+    /**
+     * Start all of the solving process, it start the iteration of every value available for each var
+     * @return Map with VarName as Key and the variable value
+     */
     public Map<String, T> trySolve() {
 
         this.solverDomain.getMap().forEach((variable, domain) -> variable.getConstrainst().clear());

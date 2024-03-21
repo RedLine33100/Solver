@@ -7,6 +7,10 @@ import fr.unk.variable.Variable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is extended to permit calcul with an unknown value
+ * @param <T> the value type
+ */
 public abstract class Calcul<T> extends Variable<T> {
 
     private final Operation<T> operation;

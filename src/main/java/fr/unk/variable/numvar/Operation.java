@@ -5,6 +5,10 @@ import fr.unk.variable.Variable;
 
 import java.util.function.BinaryOperator;
 
+/**
+ * Store the operation and the variable for the Calcul class
+ * @param <T> the value type
+ */
 public class Operation<T> {
 
     BinaryOperator<T> binaryOperator, revertOperator;

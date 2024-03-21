@@ -5,6 +5,10 @@ import fr.unk.contrainte.Constraint;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class contains a value that is not fix
+ * @param <T> Type of the value (int, double or other)
+ */
 public class Variable<T> extends Getter<T> {
 
     private final String varName;
@@ -12,11 +16,19 @@ public class Variable<T> extends Getter<T> {
     protected final List<Variable<T>> depend = new ArrayList<>();
     protected final List<Constraint<T>> constraints = new ArrayList<>();
 
+    /**
+     *
+     * @param varName The name of this var
+     */
     public Variable(String varName) {
         super(null);
         this.varName = varName;
     }
 
+    /**
+     * Get the VarName
+     * @return the current var name
+     */
     public String getVarName(){
         return this.varName;
     }

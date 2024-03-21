@@ -1,5 +1,9 @@
 package fr.unk.variable;
 
+/**
+ * This class is directly use if the value is static
+ * @param <T> The value type (int, double)
+ */
 public class Getter<T> {
 
     T t;
@@ -33,7 +37,7 @@ public class Getter<T> {
 
     /**
      * Get the value of the Getter
-     * @return null if no value or the value
+     * @return null or the value
      */
     public T getValue(){
         return this.t;

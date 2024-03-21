@@ -12,7 +12,7 @@ public abstract class Constraint<T> {
 
     List<Variable<T>> leftVar, rightVar;
 
-    public static <T> List<Variable<T>> toVariableList(Collection<Getter<T>> getterList){
+    protected static <T> List<Variable<T>> toVariableList(Collection<Getter<T>> getterList){
 
         List<Variable<T>> variableList = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public abstract class Constraint<T> {
 
     }
 
-    public static <T> List<Variable<T>> withoutValue(Collection<Variable<T>> withoutValue){
+    protected static <T> List<Variable<T>> withoutValue(Collection<Variable<T>> withoutValue){
 
         List<Variable<T>> variableList = new ArrayList<>();
 
@@ -60,8 +60,16 @@ public abstract class Constraint<T> {
         }});
     }
 
+    /**
+     * Check if a constraint is satisfied or not
+     * @return true if the constraint is satisfied or null if it is not possible to check
+     */
     public abstract Boolean trySatisfied();
 
+    /**
+     * Check if a constraint is satisfied or not
+     * @return true if the constraint is satisfied
+     */
     public boolean satisfied(){
         Boolean s = trySatisfied();
         if(s == null)
@@ -69,10 +77,10 @@ public abstract class Constraint<T> {
         return s;
     }
 
-    public List<Variable<T>> getVarOnLeft(){
+    protected List<Variable<T>> getVarOnLeft(){
         return leftVar;
     }
-    public List<Variable<T>> getVarOnRight(){
+    protected List<Variable<T>> getVarOnRight(){
         return rightVar;
     }
 

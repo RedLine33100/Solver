@@ -9,7 +9,7 @@ import fr.unk.variable.Variable;
 import java.util.List;
 
 /**
- * Check if two value are respectinf the inf or equals to constraint
+ * Check if a value is inferior or equals to another
  * @param <T> the Type of the value which need to be comparable
  */
 public class Sup<T extends Comparable<T>> extends Constraint<T> {

@@ -5,30 +5,44 @@ import fr.unk.variable.Variable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Permit to map Var with its domain and duplicate the for the application
+ * @param <T> The type of the value
+ */
 public class DomainMap<T> {
 
     Map<Variable<T>, Domain<T>> uknVariables = new HashMap<>();
 
+    /**
+     * Get the full map with its variable and the domain linked
+     * @return the current map
+     */
     public Map<Variable<T>, Domain<T>> getMap() {
         return uknVariables;
     }
 
+    /**
+     * Add a variable and its domain to the Map
+     * @param variable variable to register as key
+     * @param domain variable domain
+     */
     public void addDomain(Variable<T> variable, Domain<T> domain){
         this.uknVariables.put(variable, domain);
     }
 
+    /**
+     * Get the stored domain of a var
+     * @param variable The variable to get the linked domain
+     * @return The domain of the var
+     */
     public Domain<T> getDomain(Variable<T> variable){
         return this.uknVariables.get(variable);
     }
 
-    public Domain<T> getAndRemoveDomain(Variable<T> variable){
-        return this.uknVariables.remove(variable);
-    }
-
-    public void removeDomain(Variable<T> variable){
-        this.uknVariables.remove(variable);
-    }
-
+    /**
+     * Duplicate everything to a new instance of DomainMap
+     * @return
+     */
     public DomainMap<T> duplicate(){
         DomainMap<T> domainMap = new DomainMap<>();
         for (Map.Entry<Variable<T>, Domain<T>> entry : this.getMap().entrySet()){

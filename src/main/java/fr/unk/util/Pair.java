@@ -1,5 +1,10 @@
 package fr.unk.util;
 
+/**
+ * Permit to stock two value of different type
+ * @param <L> first value type
+ * @param <R> second value type
+ */
 public class Pair <L,R>{
 
     final L l;
