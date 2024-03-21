@@ -15,13 +15,13 @@ class VariableTest {
     }
 
     @Test
-    public void testVariableConstruction() {
+    public void testFunctionalVariableConstruction() {
         Variable<Integer> variable = new Variable<>("myVar");
         assertEquals("myVar", variable.getVarName());
     }
 
     @Test
-    void getValue() {
+    void getStructuralValue() {
         /*
         Variable<Integer> intVar = new Variable<>("testVar1");
 
