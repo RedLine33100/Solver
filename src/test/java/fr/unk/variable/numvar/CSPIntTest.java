@@ -6,9 +6,30 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CSPIntTest {
+    private Map<String,Object> objectMap = new HashMap<>();
+    private CSPInt cspInt = new CSPInt("myVar") {};
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        System.out.println ("Avant toutes les executions");
+    }
+
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        System.out.println ("Apres toutes les executions");
+    }
+
+    @BeforeEach
+    void setUp() throws Exception {
+        System.out.println ("avant une fonction sous test");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        System.out.println ("apres une fonction sous test");
+    }
 
     @Test
-    void testadd() {
+    void testFunctionalAdd() {
         CSPInt cspInt = new CSPInt("myVar") {
         };
         cspInt.setValue(10);
@@ -17,7 +38,7 @@ class CSPIntTest {
     }
 
     @Test
-    void testremove() {
+    void testFunctionalRemove() {
         CSPInt cspInt = new CSPInt("myVar") {
         };
         cspInt.setValue(20);
@@ -26,7 +47,7 @@ class CSPIntTest {
     }
 
     @Test
-    void testdivide() {
+    void testFunctionalDivide() {
         CSPInt cspInt = new CSPInt("myVar") {
         };
         cspInt.setValue(20);
@@ -35,7 +56,7 @@ class CSPIntTest {
     }
 
     @Test
-    void testmultiply() {
+    void testFunctionalMultiply() {
         CSPInt cspInt = new CSPInt("myVar") {
         };
         cspInt.setValue(20);
@@ -45,7 +66,7 @@ class CSPIntTest {
 
 
     @Test
-    void testmodulo() {
+    void testFunctionalModulo() {
         CSPInt cspInt = new CSPInt("myVar") {
         };
         cspInt.setValue(24);
@@ -54,7 +75,7 @@ class CSPIntTest {
     }
 
     @Test
-    void testgetValue() {
+    void testFunctionalGetValue() {
         CSPInt cspInt = new CSPInt("myVar") {
         };
         cspInt.setValue(24);
