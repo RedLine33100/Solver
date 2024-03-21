@@ -15,12 +15,12 @@ public abstract class Calcul<T> extends Variable<T> {
 
     private final Operation<T> operation;
 
-    public Calcul(String varName, Operation<T> operation) {
+    Calcul(String varName, Operation<T> operation) {
         super(varName);
         this.operation = operation;
     }
 
-    public Calcul(String varName) {
+    Calcul(String varName) {
         this(varName, null);
     }
 
@@ -29,7 +29,7 @@ public abstract class Calcul<T> extends Variable<T> {
      * @param getter the other value of the calcul
      * @return a new instance of calcul with the new operation
      */
-    abstract Calcul<T> add(Getter<T> getter);
+    public abstract Calcul<T> add(Getter<T> getter);
 
     /**
      * Add a add to the current operation
@@ -45,7 +45,7 @@ public abstract class Calcul<T> extends Variable<T> {
      * @param getter the other value of the calcul
      * @return a new instance of calcul with the new operation
      */
-    abstract Calcul<T> remove(Getter<T> getter);
+    public abstract Calcul<T> remove(Getter<T> getter);
 
     /**
      * Add a remove to the current operation

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * This class is an abstract for all the Constraint of the CSP
+ * @param <T> The type of the value
+ */
 public abstract class Constraint<T> {
 
     List<Variable<T>> leftVar, rightVar;
@@ -41,16 +45,16 @@ public abstract class Constraint<T> {
 
     }
 
-    public Constraint(List<Getter<T>> leftVar, List<Getter<T>> rightVar){
+    protected Constraint(List<Getter<T>> leftVar, List<Getter<T>> rightVar){
         this.leftVar = toVariableList(leftVar);
         this.rightVar = toVariableList(rightVar);
     }
 
-    public Constraint() {
+    protected Constraint() {
         this(new ArrayList<>(), new ArrayList<>());
     }
 
-    public Constraint(Getter<T> leftVar, Getter<T> rightVar){
+    protected Constraint(Getter<T> leftVar, Getter<T> rightVar){
         this(new ArrayList<>() {{
             if(leftVar != null)
                 add(leftVar);

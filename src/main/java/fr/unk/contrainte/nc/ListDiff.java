@@ -19,6 +19,10 @@ public class ListDiff<T extends Comparable<T>> extends Constraint<T> {
 
     final List<Getter<T>> variableList;
 
+    /**
+     * Constructor with the list of value that need to be different to each other
+     * @param variables list of variables
+     */
     public ListDiff(List<Getter<T>> variables){
         super(variables, null);
         this.variableList = variables;

@@ -12,12 +12,19 @@ import java.util.Map;
 
 /**
  * Main class for the solver where you will register constraint, var and their domain and start the solve processing
- * @param <T>
+ * @param <T> the type of the value
  */
 public class CSPSolver<T> {
 
     List<Constraint<T>> constraintList = new ArrayList<>();
     private final DomainMap<T> solverDomain = new DomainMap<>();
+
+    /**
+     * Default constructor to initialise the class
+     */
+    public CSPSolver(){
+
+    }
 
     /**
      * Register var and its domain to iterate on when trySolve is called
@@ -69,7 +76,7 @@ public class CSPSolver<T> {
      * @param value the new var value
      * @return True if there is at least one solution
      */
-    public boolean setAndReduce(DomainMap<T> domain, Variable<T> variable, T value, String mess){
+    public boolean setAndReduce(DomainMap<T> domain, Variable<T> variable, T value){
         variable.setValue(value);
         List<T> po = domain.getDomain(variable).getPossibility();
         po.clear();
@@ -101,7 +108,7 @@ public class CSPSolver<T> {
             if(size == 1) {
                 T onlyVal = checkDomain.getPossibility().getFirst();
                 if(checkVar.getValue() != onlyVal) {
-                    if (!setAndReduce(domainMap, checkVar, onlyVal, "SD")) {
+                    if (!setAndReduce(domainMap, checkVar, onlyVal)) {
                         return false;
                     }
                 }
@@ -142,7 +149,7 @@ public class CSPSolver<T> {
 
             DomainMap<T> newDomain = domain.duplicate();
 
-            boolean res = setAndReduce(newDomain, variable, t, "SS");
+            boolean res = setAndReduce(newDomain, variable, t);
 
             if(!res)
                 continue;
@@ -173,7 +180,7 @@ public class CSPSolver<T> {
             if(curVal == null)
                 continue;
 
-            if (!this.setAndReduce(newDomain, entry.getKey(), curVal, "TS")) {
+            if (!this.setAndReduce(newDomain, entry.getKey(), curVal)) {
                 return null;
             }
         }
@@ -197,14 +204,6 @@ public class CSPSolver<T> {
             }
         }};
 
-    }
-
-    public static <T> void printDomain(DomainMap<T> domainMap, Variable<T> variable){
-        System.out.print("Var: "+variable.getVarName()+" po:");
-        for(T i : domainMap.getDomain(variable).getPossibility()){
-            System.out.print(" "+i);
-        }
-        System.out.println(" ");
     }
 
 }

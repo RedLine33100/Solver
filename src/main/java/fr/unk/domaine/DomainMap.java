@@ -11,7 +11,14 @@ import java.util.Map;
  */
 public class DomainMap<T> {
 
-    Map<Variable<T>, Domain<T>> uknVariables = new HashMap<>();
+    private final Map<Variable<T>, Domain<T>> uknVariables = new HashMap<>();
+
+    /**
+     * Permit to initialise the class
+     */
+    public DomainMap(){
+
+    }
 
     /**
      * Get the full map with its variable and the domain linked
@@ -41,7 +48,7 @@ public class DomainMap<T> {
 
     /**
      * Duplicate everything to a new instance of DomainMap
-     * @return
+     * @return The duplicate of the current instance
      */
     public DomainMap<T> duplicate(){
         DomainMap<T> domainMap = new DomainMap<>();

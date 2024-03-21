@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"fr.unk"},{"l":"fr.unk.contrainte"},{"l":"fr.unk.contrainte.nc"},{"l":"fr.unk.contrainte.vc"},{"l":"fr.unk.domaine"},{"l":"fr.unk.domaine.number"},{"l":"fr.unk.util"},{"l":"fr.unk.variable"},{"l":"fr.unk.variable.numvar"}];updateSearchResults();

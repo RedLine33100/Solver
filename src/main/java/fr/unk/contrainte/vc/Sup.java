@@ -19,6 +19,12 @@ public class Sup<T extends Comparable<T>> extends Constraint<T> {
 
     final boolean equals;
 
+    /**
+     * Constructor with the value on the left and the right of the comparison, fv superior to sv
+     * @param fv the left value
+     * @param sv the right value
+     * @param equals if it is inferior / inferior equals to
+     */
     public Sup(Getter<T> fv, Getter<T> sv, boolean equals){
         super(fv, sv);
         this.fv = fv;
@@ -26,10 +32,22 @@ public class Sup<T extends Comparable<T>> extends Constraint<T> {
         this.equals = equals;
     }
 
+    /**
+     * Constructor with the value on the left and the right of the comparison, fv superior to sv
+     * @param fv the left value
+     * @param sv the right value
+     * @param equals if it is inferior / inferior equals to
+     */
     public Sup(T fv, Getter<T> sv, boolean equals){
         this(new Getter<>(fv), sv, equals);
     }
 
+    /**
+     * Constructor with the value on the left and the right of the comparison, fv superior to sv
+     * @param fv the left value
+     * @param sv the right value
+     * @param equals if it is inferior / inferior equals to
+     */
     public Sup(Getter<T> fv, T sv, boolean equals){
         this(fv, new Getter<>(sv), equals);
     }

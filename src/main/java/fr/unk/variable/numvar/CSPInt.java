@@ -2,7 +2,15 @@ package fr.unk.variable.numvar;
 
 import fr.unk.variable.Getter;
 
+/**
+ * This class is extending the Calcul class with a int value type
+ */
 public class CSPInt extends Calcul<Integer> {
+
+    /**
+     * Constructor with the varName for the Variable constructor
+     * @param varName the name of the var
+     */
     public CSPInt(String varName) {
         super(varName);
     }
@@ -40,6 +48,6 @@ public class CSPInt extends Calcul<Integer> {
     CSPInt newCopy(Operation<Integer> operations) {
         CSPInt cspDouble = new CSPInt(this.getVarName(), operations);
         operations.addDepend(cspDouble);
-        return cspDouble;
+        return new CSPInt(this.getVarName(), operations);
     }
 }

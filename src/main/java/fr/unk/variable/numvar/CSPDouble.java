@@ -2,7 +2,15 @@ package fr.unk.variable.numvar;
 
 import fr.unk.variable.Getter;
 
+/**
+ * This class is extending the Calcul class with a double value type
+ */
 public class CSPDouble extends Calcul<Double> {
+
+    /**
+     * Constructor with the varName for the Variable constructor
+     * @param varName the name of the var
+     */
     public CSPDouble(String varName) {
         super(varName);
     }
@@ -40,6 +48,6 @@ public class CSPDouble extends Calcul<Double> {
     CSPDouble newCopy(Operation<Double> operations) {
         CSPDouble cspDouble = new CSPDouble(this.getVarName(), operations);
         operations.addDepend(cspDouble);
-        return cspDouble;
+        return new CSPDouble(this.getVarName(), operations);
     }
 }

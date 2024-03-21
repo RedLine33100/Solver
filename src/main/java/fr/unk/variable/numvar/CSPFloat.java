@@ -2,7 +2,15 @@ package fr.unk.variable.numvar;
 
 import fr.unk.variable.Getter;
 
+/**
+ * This class is extending the Calcul class with a float value type
+ */
 public class CSPFloat extends Calcul<Float> {
+
+    /**
+     * Constructor with the varName for the Variable constructor
+     * @param varName the name of the var
+     */
     public CSPFloat(String varName) {
         super(varName);
     }
@@ -40,6 +48,6 @@ public class CSPFloat extends Calcul<Float> {
     CSPFloat newCopy(Operation<Float> operations) {
         CSPFloat cspDouble = new CSPFloat(this.getVarName(), operations);
         operations.addDepend(cspDouble);
-        return cspDouble;
+        return new CSPFloat(this.getVarName(), operations);
     }
 }

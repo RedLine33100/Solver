@@ -18,6 +18,10 @@ public class ListEquals<T extends Comparable<T>> extends Constraint<T> {
 
     final List<Getter<T>> variableList;
 
+    /**
+     * Constructor with the list of value that need to be equals to each other
+     * @param variables list of variables
+     */
     public ListEquals(List<Getter<T>> variables){
         super(variables, null);
         this.variableList = variables;

@@ -17,7 +17,7 @@ public class Variable<T> extends Getter<T> {
     protected final List<Constraint<T>> constraints = new ArrayList<>();
 
     /**
-     *
+     * Constructor with the name of the var
      * @param varName The name of this var
      */
     public Variable(String varName) {
@@ -56,14 +56,12 @@ public class Variable<T> extends Getter<T> {
 
     /**
      * Invalidate the current value and repeat to all linked var
-     * @return the current var
      */
-    public Variable<T> invalidate(){
+    public void invalidate(){
         if(this.calculatedValue == null)
-            return this;
+            return;
         this.depend.forEach(Variable::invalidate);
         this.calculatedValue = null;
-        return this;
     }
 
     /**
@@ -80,7 +78,6 @@ public class Variable<T> extends Getter<T> {
     /**
      * Add var which depend on the current var
      * @param variable variable to add
-     * @return the current var
      */
     public void addDepend(Variable<T> variable){
         this.depend.add(variable);

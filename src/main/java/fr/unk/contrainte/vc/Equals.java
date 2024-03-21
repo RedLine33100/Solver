@@ -18,16 +18,31 @@ public class Equals<T extends Comparable<T>> extends Constraint<T> {
     final Getter<T> fv;
     final Getter<T> sv;
 
+    /**
+     * Constructor with the value on the left and the right of the comparison, fv equals to sv
+     * @param fv the left value
+     * @param sv the right value
+     */
     public Equals(Getter<T> fv, Getter<T> sv){
         super(fv, sv);
         this.fv = fv;
         this.sv = sv;
     }
 
+    /**
+     * Constructor with the value on the left and the right of the comparison, fv equals to sv
+     * @param fv the left value
+     * @param sv the right value
+     */
     public Equals(T fv, Getter<T> sv){
         this(new Getter<>(fv), sv);
     }
 
+    /**
+     * Constructor with the value on the left and the right of the comparison, fv equals to sv
+     * @param fv the left value
+     * @param sv the right value
+     */
     public Equals(Getter<T> fv, T sv){
         this(fv, new Getter<>(sv));
     }

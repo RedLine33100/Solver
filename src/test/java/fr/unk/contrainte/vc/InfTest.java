@@ -1,6 +1,5 @@
 package fr.unk.contrainte.vc;
 
-import fr.unk.CSPSolver;
 import fr.unk.contrainte.Constraint;
 import fr.unk.domaine.DomainMap;
 import fr.unk.domaine.number.IntDomain;
@@ -77,7 +76,6 @@ class InfTest {
         Constraint<Integer> infCst = new Inf<>(testVar2.add(3), testVar1, false);
 
         infCst.reduceDomain(domainMap);
-        CSPSolver.printDomain(domainMap, testVar2);
 
     }
 }

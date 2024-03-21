@@ -9,7 +9,7 @@ public class Getter<T> {
     T t;
 
     /**
-     *
+     * Constructor to generate the Getter with a static value
      * @throws NullPointerException if variable is a Getter himself
      * @param variable the value returned by the getter
      */

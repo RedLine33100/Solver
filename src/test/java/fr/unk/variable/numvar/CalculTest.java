@@ -11,12 +11,12 @@ class CalculTest {
     void testadd() {
         Calcul<Integer> calcul = new Calcul<>("myVar") {
             @Override
-            Calcul<Integer> add(Getter<Integer> varGetter) {
+            public Calcul<Integer> add(Getter<Integer> varGetter) {
                 return this;
             }
 
             @Override
-            Calcul<Integer> remove(Getter<Integer> varGetter) {
+            public Calcul<Integer> remove(Getter<Integer> varGetter) {
                 return this;
             }
 
