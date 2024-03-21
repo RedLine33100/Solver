@@ -1,62 +1,81 @@
 package fr.unk.utils;
 
-import fr.unk.util.Pair;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Random;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+class PairTest <L,R>{
+    private static Random random = new Random();
+    private static int leftInt ;
+    private static int rightInt ;
+    private static double leftDouble ;
+    private static double rightDouble ;
+    private static float leftFloat ;
+    private static float rightFloat ;
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        leftInt = random.nextInt();
+        rightInt = random.nextInt();
+        leftDouble = random.nextDouble();
+        rightDouble = random.nextDouble();
+        leftFloat = random.nextFloat();
+        rightFloat = random.nextFloat();
+        System.out.println ("Avant toutes les executions");
+    }
 
-class PairTest<L, R> {
-    //Voir si dans paire il peut y avoir des Opérateur//
+    @AfterAll
+    static void tearDownAfterClass() throws Exception {
+        System.out.println ("Apres toutes les executions");
+    }
+
+    @BeforeEach
+    void setUp() throws Exception {
+        System.out.println ("avant une fonction sous test");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        System.out.println ("apres une fonction sous test");
+    }
     @Test
-    void testgetL() {
-        Random random = new Random();
-        int L_int = random.nextInt();
-        int R_int = random.nextInt();
-        double L_double = random.nextDouble();
-        double R_double = random.nextDouble();
-        float L_float = random.nextFloat();
-        float R_float = random.nextFloat();
-        //objectif test que on arrive bien a récupérer les bonnes valeur des 3 domaines est que les valeurs L et R n'ont pas besoin d'être dans le meme domaine
-        Pair<L, R> double_pair = (Pair<L, R>) new Pair<>(L_double, R_float);
-        Pair<L, R> float_pair = (Pair<L, R>) new Pair<>(L_float, R_int);
-        Pair<L, R> int_pair = (Pair<L, R>) new Pair<>(L_int, R_double);
+    void testFunctionalGetL() {
+        //objectif testé si on arrive bien à récupérer les bonnes valeurs des 3 domaines est que les valeurs L et R n'ont pas besoin d'être dans le même domaine
+        Pair<L, R> double_pair = (Pair<L, R>) new Pair<>(leftDouble, rightFloat);
         L doubleactuel = double_pair.getL();
-        L floatactuel = float_pair.getL();
-        L intactuel = int_pair.getL();
+        //test si la paire n'est pas null, puis test si la valeur récupérer est bien la valeur attendue (un double)
         assertNotNull(doubleactuel);
+        assertEquals(doubleactuel,leftDouble);
+        Pair<L, R> float_pair = (Pair<L, R>) new Pair<>(leftFloat, rightInt);
+        L floatactuel = float_pair.getL();
+        //Même test pour un float
         assertNotNull(floatactuel);
+        assertEquals(floatactuel,leftFloat);
+        Pair<L, R> int_pair = (Pair<L, R>) new Pair<>(leftInt, rightDouble);
+        L intactuel = int_pair.getL();
+        //Même test pour un int
         assertNotNull(intactuel);
-        assertEquals(doubleactuel, L_double);
-        assertEquals(floatactuel, L_float);
-        assertEquals(intactuel, L_int);
+        assertEquals(intactuel,leftInt);
     }
 
     @Test
-    void testgetR() {
-        Random random = new Random();
-        int L_int = random.nextInt();
-        int R_int = random.nextInt();
-        double L_double = random.nextDouble();
-        double R_double = random.nextDouble();
-        float L_float = random.nextFloat();
-        float R_float = random.nextFloat();
-
-        Pair<L, R> float_pair = (Pair<L, R>) new Pair<>(L_double, R_float);
-        Pair<L, R> int_pair = (Pair<L, R>) new Pair<>(L_float, R_int);
-        Pair<L, R> double_pair = (Pair<L, R>) new Pair<>(L_int, R_double);
-
-        R doubleactuel = double_pair.getR();
+    void testFunctionalGetR() {
+        //pareil que test Left mais pour la paire Right
+        //test pour les float
+        Pair<L, R> float_pair = (Pair<L, R>) new Pair<>(leftDouble, rightFloat);
         R floatactuel = float_pair.getR();
-        R intactuel = int_pair.getR();
-
-        assertNotNull(doubleactuel);
         assertNotNull(floatactuel);
+        assertEquals(floatactuel,rightFloat);
+        //test pour les int
+        Pair<L, R> int_pair = (Pair<L, R>) new Pair<>(leftFloat, rightInt);
+        R intactuel = int_pair.getR();
         assertNotNull(intactuel);
-        assertEquals(doubleactuel, R_double);
-        assertEquals(floatactuel, R_float);
-        assertEquals(intactuel, R_int);
+        assertEquals(intactuel,rightInt);
+        //test pour les double
+        Pair<L, R> double_pair = (Pair<L, R>) new Pair<>(leftInt, rightDouble);
+        R doubleactuel = double_pair.getR();
+        assertNotNull(doubleactuel);
+        assertEquals(doubleactuel,rightDouble);
+
     }
 }
