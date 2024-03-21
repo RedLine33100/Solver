@@ -33,7 +33,7 @@ class DiffTest {
         System.out.println ("apres une fonction sous test");
     }
     @Test
-    void testFonctionnelSatisfiedInt() {
+    void testFunctionalSatisfiedInt() {
         int val1 = random.nextInt();
         int val2;
         do {
@@ -59,7 +59,7 @@ class DiffTest {
 
     }
     @Test
-    void testFonctionnelSatisfiedFloat() {
+    void testFunctionalSatisfiedFloat() {
         float val1 = random.nextFloat();
         float val2;
         do {
@@ -84,7 +84,7 @@ class DiffTest {
         assertTrue(isNotValAndVarDiff.satisfied(objectMap));
     }
     @Test
-    void testFonctionnelSatisfiedDouble() {
+    void testFunctionalSatisfiedDouble() {
         double val1 = random.nextDouble();
         double val2;
         do {
@@ -111,7 +111,7 @@ class DiffTest {
 
     }
     @Test
-    void testSatisfied() {
+    void testFunctionalSatisfied() {
         //ne fonctionne pas quand il y a des types différent comme avec Inf
         /*VarGetter vInt = new VarGetter(10);
         VarGetter vDouble = new VarGetter(10.0);
