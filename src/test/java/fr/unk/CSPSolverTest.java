@@ -24,14 +24,14 @@ class CSPSolverTest {
     void trySolve() {
 
         CSPSolver<Integer> cspSolver = new CSPSolver<>();
-        Variable<Integer> calculInt = new Variable<>("fe");
-        Variable<Integer> calculInt2 = new Variable<>("de");
+        Variable<Integer> calculInt = new Variable<>("fe", new IntDomain(0,3,1));
+        Variable<Integer> calculInt2 = new Variable<>("de", new IntDomain(0,3,1));
 
         cspSolver.addConstraint(new Equals<>(calculInt, 3));
         cspSolver.addConstraint(new Equals<>(new CalculInt(calculInt2).add(2), calculInt));
 
-        cspSolver.addUnknownVariable(calculInt, new IntDomain(0,3,1));
-        cspSolver.addUnknownVariable(calculInt2, new IntDomain(0,3,1));
+        cspSolver.addUnknownVariable(calculInt);
+        cspSolver.addUnknownVariable(calculInt2);
         Map<String, Integer> result = cspSolver.trySolve();
 
         if(result == null){

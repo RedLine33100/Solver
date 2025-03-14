@@ -2,7 +2,6 @@ package fr.unk.variable.numvar;
 
 import fr.unk.utils.Pair;
 import fr.unk.variable.VarGetter;
-import fr.unk.variable.Variable;
 
 import java.util.*;
 import java.util.function.BinaryOperator;

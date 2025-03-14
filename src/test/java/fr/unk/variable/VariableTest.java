@@ -1,5 +1,6 @@
 package fr.unk.variable;
 
+import fr.unk.domaine.number.IntDomain;
 import fr.unk.variable.numvar.CalculInt;
 import fr.unk.variable.numvar.Calcul;
 
@@ -19,13 +20,13 @@ class VariableTest {
 
     @org.junit.jupiter.api.Test
     void getValue() {
-        Variable<Integer> intVar = new Variable<>("testVar1");
+        Variable<Integer> intVar = new Variable<>("testVar1", new IntDomain(0,1,1));
 
         assertNull(intVar.getValue(new HashMap<>()));
         assertEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 10);}}));
         assertNotEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 20);}}));
 
-        Variable<Integer> var = new Variable<>("testVar");
+        Variable<Integer> var = new Variable<>("testVar", new IntDomain(0,1,1));
         Calcul<Integer> intCalc = new CalculInt(var);
 
         assertNull(intCalc.getValue(new HashMap<>()));
