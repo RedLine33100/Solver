@@ -1,6 +1,6 @@
 package fr.unk.variable;
 
-import fr.unk.variable.numvar.CSPInt;
+import fr.unk.variable.numvar.CalculInt;
 import fr.unk.variable.numvar.Calcul;
 
 import java.util.HashMap;
@@ -19,14 +19,14 @@ class VariableTest {
 
     @org.junit.jupiter.api.Test
     void getValue() {
-        Variable<Integer> intVar = new Variable<>("testVar1", Integer.class);
+        Variable<Integer> intVar = new Variable<>("testVar1");
 
         assertNull(intVar.getValue(new HashMap<>()));
         assertEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 10);}}));
         assertNotEquals(10, intVar.getValue(new HashMap<>(){{put("testVar1", 20);}}));
 
-
-        Calcul<Integer> intCalc = new CSPInt("testVar");
+        Variable<Integer> var = new Variable<>("testVar");
+        Calcul<Integer> intCalc = new CalculInt(var);
 
         assertNull(intCalc.getValue(new HashMap<>()));
         assertEquals(20, intCalc.getValue(new HashMap<>(){{put("testVar", 20);}}));

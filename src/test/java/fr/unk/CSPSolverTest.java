@@ -2,7 +2,8 @@ package fr.unk;
 
 import fr.unk.contrainte.vc.Equals;
 import fr.unk.domaine.number.IntDomain;
-import fr.unk.variable.numvar.CSPInt;
+import fr.unk.variable.Variable;
+import fr.unk.variable.numvar.CalculInt;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,14 +24,14 @@ class CSPSolverTest {
     void trySolve() {
 
         CSPSolver<Integer> cspSolver = new CSPSolver<>();
-        CSPInt cspInt = new CSPInt("fe");
-        CSPInt cspInt2 = new CSPInt("de");
+        Variable<Integer> calculInt = new Variable<>("fe");
+        Variable<Integer> calculInt2 = new Variable<>("de");
 
-        cspSolver.addConstraint(new Equals<>(cspInt, 3));
-        cspSolver.addConstraint(new Equals<>(cspInt2.add(2), cspInt));
+        cspSolver.addConstraint(new Equals<>(calculInt, 3));
+        cspSolver.addConstraint(new Equals<>(new CalculInt(calculInt2).add(2), calculInt));
 
-        cspSolver.addUnknownVariable(cspInt, new IntDomain(0,3,1));
-        cspSolver.addUnknownVariable(cspInt2, new IntDomain(0,3,1));
+        cspSolver.addUnknownVariable(calculInt, new IntDomain(0,3,1));
+        cspSolver.addUnknownVariable(calculInt2, new IntDomain(0,3,1));
         Map<String, Integer> result = cspSolver.trySolve();
 
         if(result == null){

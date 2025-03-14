@@ -7,17 +7,15 @@ import fr.unk.variable.Variable;
 import java.util.*;
 import java.util.function.BinaryOperator;
 
-public abstract class Calcul<T extends Number> extends Variable<T> {
+public abstract class Calcul<T extends Number> extends VarGetter<T> {
 
-    List<Pair<BinaryOperator<T>, VarGetter<T>>> operatorList;
+    VarGetter<T> previous;
+    Pair<BinaryOperator<T>, VarGetter<T>> operator;
 
-    public Calcul(String varName, Class<T> tClass, List<Pair<BinaryOperator<T>, VarGetter<T>>> operatorList) {
-        super(varName, tClass);
-        this.operatorList = operatorList;
-    }
-
-    public Calcul(String varName, Class<T> tClass) {
-        this(varName, tClass, new ArrayList<>());
+    public Calcul(VarGetter<T> previous, Pair<BinaryOperator<T>, VarGetter<T>> operator) {
+        super(null);
+        this.previous = previous;
+        this.operator = operator;
     }
 
     abstract Calcul<T> add(VarGetter<T> varGetter);
@@ -44,6 +42,16 @@ public abstract class Calcul<T extends Number> extends Variable<T> {
     public abstract Calcul<T> modulo(VarGetter<T> variable);
     public Calcul<T> modulo(T variable){
         return this.modulo(new VarGetter<>(variable));
+    }
+
+    @Override
+    public T getValue(Map<String, T> maps) {
+        T value = previous.getValue(maps);
+        if(value == null)
+            return null;
+        if(operator == null)
+            return value;
+        return operator.getL().apply(value, operator.getR().getValue(maps));
     }
 
 }
