@@ -2,8 +2,8 @@ package fr.unk.contrainte;
 
 import java.util.Map;
 
-public interface Constraint {
+public interface Constraint<T> {
 
-    boolean satisfied(Map<String, Object> objectMap);
+    boolean satisfied(Map<String, T> objectMap);
 
 }

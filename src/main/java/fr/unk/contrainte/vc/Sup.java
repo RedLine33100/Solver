@@ -2,11 +2,10 @@ package fr.unk.contrainte.vc;
 
 import fr.unk.contrainte.Constraint;
 import fr.unk.variable.VarGetter;
-import fr.unk.variable.Variable;
 
 import java.util.Map;
 
-public class Sup<T extends Comparable<T>> implements Constraint {
+public class Sup<T extends Comparable<T>> implements Constraint<T> {
 
     final VarGetter<T> fv;
     final VarGetter<T> sv;
@@ -32,7 +31,7 @@ public class Sup<T extends Comparable<T>> implements Constraint {
     }
 
     @Override
-    public boolean satisfied(Map<String, Object> objectMap) {
+    public boolean satisfied(Map<String, T> objectMap) {
         int val = fv.getValue(objectMap).compareTo(sv.getValue(objectMap));
         return equals ? val >= 0 : val > 0;
     }

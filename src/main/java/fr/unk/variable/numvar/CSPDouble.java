@@ -49,7 +49,7 @@ public class CSPDouble extends Calcul<Double> {
     }
 
     @Override
-    public Double getValue(Map<String, Object> maps) {
+    public Double getValue(Map<String, Double> maps) {
         Double value = super.getValue(maps);
         if(value == null)
             return null;

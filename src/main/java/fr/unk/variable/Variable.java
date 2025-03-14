@@ -1,7 +1,5 @@
 package fr.unk.variable;
 
-import fr.unk.domaine.Domain;
-
 import java.util.Map;
 
 public class Variable<T> extends VarGetter<T>{
@@ -19,7 +17,7 @@ public class Variable<T> extends VarGetter<T>{
     }
 
     @Override
-    public T getValue(Map<String, Object> maps) {
+    public T getValue(Map<String, T> maps) {
         if(this.tClass == null || this.varName == null)
             return null;
 

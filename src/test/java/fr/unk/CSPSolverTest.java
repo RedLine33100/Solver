@@ -31,14 +31,14 @@ class CSPSolverTest {
 
         cspSolver.addUnknownVariable(cspInt, new IntDomain(0,3,1));
         cspSolver.addUnknownVariable(cspInt2, new IntDomain(0,3,1));
-        Map<String, Object> result = cspSolver.trySolve();
+        Map<String, Integer> result = cspSolver.trySolve();
 
         if(result == null){
             System.out.println("None");
             return;
         }
 
-        for(Map.Entry<String, Object> entry : result.entrySet())
+        for(Map.Entry<String, Integer> entry : result.entrySet())
             System.out.println(entry.getKey()+": "+entry.getValue());
 
     }

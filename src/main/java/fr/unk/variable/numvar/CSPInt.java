@@ -25,7 +25,7 @@ public class CSPInt extends Calcul<Integer> {
 
     @Override
     public CSPInt add(VarGetter<Integer> variable){
-        return this.copyAddCalc(new Pair<>((int1, int2) -> int1+int2, variable));
+        return this.copyAddCalc(new Pair<>(Integer::sum, variable));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class CSPInt extends Calcul<Integer> {
     }
 
     @Override
-    public Integer getValue(Map<String, Object> maps) {
+    public Integer getValue(Map<String, Integer> maps) {
         Integer value = super.getValue(maps);
         if(value == null)
             return null;

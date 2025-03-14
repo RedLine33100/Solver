@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ListEquals<T extends Comparable<T>> implements Constraint {
+public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
 
     final List<Variable<T>> variableList;
 
@@ -20,7 +20,7 @@ public class ListEquals<T extends Comparable<T>> implements Constraint {
     }
 
     @Override
-    public boolean satisfied(Map<String, Object> objectMap) {
+    public boolean satisfied(Map<String, T> objectMap) {
 
         for(int i = 0; i<variableList.size(); i++)
             for(int y = i+1; y<variableList.size(); y++)

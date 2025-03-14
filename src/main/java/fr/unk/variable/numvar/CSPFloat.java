@@ -49,7 +49,7 @@ public class CSPFloat extends Calcul<Float> {
     }
 
     @Override
-    public Float getValue(Map<String, Object> maps) {
+    public Float getValue(Map<String, Float> maps) {
         Float value = super.getValue(maps);
         if(value == null)
             return null;
