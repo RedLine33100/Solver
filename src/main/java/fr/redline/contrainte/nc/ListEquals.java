@@ -5,9 +5,8 @@ import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.ValueGetter;
 
 import java.util.List;
-import java.util.Map;
 
-public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
+public class ListEquals<T extends Comparable<T>> implements Constraint {
 
     final List<ValueGetter<T>> ValueGetterList;
 

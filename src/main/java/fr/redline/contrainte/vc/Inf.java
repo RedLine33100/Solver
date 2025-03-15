@@ -5,7 +5,7 @@ import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.Value;
 import fr.redline.value.ValueGetter;
 
-public class Inf<T extends Comparable<T>> implements Constraint<T> {
+public class Inf<T extends Comparable<T>> implements Constraint {
 
     final ValueGetter<T> fv;
     final ValueGetter<T> sv;

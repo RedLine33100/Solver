@@ -9,13 +9,13 @@ import java.util.*;
 public class CSPSolver<T> {
 
     protected final List<Variable<T>> uknVariables = new ArrayList<>();
-    protected final List<Constraint<T>> constraintList = new ArrayList<>();
+    protected final List<Constraint> constraintList = new ArrayList<>();
 
     public void addUnknownVariable(Variable<T> variable){
         this.uknVariables.add(variable);
     }
 
-    public void addConstraint(Constraint<T> constraint){
+    public void addConstraint(Constraint constraint){
         this.constraintList.add(constraint);
     }
 
@@ -35,7 +35,7 @@ public class CSPSolver<T> {
             boolean hasUnknownVariable = false;
             boolean failed = false;
 
-            for(Constraint<T> constraint : constraintList){
+            for(Constraint constraint : constraintList){
                 ConstraintResult constraintResult = constraint.satisfied();
                 if(constraintResult == ConstraintResult.UNKNOWN)
                     hasUnknownVariable = true;
@@ -51,13 +51,11 @@ public class CSPSolver<T> {
             if(!empty || hasUnknownVariable) {
                 Map<String, T> mayResult = solve(new ArrayList<>(remains));
                 if(mayResult != null) {
-                    variable.setValue(null);
                     mayResult.put(variable.getVarName(), t);
                     return mayResult;
                 }
             }
 
-            variable.setValue(null);
             return new HashMap<>(){{
                 put(variable.getVarName(), t);
             }};

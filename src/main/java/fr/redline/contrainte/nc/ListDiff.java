@@ -6,7 +6,7 @@ import fr.redline.value.ValueGetter;
 
 import java.util.List;
 
-public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
+public class ListDiff<T extends Comparable<T>> implements Constraint {
 
     final List<ValueGetter<T>> variableList;
 

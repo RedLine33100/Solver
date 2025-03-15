@@ -1,6 +1,6 @@
 package fr.redline.contrainte;
 
-public interface Constraint<T> {
+public interface Constraint {
 
     ConstraintResult satisfied();
 

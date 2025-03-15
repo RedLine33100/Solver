@@ -3,12 +3,12 @@ package fr.redline.contrainte.bc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 
-public class Nor<T> implements Constraint<T> {
+public class Nor implements Constraint {
 
-    final Constraint<T> c1;
-    final Constraint<T> c2;
+    final Constraint c1;
+    final Constraint c2;
 
-    public Nor(Constraint<T> c1, Constraint<T> c2){
+    public Nor(Constraint c1, Constraint c2){
         this.c1 = c1;
         this.c2 = c2;
     }
