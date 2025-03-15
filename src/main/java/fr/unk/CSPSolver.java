@@ -1,6 +1,7 @@
 package fr.unk;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.contrainte.ConstraintResult;
 import fr.unk.variable.Variable;
 
 import java.util.*;
@@ -31,23 +32,29 @@ public class CSPSolver<T> {
 
             objectMap.put(variable.getVarName(), t);
 
-            if(!empty) {
-                Map<String, T> mayResult = solve(new ArrayList<>(remains), objectMap);
-                if(mayResult != null)
-                    return mayResult;
-            }
-
+            boolean hasUnknownVariable = false;
             boolean failed = false;
 
             for(Constraint<T> constraint : constraintList){
-                if(!constraint.satisfied(objectMap)) {
+                ConstraintResult constraintResult = constraint.satisfied(objectMap);
+                if(constraintResult == ConstraintResult.UNKNOWN)
+                    hasUnknownVariable = true;
+                else if(constraintResult == ConstraintResult.FALSE) {
                     failed = true;
                     break;
                 }
             }
 
-            if(!failed)
-                return objectMap;
+            if(failed)
+                continue;
+
+            if(!empty || hasUnknownVariable) {
+                Map<String, T> mayResult = solve(new ArrayList<>(remains), objectMap);
+                if(mayResult != null)
+                    return mayResult;
+            }
+
+            return objectMap;
 
         }
 

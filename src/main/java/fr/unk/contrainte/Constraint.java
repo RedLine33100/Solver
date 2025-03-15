@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface Constraint<T> {
 
-    boolean satisfied(Map<String, T> objectMap);
+    ConstraintResult satisfied(Map<String, T> objectMap);
 
 }

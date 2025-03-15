@@ -1,6 +1,7 @@
 package fr.unk.contrainte.bc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.contrainte.ConstraintResult;
 
 import java.util.Map;
 
@@ -15,8 +16,12 @@ public class Or<T> implements Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
-        return this.c1.satisfied(objectMap) || this.c2.satisfied(objectMap);
+    public ConstraintResult satisfied(Map<String, T> objectMap) {
+        ConstraintResult res1 = c1.satisfied(objectMap);
+        ConstraintResult res2 = c2.satisfied(objectMap);
+        if(res1==ConstraintResult.UNKNOWN || res2==ConstraintResult.UNKNOWN)
+            return ConstraintResult.UNKNOWN;
+        return res1 == ConstraintResult.TRUE || res2 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;
     }
 
 }

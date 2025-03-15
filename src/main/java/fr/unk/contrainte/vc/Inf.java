@@ -1,6 +1,7 @@
 package fr.unk.contrainte.vc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.contrainte.ConstraintResult;
 import fr.unk.variable.VarGetter;
 
 import java.util.Map;
@@ -31,9 +32,19 @@ public class Inf<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
-        int val = fv.getValue(objectMap).compareTo(sv.getValue(objectMap));
-        return equals ? val <= 0 : val < 0;
+    public ConstraintResult satisfied(Map<String, T> objectMap) {
+
+        T vf = fv.getValue(objectMap);
+        if(vf == null)
+            return ConstraintResult.UNKNOWN;
+        T vs = sv.getValue(objectMap);
+        if(vs == null)
+            return ConstraintResult.UNKNOWN;
+
+        int val = vf.compareTo(vs);
+        boolean res = equals ? val <= 0 : val < 0;
+
+        return res ? ConstraintResult.TRUE : ConstraintResult.FALSE;
     }
 
 }

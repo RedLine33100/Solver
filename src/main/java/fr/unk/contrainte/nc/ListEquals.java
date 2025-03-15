@@ -1,6 +1,7 @@
 package fr.unk.contrainte.nc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.contrainte.ConstraintResult;
 import fr.unk.variable.Variable;
 
 import java.util.Arrays;
@@ -20,14 +21,18 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
+    public ConstraintResult satisfied(Map<String, T> objectMap) {
 
-        for(int i = 0; i<variableList.size(); i++)
-            for(int y = i+1; y<variableList.size(); y++)
-                if (variableList.get(i).getValue(objectMap).compareTo(variableList.get(y).getValue(objectMap)) != 0)
-                    return false;
+        for(int i = 0; i<variableList.size(); i++) {
+            T v = variableList.get(i).getValue(objectMap);
+            if(v == null)
+                return ConstraintResult.UNKNOWN;
+            for (int y = i + 1; y < variableList.size(); y++)
+                if (v.compareTo(variableList.get(y).getValue(objectMap)) != 0)
+                    return ConstraintResult.FALSE;
+        }
 
-        return true;
+        return ConstraintResult.TRUE;
     }
 
 }

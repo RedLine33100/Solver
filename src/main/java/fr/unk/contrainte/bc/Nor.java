@@ -1,6 +1,7 @@
 package fr.unk.contrainte.bc;
 
 import fr.unk.contrainte.Constraint;
+import fr.unk.contrainte.ConstraintResult;
 
 import java.util.Map;
 
@@ -15,11 +16,16 @@ public class Nor<T> implements Constraint<T> {
     }
 
     @Override
-    public boolean satisfied(Map<String, T> objectMap) {
-        boolean c1s = this.c1.satisfied(objectMap);
-        boolean c2s = this.c2.satisfied(objectMap);
+    public ConstraintResult satisfied(Map<String, T> objectMap) {
+        ConstraintResult c1s = this.c1.satisfied(objectMap);
+        if(c1s == ConstraintResult.UNKNOWN)
+            return ConstraintResult.UNKNOWN;
 
-        return (c1s && !c2s) || (!c1s && c2s);
+        ConstraintResult c2s = this.c2.satisfied(objectMap);
+        if(c2s == ConstraintResult.UNKNOWN)
+            return ConstraintResult.UNKNOWN;
+
+        return c1s != c2s ? ConstraintResult.TRUE : ConstraintResult.FALSE;
     }
 
 }
