@@ -4,7 +4,6 @@ import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.ValueGetter;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
