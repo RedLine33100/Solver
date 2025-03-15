@@ -2,10 +2,9 @@ package fr.redline;
 
 import fr.redline.contrainte.vc.Equals;
 import fr.redline.domaine.number.IntDomain;
+import fr.redline.solver.CSPSolver;
 import fr.redline.value.variable.Variable;
 import fr.redline.value.numvar.CalculInt;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;

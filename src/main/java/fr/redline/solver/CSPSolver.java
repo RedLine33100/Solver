@@ -1,4 +1,4 @@
-package fr.redline;
+package fr.redline.solver;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
@@ -19,7 +19,7 @@ public class CSPSolver<T> {
         this.constraintList.add(constraint);
     }
 
-    public Map<String, T> solve(List<Variable<T>> remains, Map<String, T> objectMap){
+    public Map<String, T> solve(List<Variable<T>> remains){
 
         if(remains.isEmpty())
             return null;
@@ -28,15 +28,15 @@ public class CSPSolver<T> {
 
         boolean empty = remains.isEmpty();
 
-        for (T t : variable.domain().getPossibility()){
+        for (T t : variable.getDomain().getPossibility()){
 
-            objectMap.put(variable.varName(), t);
+            variable.setValue(t);
 
             boolean hasUnknownVariable = false;
             boolean failed = false;
 
             for(Constraint<T> constraint : constraintList){
-                ConstraintResult constraintResult = constraint.satisfied(objectMap);
+                ConstraintResult constraintResult = constraint.satisfied();
                 if(constraintResult == ConstraintResult.UNKNOWN)
                     hasUnknownVariable = true;
                 else if(constraintResult == ConstraintResult.FALSE) {
@@ -49,14 +49,22 @@ public class CSPSolver<T> {
                 continue;
 
             if(!empty || hasUnknownVariable) {
-                Map<String, T> mayResult = solve(new ArrayList<>(remains), objectMap);
-                if(mayResult != null)
+                Map<String, T> mayResult = solve(new ArrayList<>(remains));
+                if(mayResult != null) {
+                    variable.setValue(null);
+                    mayResult.put(variable.getVarName(), t);
                     return mayResult;
+                }
             }
 
-            return objectMap;
+            variable.setValue(null);
+            return new HashMap<>(){{
+                put(variable.getVarName(), t);
+            }};
 
         }
+
+        variable.setValue(null);
 
         return null;
 
@@ -64,7 +72,7 @@ public class CSPSolver<T> {
 
     public Map<String, T> trySolve(){
 
-        return this.solve(uknVariables, new HashMap<>());
+        return this.solve(uknVariables);
 
     }
 

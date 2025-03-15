@@ -3,8 +3,6 @@ package fr.redline.contrainte.bc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 
-import java.util.Map;
-
 public class Or<T> implements Constraint<T> {
 
     final Constraint<T> c1;
@@ -16,9 +14,9 @@ public class Or<T> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied(Map<String, T> objectMap) {
-        ConstraintResult res1 = c1.satisfied(objectMap);
-        ConstraintResult res2 = c2.satisfied(objectMap);
+    public ConstraintResult satisfied() {
+        ConstraintResult res1 = c1.satisfied();
+        ConstraintResult res2 = c2.satisfied();
         if(res1==ConstraintResult.UNKNOWN || res2==ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
         return res1 == ConstraintResult.TRUE || res2 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;

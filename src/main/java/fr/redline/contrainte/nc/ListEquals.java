@@ -16,14 +16,14 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied(Map<String, T> objectMap) {
+    public ConstraintResult satisfied() {
 
         for(int i = 0; i<ValueGetterList.size(); i++) {
-            T v = ValueGetterList.get(i).getValue(objectMap);
+            T v = ValueGetterList.get(i).getValue();
             if(v == null)
                 return ConstraintResult.UNKNOWN;
             for (int y = i + 1; y < ValueGetterList.size(); y++)
-                if (v.compareTo(ValueGetterList.get(y).getValue(objectMap)) != 0)
+                if (v.compareTo(ValueGetterList.get(y).getValue()) != 0)
                     return ConstraintResult.FALSE;
         }
 

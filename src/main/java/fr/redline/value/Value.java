@@ -2,8 +2,6 @@ package fr.redline.value;
 
 import fr.redline.value.variable.VarType;
 
-import java.util.Map;
-
 public class Value<T> implements ValueGetter<T>{
 
     private final T value;
@@ -13,7 +11,7 @@ public class Value<T> implements ValueGetter<T>{
     }
 
     @Override
-    public T getValue(Map<String, T> map) {
+    public T getValue() {
         return value;
     }
 

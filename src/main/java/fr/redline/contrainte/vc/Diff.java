@@ -5,8 +5,6 @@ import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.Value;
 import fr.redline.value.ValueGetter;
 
-import java.util.Map;
-
 public class Diff<T extends Comparable<T>> implements Constraint<T> {
 
     final ValueGetter<T> fv;
@@ -28,13 +26,13 @@ public class Diff<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied(Map<String, T> objectMap) {
+    public ConstraintResult satisfied() {
 
-        T vf = fv.getValue(objectMap);
+        T vf = fv.getValue();
         if(vf == null)
             return ConstraintResult.UNKNOWN;
 
-        T vs = sv.getValue(objectMap);
+        T vs = sv.getValue();
         if(vs == null)
             return ConstraintResult.UNKNOWN;
 

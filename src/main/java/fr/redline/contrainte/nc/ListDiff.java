@@ -5,7 +5,6 @@ import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.ValueGetter;
 
 import java.util.List;
-import java.util.Map;
 
 public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
 
@@ -16,14 +15,14 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied(Map<String, T> objectMap) {
+    public ConstraintResult satisfied() {
 
         for(int i = 0; i<variableList.size(); i++) {
-            T v = variableList.get(i).getValue(objectMap);
+            T v = variableList.get(i).getValue();
             if(v == null)
                 return ConstraintResult.UNKNOWN;
             for (int y = i + 1; y < variableList.size(); y++)
-                if (v.compareTo(variableList.get(y).getValue(objectMap)) == 0)
+                if (v.compareTo(variableList.get(y).getValue()) == 0)
                     return ConstraintResult.FALSE;
         }
 

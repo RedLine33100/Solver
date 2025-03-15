@@ -3,8 +3,6 @@ package fr.redline.contrainte.bc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 
-import java.util.Map;
-
 public class Nor<T> implements Constraint<T> {
 
     final Constraint<T> c1;
@@ -16,12 +14,12 @@ public class Nor<T> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied(Map<String, T> objectMap) {
-        ConstraintResult c1s = this.c1.satisfied(objectMap);
+    public ConstraintResult satisfied() {
+        ConstraintResult c1s = this.c1.satisfied();
         if(c1s == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
 
-        ConstraintResult c2s = this.c2.satisfied(objectMap);
+        ConstraintResult c2s = this.c2.satisfied();
         if(c2s == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
 

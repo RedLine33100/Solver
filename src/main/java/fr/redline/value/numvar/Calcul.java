@@ -5,7 +5,6 @@ import fr.redline.value.Value;
 import fr.redline.value.ValueGetter;
 import fr.redline.value.variable.VarType;
 
-import java.util.*;
 import java.util.function.BinaryOperator;
 
 public abstract class Calcul<T extends Number> implements ValueGetter<T> {
@@ -45,13 +44,13 @@ public abstract class Calcul<T extends Number> implements ValueGetter<T> {
     }
 
     @Override
-    public T getValue(Map<String, T> maps) {
-        T value = previous.getValue(maps);
+    public T getValue() {
+        T value = previous.getValue();
         if(value == null)
             return null;
         if(operator == null)
             return value;
-        return operator.l().apply(value, operator.r().getValue(maps));
+        return operator.l().apply(value, operator.r().getValue());
     }
 
     @Override
