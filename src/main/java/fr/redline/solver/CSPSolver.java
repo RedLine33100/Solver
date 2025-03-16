@@ -54,6 +54,7 @@ public class CSPSolver<T> {
                     mayResult.put(variable.getVarName(), t);
                     return mayResult;
                 }
+                continue;
             }
 
             return new HashMap<>(){{
