@@ -1,8 +1,8 @@
 package fr.redline.value;
 
 import fr.redline.domaine.number.IntDomain;
-import fr.redline.value.numvar.CalculInt;
 import fr.redline.value.numvar.Calcul;
+import fr.redline.value.numvar.CalculInt;
 import fr.redline.value.variable.Variable;
 
 import static org.junit.jupiter.api.Assertions.*;

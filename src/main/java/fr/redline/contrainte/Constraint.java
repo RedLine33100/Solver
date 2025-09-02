@@ -1,7 +1,12 @@
 package fr.redline.contrainte;
 
-public interface Constraint {
+import fr.redline.value.variable.Variable;
+
+import java.util.LinkedHashSet;
+
+public interface Constraint<T> {
 
     ConstraintResult satisfied();
+    LinkedHashSet<Variable<T>> getUnknownVariables();
 
 }

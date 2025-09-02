@@ -1,28 +1,27 @@
-package fr.redline.solver;
+package fr.redline;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.variable.Variable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 public class CSPSolver<T> {
 
-    protected final List<Variable<T>> uknVariables = new ArrayList<>();
-    protected final List<Constraint> constraintList = new ArrayList<>();
+    protected final LinkedHashSet<Variable<T>> uknVariables = new LinkedHashSet<>();
+    protected final List<Constraint<T>> constraintList = new ArrayList<>();
 
-    public void addUnknownVariable(Variable<T> variable){
-        this.uknVariables.add(variable);
-    }
-
-    public void addConstraint(Constraint constraint){
+    public void addConstraint(Constraint<T> constraint){
+        this.uknVariables.addAll(constraint.getUnknownVariables());
         this.constraintList.add(constraint);
     }
 
-    public Map<String, T> solve(List<Variable<T>> remains){
+    public boolean solve(LinkedHashSet<Variable<T>> remains){
 
         if(remains.isEmpty())
-            return null;
+            return false;
 
         Variable<T> variable = remains.removeFirst();
 
@@ -35,7 +34,7 @@ public class CSPSolver<T> {
             boolean hasUnknownVariable = false;
             boolean failed = false;
 
-            for(Constraint constraint : constraintList){
+            for(Constraint<T> constraint : constraintList){
                 ConstraintResult constraintResult = constraint.satisfied();
                 if(constraintResult == ConstraintResult.UNKNOWN)
                     hasUnknownVariable = true;
@@ -49,30 +48,29 @@ public class CSPSolver<T> {
                 continue;
 
             if(!empty || hasUnknownVariable) {
-                Map<String, T> mayResult = solve(new ArrayList<>(remains));
-                if(mayResult != null) {
-                    mayResult.put(variable.getVarName(), t);
-                    return mayResult;
-                }
+                if(solve(new LinkedHashSet<>(remains)))
+                    return true;
                 continue;
             }
 
-            return new HashMap<>(){{
-                put(variable.getVarName(), t);
-            }};
+            return true;
 
         }
 
         variable.setValue(null);
 
-        return null;
+        return false;
 
     }
 
-    public Map<String, T> trySolve(){
+    public boolean trySolve(){
 
         return this.solve(uknVariables);
 
+    }
+
+    public LinkedHashSet<Variable<T>> getUnknownVariables(){
+        return uknVariables;
     }
 
 }

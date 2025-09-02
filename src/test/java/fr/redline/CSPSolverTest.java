@@ -1,13 +1,11 @@
 package fr.redline;
 
-import fr.redline.contrainte.vc.Equals;
+import fr.redline.contrainte.ValueConstraint;
 import fr.redline.domaine.number.IntDomain;
-import fr.redline.solver.CSPSolver;
-import fr.redline.value.variable.Variable;
+import fr.redline.value.Value;
 import fr.redline.value.numvar.CalculInt;
+import fr.redline.value.variable.Variable;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 class CSPSolverTest {
 
@@ -18,20 +16,16 @@ class CSPSolverTest {
         Variable<Integer> calculInt = new Variable<>("fe", new IntDomain(0,3,1));
         Variable<Integer> calculInt2 = new Variable<>("de", new IntDomain(0,3,1));
 
-        cspSolver.addConstraint(new Equals<>(calculInt, 3));
-        cspSolver.addConstraint(new Equals<>(new CalculInt(calculInt2).add(2), calculInt));
+        cspSolver.addConstraint(ValueConstraint.equals(calculInt, new Value<>(3)));
+        cspSolver.addConstraint(ValueConstraint.equals(new CalculInt(calculInt2).add(2), calculInt));
 
-        cspSolver.addUnknownVariable(calculInt);
-        cspSolver.addUnknownVariable(calculInt2);
-        Map<String, Integer> result = cspSolver.trySolve();
-
-        if(result == null){
+        if(!cspSolver.trySolve()){
             System.out.println("None");
             return;
         }
 
-        for(Map.Entry<String, Integer> entry : result.entrySet())
-            System.out.println(entry.getKey()+": "+entry.getValue());
+        for(Variable<Integer> entry : cspSolver.getUnknownVariables())
+            System.out.println(entry.getVarName()+": "+entry.getValue());
 
     }
 }
