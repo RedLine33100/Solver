@@ -13,11 +13,19 @@ class CSPSolverTest {
     void trySolve() {
 
         CSPSolver<Integer> cspSolver = new CSPSolver<>();
-        Variable<Integer> calculInt = new Variable<>("fe", new IntDomain(0,3,1));
-        Variable<Integer> calculInt2 = new Variable<>("de", new IntDomain(0,3,1));
 
-        cspSolver.addConstraint(ValueConstraint.equals(calculInt, new Value<>(3)));
-        cspSolver.addConstraint(ValueConstraint.equals(new CalculInt(calculInt2).add(2), calculInt));
+        CalculInt plaqueUse = new CalculInt(new Value<>(30));
+        CalculInt visUse = new CalculInt(new Value<>(60));
+
+        CalculInt plaqueInput = new CalculInt(new Value<>(160));
+        CalculInt visInput = new CalculInt(new Value<>(240));
+
+        Variable<Integer> inputMultiplierVis = new Variable<>("inpMultVis", new IntDomain(1,1000,1));
+        Variable<Integer> inputMultiplierScrew = new Variable<>("inpMultScrew", new IntDomain(1,1000,1));
+        Variable<Integer> useMultiplier = new Variable<>("useMult", new IntDomain(1,1000,1));
+
+        cspSolver.addConstraint(ValueConstraint.equals(plaqueUse.multiply(useMultiplier), plaqueInput.multiply(inputMultiplierScrew)));
+        cspSolver.addConstraint(ValueConstraint.equals(visUse.multiply(useMultiplier), visInput.multiply(inputMultiplierVis)));
 
         if(!cspSolver.trySolve()){
             System.out.println("None");

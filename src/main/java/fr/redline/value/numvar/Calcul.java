@@ -53,7 +53,10 @@ public abstract class Calcul<T extends Number> extends ValueGetter<T> {
             return null;
         if(operator == null)
             return value;
-        return operator.l().apply(value, operator.r().getValue());
+        T opValue = operator.r().getValue();
+        if(opValue == null)
+            return null;
+        return operator.l().apply(value, opValue);
     }
 
     @Override
