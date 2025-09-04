@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
 
 public interface Constraint<T> {
 
-    ConstraintResult satisfied();
+    ConstraintResult evaluate();
     LinkedHashSet<Variable<T>> getUnknownVariables();
 
 }

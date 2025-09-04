@@ -16,6 +16,8 @@ public class CSPSolver<T> {
     public void addConstraint(Constraint<T> constraint){
         this.uknVariables.addAll(constraint.getUnknownVariables());
         this.constraintList.add(constraint);
+
+        constraint.getUnknownVariables().forEach(variable -> variable.addLinkedConstraint(constraint));
     }
 
     public boolean solve(LinkedHashSet<Variable<T>> remains){
@@ -34,8 +36,8 @@ public class CSPSolver<T> {
             boolean hasUnknownVariable = false;
             boolean failed = false;
 
-            for(Constraint<T> constraint : constraintList){
-                ConstraintResult constraintResult = constraint.satisfied();
+            for(Constraint<T> constraint : variable.getLinkedConstraints()){
+                ConstraintResult constraintResult = constraint.evaluate();
                 if(constraintResult == ConstraintResult.UNKNOWN)
                     hasUnknownVariable = true;
                 else if(constraintResult == ConstraintResult.FALSE) {
@@ -65,7 +67,9 @@ public class CSPSolver<T> {
 
     public boolean trySolve(){
 
-        return this.solve(uknVariables);
+
+
+        return this.solve(new LinkedHashSet<>(uknVariables));
 
     }
 

@@ -82,7 +82,7 @@ public class ValueConstraint<T extends Comparable<T>> implements Constraint<T>{
     }
 
     @Override
-    public ConstraintResult satisfied() {
+    public ConstraintResult evaluate() {
         return biFunction.apply(constraint1, constraint2);
     }
 

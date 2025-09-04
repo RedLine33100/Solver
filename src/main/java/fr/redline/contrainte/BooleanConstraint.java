@@ -9,8 +9,8 @@ public class BooleanConstraint<T> implements Constraint<T>{
 
     public static <T> BooleanConstraint<T> or(Constraint<T> co1, Constraint<T> co2) {
         return new BooleanConstraint<>(co1, co2, (c1, c2) -> {
-            ConstraintResult res1 = c1.satisfied();
-            ConstraintResult res2 = c2.satisfied();
+            ConstraintResult res1 = c1.evaluate();
+            ConstraintResult res2 = c2.evaluate();
             if(res1==ConstraintResult.UNKNOWN || res2==ConstraintResult.UNKNOWN)
                 return ConstraintResult.UNKNOWN;
             return res1 == ConstraintResult.TRUE || res2 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;
@@ -19,21 +19,21 @@ public class BooleanConstraint<T> implements Constraint<T>{
 
     public static <T> BooleanConstraint<T> and(Constraint<T> co1, Constraint<T> co2) {
         return new BooleanConstraint<>(co1, co2, (c1, c2) -> {
-            ConstraintResult res1 = c1.satisfied();
+            ConstraintResult res1 = c1.evaluate();
             if(res1 != ConstraintResult.TRUE)
                 return res1;
 
-            return c2.satisfied();
+            return c2.evaluate();
         });
     }
 
     public static <T> BooleanConstraint<T> nor(Constraint<T> co1, Constraint<T> co2) {
         return new BooleanConstraint<>(co1, co2, (c1, c2) -> {
-            ConstraintResult c1s = c1.satisfied();
+            ConstraintResult c1s = c1.evaluate();
             if(c1s == ConstraintResult.UNKNOWN)
                 return ConstraintResult.UNKNOWN;
 
-            ConstraintResult c2s = c2.satisfied();
+            ConstraintResult c2s = c2.evaluate();
             if(c2s == ConstraintResult.UNKNOWN)
                 return ConstraintResult.UNKNOWN;
 
@@ -54,7 +54,7 @@ public class BooleanConstraint<T> implements Constraint<T>{
     }
 
     @Override
-    public ConstraintResult satisfied() {
+    public ConstraintResult evaluate() {
         return biFunction.apply(constraint1, constraint2);
     }
 

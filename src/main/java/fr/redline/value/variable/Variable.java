@@ -3,9 +3,7 @@ package fr.redline.value.variable;
 import fr.redline.domaine.Domain;
 import fr.redline.value.ValueGetter;
 
-import java.util.LinkedHashSet;
-
-public class Variable<T> implements ValueGetter<T> {
+public class Variable<T> extends ValueGetter<T> {
 
     String varName;
     Domain<T> domain;
@@ -14,6 +12,7 @@ public class Variable<T> implements ValueGetter<T> {
     public Variable(String varName, Domain<T> domain) {
         this.varName = varName;
         this.domain = domain;
+        this.addUnknownVar(this);
     }
 
     public void setValue(T value) {
@@ -36,12 +35,5 @@ public class Variable<T> implements ValueGetter<T> {
     @Override
     public VarType getType() {
         return VarType.UNKNOWN;
-    }
-
-    @Override
-    public LinkedHashSet<Variable<T>> getUnknownVariables() {
-        LinkedHashSet<Variable<T>> vars = new LinkedHashSet<>();
-        vars.add(this);
-        return vars;
     }
 }

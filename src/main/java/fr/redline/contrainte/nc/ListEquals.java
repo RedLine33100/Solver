@@ -19,7 +19,7 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied() {
+    public ConstraintResult evaluate() {
 
         for(int i = 0; i<valueGetterList.size(); i++) {
             T v = valueGetterList.get(i).getValue();

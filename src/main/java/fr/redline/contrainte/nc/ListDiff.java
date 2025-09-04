@@ -19,7 +19,7 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult satisfied() {
+    public ConstraintResult evaluate() {
 
         for(int i = 0; i<variableList.size(); i++) {
             T v = variableList.get(i).getValue();
@@ -33,7 +33,6 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
         return ConstraintResult.TRUE;
     }
 
-    @Override
     public LinkedHashSet<Variable<T>> getUnknownVariables() {
         return uknVar;
     }
