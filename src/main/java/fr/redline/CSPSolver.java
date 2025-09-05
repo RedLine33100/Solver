@@ -14,10 +14,11 @@ public class CSPSolver<T> {
     protected final List<Constraint<T>> constraintList = new ArrayList<>();
 
     public void addConstraint(Constraint<T> constraint){
-        this.uknVariables.addAll(constraint.getUnknownVariables());
+        LinkedHashSet<Variable<T>> unknownVariables = constraint.getUnknownVariables();
+        this.uknVariables.addAll(unknownVariables);
         this.constraintList.add(constraint);
 
-        constraint.getUnknownVariables().forEach(variable -> variable.addLinkedConstraint(constraint));
+        unknownVariables.forEach(variable -> variable.addLinkedConstraint(constraint));
     }
 
     public boolean solve(LinkedHashSet<Variable<T>> remains){
@@ -66,8 +67,6 @@ public class CSPSolver<T> {
     }
 
     public boolean trySolve(){
-
-
 
         return this.solve(new LinkedHashSet<>(uknVariables));
 

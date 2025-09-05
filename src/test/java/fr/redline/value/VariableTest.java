@@ -2,7 +2,7 @@ package fr.redline.value;
 
 import fr.redline.domaine.number.IntDomain;
 import fr.redline.value.numvar.Calcul;
-import fr.redline.value.numvar.CalculInt;
+import fr.redline.value.numvar.SolverInt;
 import fr.redline.value.variable.Variable;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +20,7 @@ class VariableTest {
         assertNotEquals(10, intVar.getValue());
 
         Variable<Integer> var = new Variable<>("testVar", new IntDomain(0,1,1));
-        Calcul<Integer> intCalc = new CalculInt(var);
+        Calcul<Integer> intCalc = new SolverInt(var);
 
         assertNull(intCalc.getValue());
         var.setValue(20);

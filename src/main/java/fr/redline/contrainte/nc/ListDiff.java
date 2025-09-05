@@ -2,7 +2,7 @@ package fr.redline.contrainte.nc;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
-import fr.redline.value.ValueGetter;
+import fr.redline.value.Value;
 import fr.redline.value.variable.Variable;
 
 import java.util.LinkedHashSet;
@@ -10,10 +10,10 @@ import java.util.List;
 
 public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
 
-    final List<ValueGetter<T>> variableList;
+    final List<Value<T>> variableList;
     LinkedHashSet<Variable<T>> uknVar = new LinkedHashSet<>();
 
-    public ListDiff(List<ValueGetter<T>> variables){
+    public ListDiff(List<Value<T>> variables){
         this.variableList = variables;
         this.variableList.forEach(variable -> uknVar.addAll(variable.getUnknownVariables()));
     }
