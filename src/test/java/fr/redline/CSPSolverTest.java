@@ -1,6 +1,6 @@
 package fr.redline;
 
-import fr.redline.contrainte.ValueConstraint;
+import fr.redline.contrainte.vc.EqualsConstraint;
 import fr.redline.domaine.number.IntDomain;
 import fr.redline.value.Value;
 import fr.redline.value.numvar.SolverInt;
@@ -24,8 +24,8 @@ class CSPSolverTest {
         Variable<Integer> inputMultiplierScrew = new Variable<>("inpMultScrew", new IntDomain(1,1000,1));
         Variable<Integer> useMultiplier = new Variable<>("useMult", new IntDomain(1,1000,1));
 
-        cspSolver.addConstraint(ValueConstraint.equals(plaqueUse.multiply(useMultiplier), plaqueInput.multiply(inputMultiplierScrew)));
-        cspSolver.addConstraint(ValueConstraint.equals(visUse.multiply(useMultiplier), visInput.multiply(inputMultiplierVis)));
+        cspSolver.addConstraint(new EqualsConstraint<>(plaqueUse.multiply(useMultiplier), plaqueInput.multiply(inputMultiplierScrew)));
+        cspSolver.addConstraint(new EqualsConstraint<>(visUse.multiply(useMultiplier), visInput.multiply(inputMultiplierVis)));
 
         if(!cspSolver.trySolve()){
             System.out.println("None");
