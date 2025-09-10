@@ -1,16 +1,17 @@
-package fr.redline.value;
+package fr.redline.value.calcul;
 
 import fr.redline.domaine.number.IntDomain;
+import fr.redline.value.Variable;
 import fr.redline.value.numvar.Calcul;
 import fr.redline.value.numvar.SolverInt;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VariableTest {
+class CalculTest {
 
     @org.junit.jupiter.api.Test
     void getValue() {
-        Variable<Integer> intVar = new Variable<>("testVar1", new IntDomain(0,1,1));
+        Variable<Integer> intVar = new Variable<>("testVar1", new IntDomain(0, 1, 1));
 
         assertNull(intVar.getValue());
         intVar.setValue(10);

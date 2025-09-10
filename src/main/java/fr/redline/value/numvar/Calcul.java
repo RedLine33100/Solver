@@ -1,22 +1,35 @@
 package fr.redline.value.numvar;
 
+import fr.redline.domaine.Domain;
 import fr.redline.utils.Pair;
 import fr.redline.utils.Triplet;
-import fr.redline.value.Value;
-import fr.redline.value.variable.VarType;
-import fr.redline.value.variable.Variable;
+import fr.redline.value.Variable;
+import fr.redline.value.VarType;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.function.BinaryOperator;
 
-public abstract class Calcul<T extends Number> extends Value<T> {
+public abstract class Calcul<T> extends Variable<T> {
 
-    protected final Value<T> previous;
-    protected final Triplet<BinaryOperator<T>, BinaryOperator<T>, Value<T>> operator;
+    protected final Variable<T> previous;
+    protected final Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator;
 
-    public Calcul(Value<T> previous, Triplet<BinaryOperator<T>, BinaryOperator<T>, Value<T>> operator) {
+    public Calcul(String name, T current) {
+        super(name, current);
+        this.previous = null;
+        this.operator = null;
+    }
+
+    public Calcul(String name, Domain<T> domain) {
+        super(name, domain);
+        this.previous = null;
+        this.operator = null;
+    }
+
+    public Calcul(Variable<T> previous, Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator) {
+        super(previous.getName());
         this.previous = previous;
         this.operator = operator;
         previous.registerLinkedValue(this);
@@ -25,30 +38,30 @@ public abstract class Calcul<T extends Number> extends Value<T> {
         }
     }
 
-    abstract Calcul<T> add(Value<T> value);
+    abstract Calcul<T> add(Variable<T> variable);
     public Calcul<T> add(T variable){
-        return this.add(new Value<>(variable));
+        return this.add(new Variable<>(variable));
     }
 
-    abstract Calcul<T> remove(Value<T> value);
+    abstract Calcul<T> remove(Variable<T> variable);
     public Calcul<T> remove(T variable){
-        return this.remove(new Value<>(variable));
+        return this.remove(new Variable<>(variable));
     }
 
-    public abstract Calcul<T> divide(Value<T> variable);
+    public abstract Calcul<T> divide(Variable<T> variable);
 
     public Calcul<T> divide(T variable){
-        return this.divide(new Value<>(variable));
+        return this.divide(new Variable<>(variable));
     }
 
-    public abstract Calcul<T> multiply(Value<T> variable);
+    public abstract Calcul<T> multiply(Variable<T> variable);
     public Calcul<T> multiply(T variable){
-        return this.multiply(new Value<>(variable));
+        return this.multiply(new Variable<>(variable));
     }
 
-    public abstract Calcul<T> modulo(Value<T> variable);
+    public abstract Calcul<T> modulo(Variable<T> variable);
     public Calcul<T> modulo(T variable){
-        return this.modulo(new Value<>(variable));
+        return this.modulo(new Variable<>(variable));
     }
 
     @Override
@@ -74,11 +87,11 @@ public abstract class Calcul<T extends Number> extends Value<T> {
         return this.getValue();
     }
 
-    public Pair<List<Value<T>>, Integer> reverseVariables(T reversedValue){
+    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue){
         T previousValue = previous.getValue();
         T previousRightValue = null;
 
-        List<Value<T>> changedVariables = new ArrayList<>();
+        List<Variable<T>> changedVariables = new ArrayList<>();
         int unknownCount = 0;
 
         if(operator != null)
@@ -88,7 +101,7 @@ public abstract class Calcul<T extends Number> extends Value<T> {
 
             previousValue = operator.r().apply(reversedValue, previousRightValue);
             if(previous.getType() == VarType.CALCULATED) {
-                Pair<List<Value<T>>, Integer> pair = ((Calcul<T>) previous).reverseVariables(previousValue);
+                Pair<List<Variable<T>>, Integer> pair = ((Calcul<T>) previous).reverseVariables(previousValue);
                 changedVariables.addAll(pair.l());
                 unknownCount += pair.r();
             }else {
@@ -101,7 +114,7 @@ public abstract class Calcul<T extends Number> extends Value<T> {
 
             previousRightValue = operator.r().apply(reversedValue, previousValue);
             if(operator.v().getType() == VarType.CALCULATED) {
-                Pair<List<Value<T>>, Integer> pair = ((Calcul<T>) operator.v()).reverseVariables(previousRightValue);
+                Pair<List<Variable<T>>, Integer> pair = ((Calcul<T>) operator.v()).reverseVariables(previousRightValue);
                 changedVariables.addAll(pair.l());
                 unknownCount += pair.r();
             }else {
@@ -115,6 +128,7 @@ public abstract class Calcul<T extends Number> extends Value<T> {
         if(super.getValue() == null){
             super.setValue(reversedValue);
             changedVariables.add(this);
+            unknownCount += 1;
         }
 
         return new Pair<>(changedVariables, unknownCount);

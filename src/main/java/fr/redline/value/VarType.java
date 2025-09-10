@@ -1,4 +1,4 @@
-package fr.redline.value.variable;
+package fr.redline.value;
 
 public enum VarType {
     UNKNOWN,

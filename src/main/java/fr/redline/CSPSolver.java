@@ -2,7 +2,7 @@ package fr.redline;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
-import fr.redline.value.variable.Variable;
+import fr.redline.value.Variable;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -68,6 +68,7 @@ public class CSPSolver<T> {
 
     public boolean trySolve(){
 
+        System.out.println("Nombre de valeur: "+uknVariables.size());
         return this.solve(new LinkedHashSet<>(uknVariables));
 
     }

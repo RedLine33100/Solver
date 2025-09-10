@@ -3,8 +3,7 @@ package fr.redline.contrainte.vc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.utils.Pair;
-import fr.redline.value.Value;
-import fr.redline.value.variable.Variable;
+import fr.redline.value.Variable;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -12,11 +11,11 @@ import java.util.List;
 
 public class InfConstraint<T extends Comparable<T>> implements Constraint<T> {
 
-    private final Value<T> fv, sv;
+    private final Variable<T> fv, sv;
     private final LinkedHashSet<Variable<T>> unknownVariables = new LinkedHashSet<>();
     private final boolean equals;
 
-    public InfConstraint(Value<T> constraint1, Value<T> constraint2, boolean equals) {
+    public InfConstraint(Variable<T> constraint1, Variable<T> constraint2, boolean equals) {
         this.fv = constraint1;
         this.sv = constraint2;
         this.equals = equals;
@@ -45,12 +44,12 @@ public class InfConstraint<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public Pair<List<Value<T>>, Integer> reverseVariables(T reversedValue) {
+    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue) {
         return new Pair<>(new ArrayList<>(), 0);
     }
 
     @Override
-    public Pair<List<Value<T>>, Integer> tryReverse() {
+    public Pair<List<Variable<T>>, Integer> tryReverse() {
         return new Pair<>(new ArrayList<>(), 0);
     }
 

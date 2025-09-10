@@ -3,8 +3,7 @@ package fr.redline.contrainte.nc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.utils.Pair;
-import fr.redline.value.Value;
-import fr.redline.value.variable.Variable;
+import fr.redline.value.Variable;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -12,27 +11,39 @@ import java.util.List;
 
 public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
 
-    private final List<Value<T>> valueList;
+    private final Variable<T>[] variableList;
     private final LinkedHashSet<Variable<T>> uknVar = new LinkedHashSet<>();
 
-    public ListEquals(List<Value<T>> valueList){
-        this.valueList = valueList;
-        this.valueList.forEach(valueGetter -> uknVar.addAll(valueGetter.getUnknownVariables()));
+    public ListEquals(Variable<T>[] variableList){
+        this.variableList = variableList;
+        for (Variable<T> variable : this.variableList) {
+            uknVar.addAll(variable.getUnknownVariables());
+        }
     }
 
     @Override
     public ConstraintResult evaluate() {
 
-        for(int i = 0; i< valueList.size(); i++) {
-            T v = valueList.get(i).getValue();
-            if(v == null)
-                return ConstraintResult.UNKNOWN;
-            for (int y = i + 1; y < valueList.size(); y++)
-                if (v.compareTo(valueList.get(y).getValue()) != 0)
+        ConstraintResult cr = ConstraintResult.TRUE;
+
+        for(int i = 0; i<variableList.length; i++) {
+            T v = variableList[i].getValue();
+            if(v == null) {
+                cr = ConstraintResult.UNKNOWN;
+                continue;
+            }
+            for (int y = i + 1; y < variableList.length; y++) {
+                T otherValue = variableList[y].getValue();
+                if(otherValue == null){
+                    cr = ConstraintResult.UNKNOWN;
+                    continue;
+                }
+                if (v.compareTo(otherValue) != 0)
                     return ConstraintResult.FALSE;
+            }
         }
 
-        return ConstraintResult.TRUE;
+        return cr;
     }
 
     @Override
@@ -41,12 +52,12 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public Pair<List<Value<T>>, Integer> reverseVariables(T reversedValue) {
+    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue) {
         return new Pair<>(new ArrayList<>(), 0);
     }
 
     @Override
-    public Pair<List<Value<T>>, Integer> tryReverse() {
+    public Pair<List<Variable<T>>, Integer> tryReverse() {
         return new Pair<>(new ArrayList<>(), 0);
     }
 
