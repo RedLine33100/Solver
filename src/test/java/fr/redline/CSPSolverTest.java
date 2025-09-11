@@ -1,7 +1,7 @@
 package fr.redline;
 
 import fr.redline.contrainte.nc.ListDiff;
-import fr.redline.domaine.number.IntDomain;
+import fr.redline.domaine.number.FastIntDomain;
 import fr.redline.value.Variable;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ class CSPSolverTest {
                 if (grid[i][j] != 0) {
                     vars[i][j] = new Variable<>("cell_" + i + "_" + j, grid[i][j]);
                 } else {
-                    vars[i][j] = new Variable<>("cell_" + i + "_" + j, new IntDomain(1, 9, 1));
+                    vars[i][j] = new Variable<>("cell_" + i + "_" + j, new FastIntDomain(1, 9));
                 }
             }
         }

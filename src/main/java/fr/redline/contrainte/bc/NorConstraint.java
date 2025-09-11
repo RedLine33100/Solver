@@ -2,12 +2,10 @@ package fr.redline.contrainte.bc;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
-import fr.redline.utils.Pair;
+import fr.redline.contrainte.reduction.ReductionResult;
 import fr.redline.value.Variable;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 public class NorConstraint<T> implements Constraint<T> {
 
@@ -24,11 +22,11 @@ public class NorConstraint<T> implements Constraint<T> {
     @Override
     public ConstraintResult evaluate() {
         ConstraintResult c1s = c1.evaluate();
-        if(c1s == ConstraintResult.UNKNOWN)
+        if (c1s == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
 
         ConstraintResult c2s = c2.evaluate();
-        if(c2s == ConstraintResult.UNKNOWN)
+        if (c2s == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
 
         return c1s != c2s ? ConstraintResult.TRUE : ConstraintResult.FALSE;
@@ -40,13 +38,22 @@ public class NorConstraint<T> implements Constraint<T> {
     }
 
     @Override
-    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue) {
-        return new Pair<>(new ArrayList<>(), 0);
+    public void reduce(ReductionResult<T> reductionResult) {
+
     }
 
     @Override
-    public Pair<List<Variable<T>>, Integer> tryReverse() {
-        return new Pair<>(new ArrayList<>(), 0);
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
+        ConstraintResult res1 = c1.testAndReduce(reductionResult, false);
+        ConstraintResult res2 = c2.testAndReduce(reductionResult, false);
+
+        if(res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
+            return ConstraintResult.UNKNOWN;
+
+        if(res1 == res2)
+            return ConstraintResult.FALSE;
+
+        return ConstraintResult.FALSE;
     }
 
 }

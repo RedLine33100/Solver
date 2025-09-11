@@ -7,12 +7,12 @@ import java.util.LinkedHashSet;
 
 public class Variable<T> {
 
-    private LinkedHashSet<Variable<T>> linkedVars = new LinkedHashSet<>();
-    private LinkedHashSet<Constraint<T>> linkedConstraints = new LinkedHashSet<>();
-    private T value = null;
     private final String name;
-    private Domain<T> domain = null;
     private final VarType varType;
+    private final LinkedHashSet<Variable<T>> linkedVars = new LinkedHashSet<>();
+    private final LinkedHashSet<Constraint<T>> linkedConstraints = new LinkedHashSet<>();
+    private T value = null;
+    private Domain<T> domain = null;
 
     protected Variable(String name) {
         this.name = name;
@@ -43,41 +43,49 @@ public class Variable<T> {
         this.varType = VarType.UNKNOWN;
     }
 
-    public T getValue(){
+    public T getValue() {
         return this.value;
     }
 
-    public void setValue(T value){
-        if(value == this.value)
-            return;
+    public boolean setValue(T value) {
+
+        if (value == this.value)
+            return false;
+
+        if (value != null && domain != null)
+            if (!domain.inDomain(value))
+                return false;
+
         this.value = value;
-        for(Variable<T> v : linkedVars){
+        for (Variable<T> v : linkedVars) {
             v.setValue(null);
         }
+
+        return true;
     }
 
-    public VarType getType(){
+    public VarType getType() {
         return this.varType;
     }
 
-    public LinkedHashSet<Variable<T>> getLinkedValue(){
+    public LinkedHashSet<Variable<T>> getLinkedValue() {
         return linkedVars;
     }
 
-    public void registerLinkedValue(Variable<T> variable){
+    public void registerLinkedValue(Variable<T> variable) {
         this.linkedVars.add(variable);
     }
 
-    public void addLinkedConstraint(Constraint<T> constraint){
+    public void addLinkedConstraint(Constraint<T> constraint) {
         linkedConstraints.add(constraint);
     }
 
-    public LinkedHashSet<Constraint<T>> getLinkedConstraints(){
+    public LinkedHashSet<Constraint<T>> getLinkedConstraints() {
         return linkedConstraints;
     }
 
-    public LinkedHashSet<Variable<T>> getUnknownVariables(){
-        if(varType == VarType.UNKNOWN){
+    public LinkedHashSet<Variable<T>> getUnknownVariables() {
+        if (varType == VarType.UNKNOWN) {
             LinkedHashSet<Variable<T>> vars = new LinkedHashSet<>();
             vars.add(this);
             return vars;
@@ -85,7 +93,7 @@ public class Variable<T> {
         return new LinkedHashSet<>();
     }
 
-    public Domain<T> getDomain(){
+    public Domain<T> getDomain() {
         return this.domain;
     }
 

@@ -2,12 +2,10 @@ package fr.redline.contrainte.bc;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
-import fr.redline.utils.Pair;
+import fr.redline.contrainte.reduction.ReductionResult;
 import fr.redline.value.Variable;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 public class OrConstraint<T> implements Constraint<T> {
 
@@ -25,7 +23,7 @@ public class OrConstraint<T> implements Constraint<T> {
     public ConstraintResult evaluate() {
         ConstraintResult res1 = c1.evaluate();
         ConstraintResult res2 = c2.evaluate();
-        if(res1==ConstraintResult.UNKNOWN || res2==ConstraintResult.UNKNOWN)
+        if (res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
         return res1 == ConstraintResult.TRUE || res2 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;
     }
@@ -36,13 +34,19 @@ public class OrConstraint<T> implements Constraint<T> {
     }
 
     @Override
-    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue) {
-        return new Pair<>(new ArrayList<>(), 0);
+    public void reduce(ReductionResult<T> reductionResult) {
+
     }
 
     @Override
-    public Pair<List<Variable<T>>, Integer> tryReverse() {
-        return new Pair<>(new ArrayList<>(), 0);
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
+        ConstraintResult res1 = c1.testAndReduce(reductionResult, false);
+        ConstraintResult res2 = c2.testAndReduce(reductionResult, false);
+
+        if(res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
+            return ConstraintResult.UNKNOWN;
+
+        return res1 == ConstraintResult.TRUE || res2 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;
     }
 
 }

@@ -1,28 +1,40 @@
 package fr.redline.domaine.number;
 
 import fr.redline.domaine.Domain;
+import fr.redline.utils.OptimizedList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DoubleDomain implements Domain<Double> {
 
-    final double min, max, jump;
+    final OptimizedList<Double> list = new OptimizedList<>();
 
-    public DoubleDomain(double min, double max, double jump){
-        this.min = min;
-        this.max = max;
-        this.jump = jump;
+    public DoubleDomain(Double min, Double max, Double jump) {
+        double current = min;
+        while (current <= max) {
+            list.add(current);
+            current += jump;
+        }
     }
 
     @Override
     public List<Double> getPossibility() {
-        List<Double> doubles = new ArrayList<>();
-        double current = min;
-        while (current <= max){
-            doubles.add(current);
-            current += this.jump;
-        }
-        return doubles;
+        return list.getValues();
     }
+
+    @Override
+    public boolean inDomain(Double value) {
+        return list.contains(value);
+    }
+
+    @Override
+    public void removeFromDomain(Double value) {
+        list.remove(value);
+    }
+
+    @Override
+    public void addToDomain(Double value) {
+        list.add(value);
+    }
+
 }

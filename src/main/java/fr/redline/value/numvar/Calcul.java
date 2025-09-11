@@ -1,14 +1,12 @@
 package fr.redline.value.numvar;
 
+import fr.redline.contrainte.reduction.ReductionResult;
 import fr.redline.domaine.Domain;
-import fr.redline.utils.Pair;
 import fr.redline.utils.Triplet;
-import fr.redline.value.Variable;
 import fr.redline.value.VarType;
+import fr.redline.value.Variable;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.function.BinaryOperator;
 
 public abstract class Calcul<T> extends Variable<T> {
@@ -33,34 +31,38 @@ public abstract class Calcul<T> extends Variable<T> {
         this.previous = previous;
         this.operator = operator;
         previous.registerLinkedValue(this);
-        if(operator != null) {
+        if (operator != null) {
             operator.v().registerLinkedValue(this);
         }
     }
 
     abstract Calcul<T> add(Variable<T> variable);
-    public Calcul<T> add(T variable){
+
+    public Calcul<T> add(T variable) {
         return this.add(new Variable<>(variable));
     }
 
     abstract Calcul<T> remove(Variable<T> variable);
-    public Calcul<T> remove(T variable){
+
+    public Calcul<T> remove(T variable) {
         return this.remove(new Variable<>(variable));
     }
 
     public abstract Calcul<T> divide(Variable<T> variable);
 
-    public Calcul<T> divide(T variable){
+    public Calcul<T> divide(T variable) {
         return this.divide(new Variable<>(variable));
     }
 
     public abstract Calcul<T> multiply(Variable<T> variable);
-    public Calcul<T> multiply(T variable){
+
+    public Calcul<T> multiply(T variable) {
         return this.multiply(new Variable<>(variable));
     }
 
     public abstract Calcul<T> modulo(Variable<T> variable);
-    public Calcul<T> modulo(T variable){
+
+    public Calcul<T> modulo(T variable) {
         return this.modulo(new Variable<>(variable));
     }
 
@@ -68,70 +70,79 @@ public abstract class Calcul<T> extends Variable<T> {
     public T getValue() {
 
         T superValue = super.getValue();
-        if(superValue != null){
+        if (superValue != null) {
             return superValue;
         }
 
-        T value = previous.getValue();
-        if(value == null)
+        if (previous == null)
             return null;
 
-        if(operator == null)
+        T value = previous.getValue();
+        if (value == null)
+            return null;
+
+        if (operator == null)
             return value;
 
         T opValue = operator.v().getValue();
-        if(opValue == null)
+        if (opValue == null)
             return null;
 
         super.setValue(operator.l().apply(value, opValue));
-        return this.getValue();
+        return super.getValue();
     }
 
-    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue){
+    public void reverseVariables(ReductionResult<T> reductionResult, T reversedValue, boolean reduce) {
+
+        if (previous == null) {
+
+            if (!reduce)
+                reductionResult.getVariableChange(this).setValue(reversedValue);
+            else
+                reductionResult.getVariableChange(this).varDomainReduce(reversedValue);
+            return;
+
+        }
+
+        if (!reduce && super.getValue() == null) {
+            super.setValue(reversedValue);
+        }
+
+
         T previousValue = previous.getValue();
         T previousRightValue = null;
 
-        List<Variable<T>> changedVariables = new ArrayList<>();
-        int unknownCount = 0;
-
-        if(operator != null)
+        if (operator != null)
             previousRightValue = operator.v().getValue();
 
-        if(previousValue == null && previousRightValue != null){
+        Variable<T> toChangeVar = null;
+        T newValue = null;
 
-            previousValue = operator.r().apply(reversedValue, previousRightValue);
-            if(previous.getType() == VarType.CALCULATED) {
-                Pair<List<Variable<T>>, Integer> pair = ((Calcul<T>) previous).reverseVariables(previousValue);
-                changedVariables.addAll(pair.l());
-                unknownCount += pair.r();
-            }else {
-                previous.setValue(previousValue);
-                changedVariables.add(previous);
-                unknownCount += 1;
-            }
+        if (previousValue == null && previousRightValue != null) {
 
-        }else if(previousValue != null && operator != null && previousRightValue == null){
+            toChangeVar = previous;
+            newValue = operator.r().apply(reversedValue, previousRightValue);
 
-            previousRightValue = operator.r().apply(reversedValue, previousValue);
-            if(operator.v().getType() == VarType.CALCULATED) {
-                Pair<List<Variable<T>>, Integer> pair = ((Calcul<T>) operator.v()).reverseVariables(previousRightValue);
-                changedVariables.addAll(pair.l());
-                unknownCount += pair.r();
-            }else {
-                operator.v().setValue(previousRightValue);
-                changedVariables.add(operator.v());
-                unknownCount += 1;
-            }
+        } else if (previousValue != null && operator != null && previousRightValue == null) {
+
+            toChangeVar = operator.v();
+            newValue = operator.r().apply(reversedValue, previousValue);
 
         }
 
-        if(super.getValue() == null){
-            super.setValue(reversedValue);
-            changedVariables.add(this);
-            unknownCount += 1;
-        }
+        if (toChangeVar == null)
+            return;
 
-        return new Pair<>(changedVariables, unknownCount);
+        if (toChangeVar.getType() == VarType.CALCULATED)
+            ((Calcul<T>) toChangeVar).reverseVariables(reductionResult, newValue, reduce);
+        else {
+
+            if (!reduce)
+                toChangeVar.setValue(newValue);
+            else
+                reductionResult.getVariableChange(toChangeVar).varDomainReduce(newValue);
+
+        }
     }
 
     @Override
@@ -141,8 +152,10 @@ public abstract class Calcul<T> extends Variable<T> {
 
     @Override
     public LinkedHashSet<Variable<T>> getUnknownVariables() {
+        if (previous == null)
+            return new LinkedHashSet<>();
         LinkedHashSet<Variable<T>> vars = previous.getUnknownVariables();
-        if(operator != null)
+        if (operator != null)
             vars.addAll(operator.v().getUnknownVariables());
         return vars;
     }

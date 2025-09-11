@@ -1,5 +1,6 @@
 package fr.redline.value;
 
+import fr.redline.domaine.number.FastIntDomain;
 import fr.redline.domaine.number.IntDomain;
 import fr.redline.value.numvar.Calcul;
 import fr.redline.value.numvar.SolverInt;
@@ -10,7 +11,7 @@ class VariableTest {
 
     @org.junit.jupiter.api.Test
     void getValue() {
-        Variable<Integer> intVar = new Variable<>("testVar1", new IntDomain(0,1,1));
+        Variable<Integer> intVar = new Variable<>("testVar1", new FastIntDomain(0, 1));
 
         assertNull(intVar.getValue());
         intVar.setValue(10);
@@ -18,7 +19,7 @@ class VariableTest {
         intVar.setValue(20);
         assertNotEquals(10, intVar.getValue());
 
-        Variable<Integer> var = new Variable<>("testVar", new IntDomain(0,1,1));
+        Variable<Integer> var = new Variable<>("testVar", new FastIntDomain(0, 1));
         Calcul<Integer> intCalc = new SolverInt(var);
 
         assertNull(intCalc.getValue());
@@ -37,7 +38,6 @@ class VariableTest {
         intCalc = intCalc.multiply(3);
 
         assertEquals(36, intCalc.getValue());
-
 
 
     }

@@ -2,12 +2,12 @@ package fr.redline.contrainte.vc;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
-import fr.redline.utils.Pair;
+import fr.redline.contrainte.reduction.ReductionResult;
+import fr.redline.value.VarType;
 import fr.redline.value.Variable;
+import fr.redline.value.numvar.Calcul;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 public class EqualsConstraint<T extends Comparable<T>> implements Constraint<T> {
 
@@ -24,11 +24,11 @@ public class EqualsConstraint<T extends Comparable<T>> implements Constraint<T> 
     @Override
     public ConstraintResult evaluate() {
         T vf = fv.getValue();
-        if(vf == null)
+        if (vf == null)
             return ConstraintResult.UNKNOWN;
 
         T vs = sv.getValue();
-        if(vs == null)
+        if (vs == null)
             return ConstraintResult.UNKNOWN;
 
         return vf.compareTo(vs) == 0 ? ConstraintResult.TRUE : ConstraintResult.FALSE;
@@ -40,13 +40,35 @@ public class EqualsConstraint<T extends Comparable<T>> implements Constraint<T> 
     }
 
     @Override
-    public Pair<List<Variable<T>>, Integer> reverseVariables(T reversedValue) {
-        return new Pair<>(new ArrayList<>(), 0);
+    public void reduce(ReductionResult<T> reductionResult) {
+        T vf = fv.getValue();
+        T vs = sv.getValue();
+
+        if (vf != null && vs != null)
+            return;
+
+        Variable<T> toChange;
+        T corrValue;
+
+        if (vf == null && vs != null) {
+            toChange = fv;
+            corrValue = vs;
+        } else {
+            toChange = sv;
+            corrValue = vf;
+        }
+
+        if (toChange.getType() == VarType.CALCULATED) {
+            ((Calcul<T>) toChange).reverseVariables(reductionResult, corrValue, false);
+        } else {
+            reductionResult.getVariableChange(toChange).setValue(corrValue);
+        }
+
     }
 
     @Override
-    public Pair<List<Variable<T>>, Integer> tryReverse() {
-        return new Pair<>(new ArrayList<>(), 0);
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
+        return null;
     }
 
 }
