@@ -16,8 +16,8 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
 
     public ListDiff(Variable<T>[] variables) {
         this.variableList = variables;
-        for (Variable<T> v : this.variableList) {
-            uknVar.addAll(v.getUnknownVariables());
+        for (Variable<T> tVariable : this.variableList) {
+            uknVar.addAll(tVariable.getUnknownVariables());
         }
     }
 

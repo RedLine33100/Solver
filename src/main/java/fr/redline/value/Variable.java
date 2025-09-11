@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 public class Variable<T> {
 
     private final String name;
+    private int varSolverID;
     private final VarType varType;
     private final LinkedHashSet<Variable<T>> linkedVars = new LinkedHashSet<>();
     private final LinkedHashSet<Constraint<T>> linkedConstraints = new LinkedHashSet<>();
@@ -99,5 +100,13 @@ public class Variable<T> {
 
     public String getName() {
         return name;
+    }
+
+    public void setVarSolverID(int varSolverID) {
+        this.varSolverID = varSolverID;
+    }
+
+    public int getVarSolverID() {
+        return varSolverID;
     }
 }

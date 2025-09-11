@@ -1,28 +1,25 @@
 package fr.redline.contrainte.reduction;
 
-import fr.redline.contrainte.ConstraintResult;
 import fr.redline.value.Variable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class ReductionResult<T> {
 
-    public List<VariableChange<T>> variables = new ArrayList<>();
+    private final VariableChange<T>[] variables;
+
+    public ReductionResult(int varNumber) {
+        variables = new VariableChange[varNumber];
+        Arrays.fill(variables, null);
+    }
 
     public VariableChange<T> getVariableChange(Variable<T> value) {
 
-        VariableChange<T> found = null;
-        for (VariableChange<T> change : variables) {
-            if (change.getVariable().equals(value)) {
-                found = change;
-                break;
-            }
-        }
+        VariableChange<T> found = variables[value.getVarSolverID()];
 
         if (found == null) {
             found = new VariableChange<>(value);
-            variables.add(found);
+            variables[value.getVarSolverID()] = found;
         }
 
         return found;
@@ -30,8 +27,10 @@ public class ReductionResult<T> {
     }
 
     public void resetAll() {
-        variables.forEach(VariableChange::reset);
-        variables.clear();
+        for(int i = 0; i < variables.length; i++) {
+            VariableChange<T> var = variables[i];
+            if (var != null) var.reset();
+        }
     }
 
 }
