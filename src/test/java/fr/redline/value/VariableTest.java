@@ -1,7 +1,6 @@
 package fr.redline.value;
 
 import fr.redline.domaine.number.FastIntDomain;
-import fr.redline.domaine.number.IntDomain;
 import fr.redline.value.numvar.Calcul;
 import fr.redline.value.numvar.SolverInt;
 
@@ -19,25 +18,24 @@ class VariableTest {
         intVar.setValue(20);
         assertNotEquals(10, intVar.getValue());
 
-        Variable<Integer> var = new Variable<>("testVar", new FastIntDomain(0, 1));
-        Calcul<Integer> intCalc = new SolverInt(var);
+        Calcul<Integer> var = new SolverInt("testVar", new FastIntDomain(0, 1));
 
-        assertNull(intCalc.getValue());
+        assertNull(var.getValue());
         var.setValue(20);
-        assertEquals(20, intCalc.getValue());
+        assertEquals(20, var.getValue());
 
-        intCalc = intCalc.add(5);
+        var = var.add(5);
 
-        assertNotEquals(15, intCalc.getValue());
-        assertEquals(25, intCalc.getValue());
+        assertNotEquals(15, var.getValue());
+        assertEquals(25, var.getValue());
 
-        intCalc = intCalc.divide(2);
+        var = var.divide(2);
 
-        assertEquals(12, intCalc.getValue());
+        assertEquals(12, var.getValue());
 
-        intCalc = intCalc.multiply(3);
+        var = var.multiply(3);
 
-        assertEquals(36, intCalc.getValue());
+        assertEquals(36, var.getValue());
 
 
     }

@@ -13,6 +13,6 @@ public interface Constraint<T> {
 
     void reduce(ReductionResult<T> reductionResult);
 
-    ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce);
+    ConstraintResult testAndReduce(ReductionResult<T> reductionResult);
 
 }

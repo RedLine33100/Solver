@@ -3,7 +3,9 @@ package fr.redline.contrainte.vc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.contrainte.reduction.ReductionResult;
+import fr.redline.value.VarType;
 import fr.redline.value.Variable;
+import fr.redline.value.numvar.Calcul;
 
 import java.util.LinkedHashSet;
 
@@ -40,13 +42,55 @@ public class DiffConstraint<T extends Comparable<T>> implements Constraint<T> {
     @Override
     public void reduce(ReductionResult<T> reductionResult) {
 
+        T vf = fv.getValue();
+        T vs = sv.getValue();
 
+        if (vf == null && vs == null)
+            return;
+
+        Variable<T> toChange;
+        T newValue;
+
+        if (vf == null) {
+            toChange = fv;
+            newValue = vs;
+        } else {
+            toChange = sv;
+            newValue = vf;
+        }
+
+        if (toChange.getType() == VarType.CALCULATED)
+            ((Calcul<T>) toChange).reverseVariables(reductionResult, newValue, true);
+        else
+            reductionResult.getVariableChange(toChange).varDomainReduce(newValue);
 
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
-        return null;
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
+        T vf = fv.getValue();
+        T vs = sv.getValue();
+
+        if (vf == null && vs == null)
+            return ConstraintResult.UNKNOWN;
+
+        Variable<T> toChange;
+        T newValue;
+
+        if (vf == null) {
+            toChange = fv;
+            newValue = vs;
+        } else {
+            toChange = sv;
+            newValue = vf;
+        }
+
+        if (toChange.getType() == VarType.CALCULATED)
+            ((Calcul<T>) toChange).reverseVariables(reductionResult, newValue, true);
+        else
+            reductionResult.getVariableChange(toChange).varDomainReduce(newValue);
+
+        return this.evaluate();
     }
 
 }

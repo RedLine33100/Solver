@@ -22,23 +22,31 @@ public class OptimizedList<T> {
         }
     }
 
-    /** Returns true if value is currently active */
+    /**
+     * Returns true if value is currently active
+     */
     public boolean contains(T val) {
         return pos.containsKey(val);
     }
 
-    /** Current active size */
+    /**
+     * Current active size
+     */
     public int size() {
         return size;
     }
 
-    /** Get active value by index [0..size) */
+    /**
+     * Get active value by index [0..size)
+     */
     public T get(int i) {
         if (i < 0 || i >= size) throw new IndexOutOfBoundsException();
         return values.get(i);
     }
 
-    /** Remove a value in O(1), does not preserve order */
+    /**
+     * Remove a value in O(1), does not preserve order
+     */
     public void remove(T val) {
         Integer idx = pos.get(val);
         if (idx == null) return; // not active
@@ -54,7 +62,9 @@ public class OptimizedList<T> {
         pos.remove(val);
     }
 
-    /** Restore a previously removed value in O(1) */
+    /**
+     * Restore a previously removed value in O(1)
+     */
     public void restore(T val) {
         if (!pos.containsKey(val)) {
             values.set(size, val);  // reuse slot
@@ -63,7 +73,9 @@ public class OptimizedList<T> {
         }
     }
 
-    /** Add a completely new value in amortized O(1) */
+    /**
+     * Add a completely new value in amortized O(1)
+     */
     public void add(T val) {
         if (pos.containsKey(val)) return; // already active
 
@@ -78,12 +90,22 @@ public class OptimizedList<T> {
         size++;
     }
 
-    /** Iterate active values */
+    /**
+     * Iterate active values
+     */
     public Iterable<T> activeValues() {
         return () -> new Iterator<T>() {
             private int cursor = 0;
-            @Override public boolean hasNext() { return cursor < size; }
-            @Override public T next() { return values.get(cursor++); }
+
+            @Override
+            public boolean hasNext() {
+                return cursor < size;
+            }
+
+            @Override
+            public T next() {
+                return values.get(cursor++);
+            }
         };
     }
 

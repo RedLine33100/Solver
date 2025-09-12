@@ -19,11 +19,10 @@ class CalculTest {
         intVar.setValue(20);
         assertNotEquals(10, intVar.getValue());
 
-        Variable<Integer> var = new Variable<>("testVar", new IntDomain(0, 1, 1));
-        Calcul<Integer> intCalc = new SolverInt(var);
+        Calcul<Integer> intCalc = new SolverInt("testVar", new IntDomain(0, 1, 1));
 
         assertNull(intCalc.getValue());
-        var.setValue(20);
+        intCalc.setValue(20);
         assertEquals(20, intCalc.getValue());
 
         intCalc = intCalc.add(5);

@@ -26,7 +26,7 @@ public abstract class Calcul<T> extends Variable<T> {
         this.operator = null;
     }
 
-    public Calcul(Variable<T> previous, Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator) {
+    public Calcul(Calcul<T> previous, Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator) {
         super(previous.getName());
         this.previous = previous;
         this.operator = operator;
@@ -81,9 +81,6 @@ public abstract class Calcul<T> extends Variable<T> {
         if (value == null)
             return null;
 
-        if (operator == null)
-            return value;
-
         T opValue = operator.v().getValue();
         if (opValue == null)
             return null;
@@ -92,57 +89,55 @@ public abstract class Calcul<T> extends Variable<T> {
         return super.getValue();
     }
 
-    public void reverseVariables(ReductionResult<T> reductionResult, T reversedValue, boolean reduce) {
+    public boolean reverseVariables(ReductionResult<T> reductionResult, T reversedValue, boolean reduce) {
+
+        Variable<T> toChangeVar;
+        T newValue;
 
         if (previous == null) {
 
-            if (!reduce)
-                reductionResult.getVariableChange(this).setValue(reversedValue);
-            else
-                reductionResult.getVariableChange(this).varDomainReduce(reversedValue);
-            return;
+            toChangeVar = this;
+            newValue = reversedValue;
+
+        } else {
+
+            T previousValue = previous.getValue();
+            T previousRightValue = operator.v().getValue();
+
+            if (previousValue == null && previousRightValue == null) {
+                return true;
+            }
+
+            if (previousValue == null) {
+
+                toChangeVar = previous;
+                newValue = operator.r().apply(reversedValue, previousRightValue);
+
+            } else {
+
+                toChangeVar = operator.v();
+                newValue = operator.r().apply(reversedValue, previousValue);
+
+            }
 
         }
 
-        if (!reduce && super.getValue() == null) {
-            super.setValue(reversedValue);
-        }
-
-
-        T previousValue = previous.getValue();
-        T previousRightValue = null;
-
-        if (operator != null)
-            previousRightValue = operator.v().getValue();
-
-        Variable<T> toChangeVar = null;
-        T newValue = null;
-
-        if (previousValue == null && previousRightValue != null) {
-
-            toChangeVar = previous;
-            newValue = operator.r().apply(reversedValue, previousRightValue);
-
-        } else if (previousValue != null && operator != null && previousRightValue == null) {
-
-            toChangeVar = operator.v();
-            newValue = operator.r().apply(reversedValue, previousValue);
-
-        }
-
-        if (toChangeVar == null)
-            return;
+        boolean result;
 
         if (toChangeVar.getType() == VarType.CALCULATED)
-            ((Calcul<T>) toChangeVar).reverseVariables(reductionResult, newValue, reduce);
+            result = ((Calcul<T>) toChangeVar).reverseVariables(reductionResult, newValue, reduce);
         else {
 
             if (!reduce)
-                toChangeVar.setValue(newValue);
-            else
+                result = reductionResult.getVariableChange(toChangeVar).setValue(newValue);
+            else {
                 reductionResult.getVariableChange(toChangeVar).varDomainReduce(newValue);
-
+                result = true;
+            }
         }
+
+        return result;
+
     }
 
     @Override
@@ -155,8 +150,7 @@ public abstract class Calcul<T> extends Variable<T> {
         if (previous == null)
             return new LinkedHashSet<>();
         LinkedHashSet<Variable<T>> vars = previous.getUnknownVariables();
-        if (operator != null)
-            vars.addAll(operator.v().getUnknownVariables());
+        vars.addAll(operator.v().getUnknownVariables());
         return vars;
     }
 }

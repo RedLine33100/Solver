@@ -54,22 +54,22 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
     @Override
     public void reduce(ReductionResult<T> reductionResult) {
 
-        for(int i = 0; i < variableList.length-1; i++){
+        for (int i = 0; i < variableList.length - 1; i++) {
 
             Variable<T> iVar = variableList[i];
             T iValue = iVar.getValue();
-            if(iValue == null)
+            if (iValue == null)
                 continue;
 
-            for(int j = i+1; j < variableList.length; j++){
+            for (int j = i + 1; j < variableList.length; j++) {
 
                 Variable<T> jVar = variableList[j];
                 T jValue = jVar.getValue();
 
-                if(jValue != null)
+                if (jValue != null)
                     continue;
 
-                if(jVar.getType() == VarType.CALCULATED)
+                if (jVar.getType() == VarType.CALCULATED)
                     ((Calcul<T>) jVar).reverseVariables(reductionResult, iValue, true);
                 else
                     reductionResult.getVariableChange(jVar).varDomainReduce(iValue);
@@ -81,25 +81,25 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
 
         ConstraintResult cr = ConstraintResult.TRUE;
 
-        for(int i = 0; i < variableList.length-1; i++){
+        for (int i = 0; i < variableList.length - 1; i++) {
 
             Variable<T> iVar = variableList[i];
             T iValue = iVar.getValue();
-            if(iValue == null) {
+            if (iValue == null) {
                 cr = ConstraintResult.UNKNOWN;
                 continue;
             }
 
-            for(int j = i+1; j < variableList.length; j++){
+            for (int j = i + 1; j < variableList.length; j++) {
 
                 Variable<T> jVar = variableList[j];
                 T jValue = jVar.getValue();
 
-                if(canReduce && jValue == null) {
+                if (jValue == null) {
 
                     if (jVar.getType() == VarType.CALCULATED)
                         ((Calcul<T>) jVar).reverseVariables(reductionResult, iValue, true);
@@ -110,12 +110,12 @@ public class ListDiff<T extends Comparable<T>> implements Constraint<T> {
 
                 jValue = jVar.getValue();
 
-                if(jValue == null){
+                if (jValue == null) {
                     cr = ConstraintResult.UNKNOWN;
                     continue;
                 }
 
-                if(iValue.compareTo(jValue) == 0){
+                if (iValue.compareTo(jValue) == 0) {
                     return ConstraintResult.FALSE;
                 }
 

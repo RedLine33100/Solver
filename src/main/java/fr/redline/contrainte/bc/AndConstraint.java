@@ -40,14 +40,14 @@ public class AndConstraint<T> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
-        ConstraintResult res1 = c1.testAndReduce(reductionResult, canReduce);
-        ConstraintResult res2 = c2.testAndReduce(reductionResult, canReduce);
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
+        ConstraintResult res1 = c1.testAndReduce(reductionResult);
+        ConstraintResult res2 = c2.testAndReduce(reductionResult);
 
-        if(res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
+        if (res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
 
-        if(res1 != res2)
+        if (res1 != res2)
             return ConstraintResult.FALSE;
 
         return res1 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;

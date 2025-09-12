@@ -27,7 +27,7 @@ public class ReductionResult<T> {
     }
 
     public void resetAll() {
-        for(int i = 0; i < variables.length; i++) {
+        for (int i = 0; i < variables.length; i++) {
             VariableChange<T> var = variables[i];
             if (var != null) var.reset();
         }

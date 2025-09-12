@@ -43,17 +43,22 @@ public class NorConstraint<T> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
-        ConstraintResult res1 = c1.testAndReduce(reductionResult, false);
-        ConstraintResult res2 = c2.testAndReduce(reductionResult, false);
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
+        ConstraintResult res1 = c1.evaluate();
+        ConstraintResult res2 = c2.evaluate();
 
-        if(res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
+        if (res1 != res2) {
+            if (res1 == ConstraintResult.UNKNOWN) {
+                res1 = c1.testAndReduce(reductionResult);
+            } else if (res2 == ConstraintResult.UNKNOWN) {
+                res2 = c2.testAndReduce(reductionResult);
+            }
+        }
+
+        if (res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
             return ConstraintResult.UNKNOWN;
 
-        if(res1 == res2)
-            return ConstraintResult.FALSE;
-
-        return ConstraintResult.FALSE;
+        return res1 == res2 ? ConstraintResult.FALSE : ConstraintResult.TRUE;
     }
 
 }

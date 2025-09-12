@@ -67,8 +67,33 @@ public class EqualsConstraint<T extends Comparable<T>> implements Constraint<T> 
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
-        return null;
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
+        T vf = fv.getValue();
+        T vs = sv.getValue();
+
+        if (vf == null && vs == null)
+            return ConstraintResult.UNKNOWN;
+
+        Variable<T> toChange;
+        T corrValue;
+
+        if (vf == null) {
+            toChange = fv;
+            corrValue = vs;
+        } else {
+            toChange = sv;
+            corrValue = vf;
+        }
+
+
+        if (toChange.getType() == VarType.CALCULATED) {
+            ((Calcul<T>) toChange).reverseVariables(reductionResult, corrValue, false);
+        } else {
+            reductionResult.getVariableChange(toChange).setValue(corrValue);
+        }
+
+
+        return this.evaluate();
     }
 
 }

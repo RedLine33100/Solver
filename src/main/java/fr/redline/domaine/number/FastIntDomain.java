@@ -22,9 +22,9 @@ public class FastIntDomain implements Domain<Integer> {
     @Override
     public List<Integer> getPossibility() {
         List<Integer> possibility = new ArrayList<>();
-        for(int i = 0; i < values.length; i++) {
-            if(values[i]) {
-                possibility.add(i+min);
+        for (int i = 0; i < values.length; i++) {
+            if (values[i]) {
+                possibility.add(i + min);
             }
         }
         return possibility;
@@ -32,16 +32,16 @@ public class FastIntDomain implements Domain<Integer> {
 
     @Override
     public boolean inDomain(Integer value) {
-        return values[value-min];
+        return values[value - min];
     }
 
     @Override
     public void removeFromDomain(Integer value) {
-        values[value-min] = false;
+        values[value - min] = false;
     }
 
     @Override
     public void addToDomain(Integer value) {
-        values[value-min] = true;
+        values[value - min] = true;
     }
 }

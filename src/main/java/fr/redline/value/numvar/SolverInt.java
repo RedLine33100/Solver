@@ -8,10 +8,6 @@ import java.util.function.BinaryOperator;
 
 public class SolverInt extends Calcul<Integer> {
 
-    public SolverInt(Variable<Integer> prev) {
-        super(prev, null);
-    }
-
     public SolverInt(String name, Integer actual) {
         super(name, actual);
     }
@@ -20,7 +16,7 @@ public class SolverInt extends Calcul<Integer> {
         super(name, actual);
     }
 
-    SolverInt(Variable<Integer> previous, Triplet<BinaryOperator<Integer>, BinaryOperator<Integer>, Variable<Integer>> calcul) {
+    SolverInt(Calcul<Integer> previous, Triplet<BinaryOperator<Integer>, BinaryOperator<Integer>, Variable<Integer>> calcul) {
         super(previous, calcul);
     }
 

@@ -3,7 +3,6 @@ package fr.redline.value.constraint;
 import fr.redline.contrainte.nc.ListEquals;
 import fr.redline.contrainte.reduction.ReductionResult;
 import fr.redline.domaine.number.FastIntDomain;
-import fr.redline.domaine.number.IntDomain;
 import fr.redline.value.Variable;
 import fr.redline.value.numvar.SolverInt;
 

@@ -88,41 +88,41 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
 
         ConstraintResult cr = ConstraintResult.TRUE;
 
-        for(int i = 0; i < variableList.length-1; i++){
+        for (int i = 0; i < variableList.length - 1; i++) {
 
             Variable<T> iVar = variableList[i];
             T iValue = iVar.getValue();
-            if(iValue == null) {
+            if (iValue == null) {
                 cr = ConstraintResult.UNKNOWN;
                 continue;
             }
 
-            for(int j = i+1; j < variableList.length; j++){
+            for (int j = i + 1; j < variableList.length; j++) {
 
                 Variable<T> jVar = variableList[j];
                 T jValue = jVar.getValue();
 
-                if(canReduce && jValue == null) {
+                if (jValue == null) {
 
                     if (jVar.getType() == VarType.CALCULATED)
                         ((Calcul<T>) jVar).reverseVariables(reductionResult, iValue, false);
                     else
-                        reductionResult.getVariableChange(jVar).varDomainReduce(iValue);
+                        reductionResult.getVariableChange(jVar).setValue(iValue);
 
                 }
 
                 jValue = jVar.getValue();
 
-                if(jValue == null) {
+                if (jValue == null) {
                     cr = ConstraintResult.UNKNOWN;
                     continue;
                 }
 
-                if(iValue.compareTo(jValue) != 0){
+                if (iValue.compareTo(jValue) != 0) {
                     return ConstraintResult.FALSE;
                 }
 

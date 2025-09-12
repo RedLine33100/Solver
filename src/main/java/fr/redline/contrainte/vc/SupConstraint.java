@@ -47,8 +47,8 @@ public class SupConstraint<T extends Comparable<T>> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
-        return null;
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
+        return this.evaluate();
     }
 
 

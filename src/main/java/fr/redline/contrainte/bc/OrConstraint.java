@@ -39,14 +39,8 @@ public class OrConstraint<T> implements Constraint<T> {
     }
 
     @Override
-    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult, boolean canReduce) {
-        ConstraintResult res1 = c1.testAndReduce(reductionResult, false);
-        ConstraintResult res2 = c2.testAndReduce(reductionResult, false);
-
-        if(res1 == ConstraintResult.UNKNOWN || res2 == ConstraintResult.UNKNOWN)
-            return ConstraintResult.UNKNOWN;
-
-        return res1 == ConstraintResult.TRUE || res2 == ConstraintResult.TRUE ? ConstraintResult.TRUE : ConstraintResult.FALSE;
+    public ConstraintResult testAndReduce(ReductionResult<T> reductionResult) {
+        return this.evaluate();
     }
 
 }

@@ -32,10 +32,10 @@ public class CSPSolver<T> {
         Variable<T> variable = variableArray[step];
 
         if (variable.getValue() != null) {
-            return solve(step+1);
+            return solve(step + 1);
         }
 
-        boolean empty = step+1 == variableArray.length;
+        boolean empty = step + 1 == variableArray.length;
 
         for (T t : variable.getDomain().getPossibility()) {
 
@@ -49,7 +49,7 @@ public class CSPSolver<T> {
 
             for (Constraint<T> constraint : variable.getLinkedConstraints()) {
 
-                ConstraintResult constraintResult = constraint.testAndReduce(reductionResult, true);
+                ConstraintResult constraintResult = constraint.testAndReduce(reductionResult);
                 if (constraintResult == ConstraintResult.UNKNOWN)
                     hasUnknownVariable = true;
                 else if (constraintResult == ConstraintResult.FALSE) {
@@ -65,7 +65,7 @@ public class CSPSolver<T> {
             }
 
             if (!empty || hasUnknownVariable) {
-                if (solve(step+1))
+                if (solve(step + 1))
                     return true;
                 reductionResult.resetAll();
                 continue;
@@ -83,7 +83,6 @@ public class CSPSolver<T> {
 
     public boolean trySolve() {
 
-        System.out.println("Nombre de valeur: " + uknVariables.size());
         variableArray = uknVariables.toArray(new Variable[uknVariables.size()]);
         return this.solve(0);
 

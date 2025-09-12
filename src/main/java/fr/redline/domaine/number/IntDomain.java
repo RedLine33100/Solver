@@ -3,8 +3,6 @@ package fr.redline.domaine.number;
 import fr.redline.domaine.Domain;
 import fr.redline.utils.OptimizedList;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class IntDomain implements Domain<Integer> {
