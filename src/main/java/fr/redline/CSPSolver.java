@@ -3,23 +3,22 @@ package fr.redline;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.contrainte.reduction.ReductionResult;
+import fr.redline.utils.OptimizedList;
 import fr.redline.value.Variable;
 
-import java.util.LinkedHashSet;
 
 public class CSPSolver<T> {
 
-    protected final LinkedHashSet<Variable<T>> uknVariables = new LinkedHashSet<>();
+    protected final OptimizedList<Variable<T>> uknVariables = new OptimizedList<>();
     protected Variable<T>[] variableArray;
     private int uknVarCount = 0;
 
     public void addConstraint(Constraint<T> constraint) {
-        LinkedHashSet<Variable<T>> unknownVariables = constraint.getUnknownVariables();
-        this.uknVariables.addAll(unknownVariables);
-
-        unknownVariables.forEach(variable -> {
-            variable.addLinkedConstraint(constraint);
-            variable.setVarSolverID(uknVarCount);
+        OptimizedList<Variable<T>> unknownVariables = constraint.getUnknownVariables();
+        unknownVariables.activeValues().forEach(vari->{
+            uknVariables.add(vari);
+            vari.addLinkedConstraint(constraint);
+            vari.setVarSolverID(uknVarCount);
             uknVarCount++;
         });
     }
@@ -47,7 +46,7 @@ public class CSPSolver<T> {
 
             ReductionResult<T> reductionResult = new ReductionResult<>(uknVarCount);
 
-            for (Constraint<T> constraint : variable.getLinkedConstraints()) {
+            for (Constraint<T> constraint : variable.getLinkedConstraints().activeValues()) {
 
                 ConstraintResult constraintResult = constraint.testAndReduce(reductionResult);
                 if (constraintResult == ConstraintResult.UNKNOWN)
@@ -82,13 +81,19 @@ public class CSPSolver<T> {
     }
 
     public boolean trySolve() {
+        variableArray = new Variable[uknVariables.size()];
+        int i = 0;
 
-        variableArray = uknVariables.toArray(new Variable[uknVariables.size()]);
+        for (Variable<T> var : uknVariables.activeValues()){
+            variableArray[i] = var;
+            i++;
+        }
+
         return this.solve(0);
 
     }
 
-    public LinkedHashSet<Variable<T>> getUnknownVariables() {
+    public OptimizedList<Variable<T>> getUnknownVariables() {
         return uknVariables;
     }
 

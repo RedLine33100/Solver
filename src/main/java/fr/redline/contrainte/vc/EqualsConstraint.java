@@ -3,22 +3,21 @@ package fr.redline.contrainte.vc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.contrainte.reduction.ReductionResult;
+import fr.redline.utils.OptimizedList;
 import fr.redline.value.VarType;
 import fr.redline.value.Variable;
 import fr.redline.value.numvar.Calcul;
 
-import java.util.LinkedHashSet;
-
 public class EqualsConstraint<T extends Comparable<T>> implements Constraint<T> {
 
     private final Variable<T> fv, sv;
-    private final LinkedHashSet<Variable<T>> unknownVariables = new LinkedHashSet<>();
+    private final OptimizedList<Variable<T>> unknownVariables = new OptimizedList<>();
 
     public EqualsConstraint(Variable<T> constraint1, Variable<T> constraint2) {
         this.fv = constraint1;
         this.sv = constraint2;
-        this.unknownVariables.addAll(constraint1.getUnknownVariables());
-        this.unknownVariables.addAll(constraint2.getUnknownVariables());
+        constraint1.getUnknownVariables().activeValues().forEach(unknownVariables::add);
+        constraint2.getUnknownVariables().activeValues().forEach(unknownVariables::add);
     }
 
     @Override
@@ -35,7 +34,7 @@ public class EqualsConstraint<T extends Comparable<T>> implements Constraint<T> 
     }
 
     @Override
-    public LinkedHashSet<Variable<T>> getUnknownVariables() {
+    public OptimizedList<Variable<T>> getUnknownVariables() {
         return unknownVariables;
     }
 

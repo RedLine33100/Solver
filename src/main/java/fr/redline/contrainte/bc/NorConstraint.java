@@ -3,20 +3,19 @@ package fr.redline.contrainte.bc;
 import fr.redline.contrainte.Constraint;
 import fr.redline.contrainte.ConstraintResult;
 import fr.redline.contrainte.reduction.ReductionResult;
+import fr.redline.utils.OptimizedList;
 import fr.redline.value.Variable;
-
-import java.util.LinkedHashSet;
 
 public class NorConstraint<T> implements Constraint<T> {
 
     private final Constraint<T> c1, c2;
-    private final LinkedHashSet<Variable<T>> unknownVariables = new LinkedHashSet<>();
+    private final OptimizedList<Variable<T>> unknownVariables = new OptimizedList<>();
 
     public NorConstraint(Constraint<T> constraint1, Constraint<T> constraint2) {
         this.c1 = constraint1;
         this.c2 = constraint2;
-        this.unknownVariables.addAll(constraint1.getUnknownVariables());
-        this.unknownVariables.addAll(constraint2.getUnknownVariables());
+        constraint1.getUnknownVariables().activeValues().forEach(unknownVariables::add);
+        constraint2.getUnknownVariables().activeValues().forEach(unknownVariables::add);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class NorConstraint<T> implements Constraint<T> {
     }
 
     @Override
-    public LinkedHashSet<Variable<T>> getUnknownVariables() {
+    public OptimizedList<Variable<T>> getUnknownVariables() {
         return unknownVariables;
     }
 

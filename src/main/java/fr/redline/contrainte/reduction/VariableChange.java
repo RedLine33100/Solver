@@ -1,12 +1,11 @@
 package fr.redline.contrainte.reduction;
 
+import fr.redline.utils.OptimizedList;
 import fr.redline.value.Variable;
-
-import java.util.LinkedHashSet;
 
 public class VariableChange<T> {
 
-    LinkedHashSet<T> removedFromDomain = new LinkedHashSet<>();
+    OptimizedList<T> removedFromDomain = new OptimizedList<>();
     T previousValue;
     Variable<T> variable;
 
@@ -25,7 +24,9 @@ public class VariableChange<T> {
     }
 
     public void reset() {
-        removedFromDomain.forEach(variable.getDomain()::addToDomain);
+        for(T t : removedFromDomain.activeValues()){
+            variable.getDomain().addToDomain(t);
+        }
         variable.setValue(previousValue);
     }
 

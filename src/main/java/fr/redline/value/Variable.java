@@ -2,15 +2,14 @@ package fr.redline.value;
 
 import fr.redline.contrainte.Constraint;
 import fr.redline.domaine.Domain;
-
-import java.util.LinkedHashSet;
+import fr.redline.utils.OptimizedList;
 
 public class Variable<T> {
 
     private final String name;
     private final VarType varType;
-    private final LinkedHashSet<Variable<T>> linkedVars = new LinkedHashSet<>();
-    private final LinkedHashSet<Constraint<T>> linkedConstraints = new LinkedHashSet<>();
+    private final OptimizedList<Variable<T>> linkedVars = new OptimizedList<>();
+    private final OptimizedList<Constraint<T>> linkedConstraints = new OptimizedList<>();
     private int varSolverID;
     private T value = null;
     private Domain<T> domain = null;
@@ -58,7 +57,7 @@ public class Variable<T> {
                 return false;
 
         this.value = value;
-        for (Variable<T> v : linkedVars) {
+        for (Variable<T> v : linkedVars.activeValues()) {
             v.setValue(null);
         }
 
@@ -69,7 +68,7 @@ public class Variable<T> {
         return this.varType;
     }
 
-    public LinkedHashSet<Variable<T>> getLinkedValue() {
+    public OptimizedList<Variable<T>> getLinkedValue() {
         return linkedVars;
     }
 
@@ -81,17 +80,17 @@ public class Variable<T> {
         linkedConstraints.add(constraint);
     }
 
-    public LinkedHashSet<Constraint<T>> getLinkedConstraints() {
+    public OptimizedList<Constraint<T>> getLinkedConstraints() {
         return linkedConstraints;
     }
 
-    public LinkedHashSet<Variable<T>> getUnknownVariables() {
+    public OptimizedList<Variable<T>> getUnknownVariables() {
         if (varType == VarType.UNKNOWN) {
-            LinkedHashSet<Variable<T>> vars = new LinkedHashSet<>();
+            OptimizedList<Variable<T>> vars = new OptimizedList<>();
             vars.add(this);
             return vars;
         }
-        return new LinkedHashSet<>();
+        return new OptimizedList<>();
     }
 
     public Domain<T> getDomain() {

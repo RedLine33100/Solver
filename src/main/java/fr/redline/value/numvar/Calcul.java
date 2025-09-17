@@ -2,11 +2,11 @@ package fr.redline.value.numvar;
 
 import fr.redline.contrainte.reduction.ReductionResult;
 import fr.redline.domaine.Domain;
+import fr.redline.utils.OptimizedList;
 import fr.redline.utils.Triplet;
 import fr.redline.value.VarType;
 import fr.redline.value.Variable;
 
-import java.util.LinkedHashSet;
 import java.util.function.BinaryOperator;
 
 public abstract class Calcul<T> extends Variable<T> {
@@ -146,11 +146,11 @@ public abstract class Calcul<T> extends Variable<T> {
     }
 
     @Override
-    public LinkedHashSet<Variable<T>> getUnknownVariables() {
+    public OptimizedList<Variable<T>> getUnknownVariables() {
         if (previous == null)
-            return new LinkedHashSet<>();
-        LinkedHashSet<Variable<T>> vars = previous.getUnknownVariables();
-        vars.addAll(operator.v().getUnknownVariables());
+            return new OptimizedList<>();
+        OptimizedList<Variable<T>> vars = previous.getUnknownVariables();
+        operator.v().getUnknownVariables().activeValues().forEach(vars::add);
         return vars;
     }
 }
