@@ -66,9 +66,8 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
             for (int j = i + 1; j < variableList.length; j++) {
 
                 Variable<T> toSet = variableList[j];
-                T vs = toSet.getValue();
 
-                if (vs != null)
+                if (toSet.getValue() != null)
                     continue;
 
                 if (toSet.getType() == VarType.CALCULATED) {
@@ -82,6 +81,8 @@ public class ListEquals<T extends Comparable<T>> implements Constraint<T> {
                 }
 
             }
+
+            return;
 
         }
 

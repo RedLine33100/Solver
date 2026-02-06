@@ -32,16 +32,22 @@ public class FastIntDomain implements Domain<Integer> {
 
     @Override
     public boolean inDomain(Integer value) {
+        if(value<min || value>max)
+            return false;
         return values[value - min];
     }
 
     @Override
     public void removeFromDomain(Integer value) {
+        if(value<min || value>max)
+            return;
         values[value - min] = false;
     }
 
     @Override
     public void addToDomain(Integer value) {
+        if(value<min || value>max)
+            return;
         values[value - min] = true;
     }
 }

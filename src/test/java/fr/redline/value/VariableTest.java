@@ -13,29 +13,28 @@ class VariableTest {
         Variable<Integer> intVar = new Variable<>("testVar1", new FastIntDomain(0, 1));
 
         assertNull(intVar.getValue());
-        intVar.setValue(10);
-        assertEquals(10, intVar.getValue());
+        intVar.setValue(1);
+        assertEquals(1, intVar.getValue());
         intVar.setValue(20);
-        assertNotEquals(10, intVar.getValue());
+        assertNotEquals(20, intVar.getValue());
 
         Calcul<Integer> var = new SolverInt("testVar", new FastIntDomain(0, 1));
 
         assertNull(var.getValue());
-        var.setValue(20);
-        assertEquals(20, var.getValue());
+        var.setValue(0);
 
-        var = var.add(5);
+        var = var.add(10);
 
-        assertNotEquals(15, var.getValue());
-        assertEquals(25, var.getValue());
+        assertNotEquals(0, var.getValue());
+        assertEquals(10, var.getValue());
 
         var = var.divide(2);
 
-        assertEquals(12, var.getValue());
+        assertEquals(5, var.getValue());
 
         var = var.multiply(3);
 
-        assertEquals(36, var.getValue());
+        assertEquals(15, var.getValue());
 
 
     }

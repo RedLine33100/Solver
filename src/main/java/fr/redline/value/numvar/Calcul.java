@@ -13,20 +13,23 @@ public abstract class Calcul<T> extends Variable<T> {
 
     protected final Variable<T> previous;
     protected final Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator;
+    protected VarType type = VarType.CALCULATED;
 
     public Calcul(String name, T current) {
         super(name, current);
         this.previous = null;
         this.operator = null;
+        this.type = VarType.ALREADY_CALCULATED;
     }
 
     public Calcul(String name, Domain<T> domain) {
         super(name, domain);
         this.previous = null;
         this.operator = null;
+        this.type = VarType.UNKNOWN;
     }
 
-    public Calcul(Calcul<T> previous, Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator) {
+    public Calcul(Variable<T> previous, Triplet<BinaryOperator<T>, BinaryOperator<T>, Variable<T>> operator) {
         super(previous.getName());
         this.previous = previous;
         this.operator = operator;
@@ -127,7 +130,6 @@ public abstract class Calcul<T> extends Variable<T> {
         if (toChangeVar.getType() == VarType.CALCULATED)
             result = ((Calcul<T>) toChangeVar).reverseVariables(reductionResult, newValue, reduce);
         else {
-
             if (!reduce)
                 result = reductionResult.getVariableChange(toChangeVar).setValue(newValue);
             else {
@@ -142,7 +144,7 @@ public abstract class Calcul<T> extends Variable<T> {
 
     @Override
     public VarType getType() {
-        return VarType.CALCULATED;
+        return type;
     }
 
     @Override

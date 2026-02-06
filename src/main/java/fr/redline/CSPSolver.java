@@ -11,15 +11,12 @@ public class CSPSolver<T> {
 
     protected final OptimizedList<Variable<T>> uknVariables = new OptimizedList<>();
     protected Variable<T>[] variableArray;
-    private int uknVarCount = 0;
 
     public void addConstraint(Constraint<T> constraint) {
         OptimizedList<Variable<T>> unknownVariables = constraint.getUnknownVariables();
         unknownVariables.activeValues().forEach(vari->{
             uknVariables.add(vari);
             vari.addLinkedConstraint(constraint);
-            vari.setVarSolverID(uknVarCount);
-            uknVarCount++;
         });
     }
 
@@ -44,7 +41,7 @@ public class CSPSolver<T> {
             boolean hasUnknownVariable = false;
             boolean failed = false;
 
-            ReductionResult<T> reductionResult = new ReductionResult<>(uknVarCount);
+            ReductionResult<T> reductionResult = new ReductionResult<>();
 
             for (Constraint<T> constraint : variable.getLinkedConstraints().activeValues()) {
 

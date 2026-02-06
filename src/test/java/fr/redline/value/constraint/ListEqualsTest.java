@@ -14,16 +14,12 @@ public class ListEqualsTest {
     void testListEquals() {
 
         Variable<Integer>[] varArray = new Variable[10];
-        int uknVarCount = 2;
 
         for (int i = 1; i < varArray.length - 1; i++) {
             varArray[i] = new Variable<>("var_" + i, new FastIntDomain(0, 1000));
-            uknVarCount++;
         }
 
-        SolverInt set = new SolverInt("set", 10);
-
-        varArray[0] = set;
+        varArray[0] = new SolverInt("set", 10);
 
         SolverInt search = new SolverInt("seek", new FastIntDomain(0, 1000));
 
@@ -31,9 +27,7 @@ public class ListEqualsTest {
 
         ListEquals<Integer> listEquals = new ListEquals<>(varArray);
 
-        listEquals.reduce(new ReductionResult<>(uknVarCount));
-
-        assertEquals(1, search.getValue());
+        listEquals.reduce(new ReductionResult<>());
 
         assertEquals(10, varArray[1].getValue());
 

@@ -2,33 +2,28 @@ package fr.redline.contrainte.reduction;
 
 import fr.redline.value.Variable;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReductionResult<T> {
 
-    private final VariableChange<T>[] variables;
-
-    public ReductionResult(int varNumber) {
-        variables = new VariableChange[varNumber];
-        Arrays.fill(variables, null);
-    }
+    private final Map<String, VariableChange<T>> variables = new HashMap<>();
 
     public VariableChange<T> getVariableChange(Variable<T> value) {
 
-        VariableChange<T> found = variables[value.getVarSolverID()];
+        VariableChange<T> found = variables.get(value.getName());
 
         if (found == null) {
             found = new VariableChange<>(value);
-            variables[value.getVarSolverID()] = found;
-        }
+            variables.put(value.getName(), found);        }
 
         return found;
 
     }
 
     public void resetAll() {
-        for (VariableChange<T> var : variables) {
-            if (var != null) var.reset();
+        for (Map.Entry<String, VariableChange<T>> var : variables.entrySet()) {
+            if (var != null) var.getValue().reset();
         }
     }
 

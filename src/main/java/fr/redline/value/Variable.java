@@ -6,11 +6,13 @@ import fr.redline.utils.OptimizedList;
 
 public class Variable<T> {
 
+    private static int lastVarSolverID = 0;
+
     private final String name;
     private final VarType varType;
     private final OptimizedList<Variable<T>> linkedVars = new OptimizedList<>();
     private final OptimizedList<Constraint<T>> linkedConstraints = new OptimizedList<>();
-    private int varSolverID;
+    private final int varSolverID = lastVarSolverID += 1;
     private T value = null;
     private Domain<T> domain = null;
 
@@ -32,13 +34,13 @@ public class Variable<T> {
     }
 
     public Variable(T value) {
-        this.name = "name";
+        this.name = "unset-"+varSolverID;
         this.value = value;
         this.varType = VarType.ALREADY_CALCULATED;
     }
 
     public Variable(Domain<T> domain) {
-        this.name = "name";
+        this.name = "unset-"+varSolverID;
         this.domain = domain;
         this.varType = VarType.UNKNOWN;
     }
@@ -99,13 +101,5 @@ public class Variable<T> {
 
     public String getName() {
         return name;
-    }
-
-    public int getVarSolverID() {
-        return varSolverID;
-    }
-
-    public void setVarSolverID(int varSolverID) {
-        this.varSolverID = varSolverID;
     }
 }
